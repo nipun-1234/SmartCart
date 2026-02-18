@@ -1,0 +1,14 @@
+@media (max-width: 768px) {
+    .cart-container {
+        flex-direction: column;
+    }
+
+    .summary {
+        width: 100%;
+    }
+
+    .cart-item {
+        flex-direction: column;
+        text-align: center;
+    }
+}

@@ -1,0 +1,95 @@
+// ========== SHARED CART FUNCTIONS ==========
+
+// Get cart from localStorage
+function getCart() {
+    return JSON.parse(localStorage.getItem('smartcart_cart')) || [];
+}
+
+// Save cart to localStorage
+function saveCart(cart) {
+    localStorage.setItem('smartcart_cart', JSON.stringify(cart));
+    updateHeaderCount();
+}
+
+// Update cart count in header
+function updateHeaderCount() {
+    const cart = getCart();
+    const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const badge = document.getElementById('cartCount');
+    const cartLink = document.querySelector('.cart-link');
+    
+    if (badge) {
+        const oldCount = parseInt(badge.innerText) || 0;
+        badge.innerText = total;
+        
+        // Animate if count increased
+        if (total > oldCount) {
+            badge.classList.add('cart-count-updated');
+            cartLink?.classList.add('pulse');
+            
+            setTimeout(() => {
+                badge.classList.remove('cart-count-updated');
+                cartLink?.classList.remove('pulse');
+            }, 600);
+        }
+    }
+}
+
+// Show toast notification
+function showToast(message, productName) {
+    // Remove existing toast if any
+    const existingToast = document.querySelector('.toast-notification');
+    if (existingToast) existingToast.remove();
+    
+    const toast = document.createElement('div');
+    toast.className = 'toast-notification';
+    toast.innerHTML = `
+        <i class="fas fa-check-circle"></i>
+        <span><strong>${productName}</strong> ${message}</span>
+    `;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
+
+// Add to cart (without redirect)
+function addToCart(productId, product) {
+    if (!product) return;
+    
+    let cart = getCart();
+    const existing = cart.find(item => item.id === productId);
+    
+    if (existing) {
+        existing.quantity += 1;
+    } else {
+        cart.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            category: product.category,
+            icon: product.icon,
+            image: product.image,
+            quantity: 1
+        });
+    }
+    
+    saveCart(cart);
+    
+    // Show toast notification
+    showToast('added to cart!', product.name);
+    
+    // Show visual feedback on button
+    const button = document.querySelector(`button[data-id="${productId}"]`);
+    if (button) {
+        const originalHTML = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-check"></i> Added!';
+        button.style.background = 'linear-gradient(135deg, #28a745 0%, #20c997 100%)';
+        
+        setTimeout(() => {
+            button.innerHTML = originalHTML;
+            button.style.background = '';
+        }, 1500);
+    }
+}
