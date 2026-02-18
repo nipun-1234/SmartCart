@@ -6,10 +6,6 @@ const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../public')));
 
-app.get('/',(req,res)=>{
-    res.send('App listening.....')
-})
-
 app.post('/login',(req,res)=>{
     const {email, password, remember} = req.body;
     console.log(email,password,remember);
