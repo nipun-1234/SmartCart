@@ -1,37 +1,42 @@
 const express = require('express');
 
 const app = express();
-const port = 3000
+const port = process.env.PORT || 3000;
 
+// Middleware
 app.use(express.json());
-app.use(express.static('public'))
+app.use(express.static('public'));
 
-app.get('/',(req,res)=>{
-    res.send('App listening.....')
-})
+// Home Route
+app.get('/', (req, res) => {
+    res.send('App listening.....');
+});
 
-app.post('/login',(req,res)=>{
-    const {email, password, remember} = req.body;
-    console.log(email,password,remember);
+// Login Route
+app.post('/login', (req, res) => {
+    const { email, password, remember } = req.body;
+    console.log(email, password, remember);
 
-    if(email && password){
-        res.json({success: true, message:'Login successful'})
-    }else{
-        res.status(400).json({success: false, message:'Email and password are required'})
+    if (email && password) {
+        res.json({ success: true, message: 'Login successful' });
+    } else {
+        res.status(400).json({ success: false, message: 'Email and password are required' });
     }
-})
+});
 
-app.post('/register',(req,res)=>{
-    const {email, password, remember} = req.body;  
-    console.log(email,password,remember);
+// Register Route
+app.post('/register', (req, res) => {
+    const { email, password, remember } = req.body;  
+    console.log(email, password, remember);
     
-    if(email && password && remember){
-        res.json({success: true, message:'Registration successful'})
-    }else{
-        res.status(400).json({message:'Email, password, and remember me are required'})
+    if (email && password && remember) {
+        res.json({ success: true, message: 'Registration successful' });
+    } else {
+        res.status(400).json({ message: 'Email, password, and remember me are required' });
     }
-})
+});
 
+// Start Server
 app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`)
-})
+    console.log(`Server running on http://localhost:${port}`);
+});
