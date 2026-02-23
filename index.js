@@ -15,13 +15,22 @@ app.get('/', (req, res) => {
 // Login Route
 app.post('/login', (req, res) => {
     const { email, password, remember } = req.body;
-    console.log(email, password, remember);
 
-    if (email && password) {
-        res.json({ success: true, message: 'Login successful' });
-    } else {
-        res.status(400).json({ success: false, message: 'Email and password are required' });
+    // Validate required fields
+    if (!email || !password) {
+        return res.status(400).json({ 
+            success: false, 
+            message: 'Email and password are required' 
+        });
     }
+
+    console.log(`Login attempt for email: ${email}`);
+
+    return res.status(200).json({ 
+        success: true, 
+        message: 'Login successful',
+        data: { email, remember } 
+    });
 });
 
 // Register Route
