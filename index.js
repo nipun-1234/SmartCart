@@ -36,13 +36,22 @@ app.post('/login', (req, res) => {
 // Register Route
 app.post('/register', (req, res) => {
     const { email, password, remember } = req.body;  
-    console.log(email, password, remember);
-    
-    if (email && password && remember) {
-        res.json({ success: true, message: 'Registration successful' });
-    } else {
-        res.status(400).json({ message: 'Email, password, and remember me are required' });
+
+    // Validate required fields
+    if (!email || !password || remember === undefined) {
+        return res.status(400).json({ 
+            success: false, 
+            message: 'Email, password, and remember status are required' 
+        });
     }
+
+
+    console.log(`Registration attempt for email: ${email}`);
+    
+    return res.status(201).json({ 
+        success: true, 
+        message: 'Registration successful' 
+    });
 });
 
 // Start Server
