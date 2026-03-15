@@ -1,3 +1,4 @@
+// Load cart from localStorage or fallback to default sample item
 let cart = JSON.parse(localStorage.getItem("cart")) || [
     {
         name: "Wireless Headphones",
@@ -7,6 +8,7 @@ let cart = JSON.parse(localStorage.getItem("cart")) || [
     }
 ];
 
+// DOM Elements
 const cartItems = document.getElementById("cartItems");
 const emptyCart = document.getElementById("emptyCart");
 const subtotalEl = document.getElementById("subtotal");
@@ -14,10 +16,12 @@ const taxEl = document.getElementById("tax");
 const totalEl = document.getElementById("total");
 const checkoutBtn = document.getElementById("checkoutBtn");
 
+// Save cart data to localStorage
 function saveCart() {
     localStorage.setItem("cart", JSON.stringify(cart));
 }
 
+// Render cart items to the DOM
 function renderCart() {
     cartItems.innerHTML = "";
 
@@ -53,6 +57,7 @@ function renderCart() {
     updateSummary();
 }
 
+// Change item quantity
 function changeQty(i, value) {
     cart[i].quantity += value;
     if (cart[i].quantity <= 0) cart.splice(i, 1);
@@ -60,12 +65,14 @@ function changeQty(i, value) {
     renderCart();
 }
 
+// Remove single item from cart
 function removeItem(i) {
     cart.splice(i, 1);
     saveCart();
     renderCart();
 }
 
+// Calculate and update subtotal, tax, and total
 function updateSummary() {
     let subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
     let tax = subtotal * 0.1;
@@ -76,6 +83,7 @@ function updateSummary() {
     totalEl.textContent = `$${total.toFixed(2)}`;
 }
 
+// Checkout button handler
 checkoutBtn.onclick = () => {
     alert("Checkout Successful! (Demo)");
     cart = [];
@@ -83,4 +91,5 @@ checkoutBtn.onclick = () => {
     renderCart();
 };
 
+// Initial render when script loads
 renderCart();
