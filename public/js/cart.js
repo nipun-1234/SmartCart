@@ -35,9 +35,14 @@ function renderCart() {
     emptyCart.style.display = "none";
     checkoutBtn.disabled = false;
 
+    // Use DocumentFragment for better rendering performance
+    const fragment = document.createDocumentFragment();
+
     cart.forEach((item, i) => {
-        cartItems.innerHTML += `
-        <div class="cart-item">
+        const itemDiv = document.createElement("div");
+        itemDiv.className = "cart-item";
+        
+        itemDiv.innerHTML = `
             <img src="${item.image}">
             <div class="item-details">
                 <h3>${item.name}</h3>
@@ -51,9 +56,12 @@ function renderCart() {
             <button class="remove" onclick="removeItem(${i})">
                 <i class="fas fa-trash"></i>
             </button>
-        </div>`;
+        `;
+        
+        fragment.appendChild(itemDiv);
     });
 
+    cartItems.appendChild(fragment);
     updateSummary();
 }
 
