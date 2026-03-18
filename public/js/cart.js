@@ -43,17 +43,17 @@ function renderCart() {
         itemDiv.className = "cart-item";
         
         itemDiv.innerHTML = `
-            <img src="${item.image}">
+            <img src="${item.image}" alt="${item.name}">
             <div class="item-details">
                 <h3>${item.name}</h3>
-                <p>$${item.price}</p>
+                <p>$${item.price.toFixed(2)}</p>
                 <div class="quantity">
-                    <button onclick="changeQty(${i}, -1)">-</button>
+                    <button type="button" onclick="changeQty(${i}, -1)">-</button>
                     <span>${item.quantity}</span>
-                    <button onclick="changeQty(${i}, 1)">+</button>
+                    <button type="button" onclick="changeQty(${i}, 1)">+</button>
                 </div>
             </div>
-            <button class="remove" onclick="removeItem(${i})">
+            <button type="button" class="remove" onclick="removeItem(${i})" aria-label="Remove item">
                 <i class="fas fa-trash"></i>
             </button>
         `;
@@ -68,7 +68,12 @@ function renderCart() {
 // Change item quantity
 function changeQty(i, value) {
     cart[i].quantity += value;
-    if (cart[i].quantity <= 0) cart.splice(i, 1);
+    
+    // If quantity drops to 0 or below, remove the item
+    if (cart[i].quantity <= 0) {
+        cart.splice(i, 1);
+    }
+    
     saveCart();
     renderCart();
 }
