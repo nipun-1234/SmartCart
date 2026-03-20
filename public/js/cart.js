@@ -87,7 +87,7 @@ function removeItem(i) {
 
 // Calculate and update subtotal, tax, and total
 function updateSummary() {
-    let subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+    let subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     let tax = subtotal * 0.1;
     let total = subtotal + tax;
 
@@ -97,12 +97,14 @@ function updateSummary() {
 }
 
 // Checkout button handler
-checkoutBtn.onclick = () => {
+checkoutBtn.addEventListener("click", () => {
+    if (cart.length === 0) return;
+    
     alert("Checkout Successful! (Demo)");
     cart = [];
     saveCart();
     renderCart();
-};
+});
 
 // Initial render when script loads
 renderCart();
