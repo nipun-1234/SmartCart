@@ -126,10 +126,10 @@ SmartCart/
 │   ├── 001_initial_schema.sql # Core commerce database schema
 │   └── 002_add_coupons_and_stripe.sql # Coupons, Stripe, and auth reset fields
 ├── public/                    # Static storefront & admin pages
+│   ├── css/
+│   │   └── main.css           # Core design system & shared master stylesheet
 │   ├── js/
-│   │   ├── shared.js          # Shared auth, persistent cart, toasts & navigation
-│   │   ├── cart.js            # Standalone cart helper
-│   │   └── Products.js        # Catalog frontend helper
+│   │   └── shared.js          # Unified auth state, persistent cart, toasts & navigation
 │   ├── admin.html             # Admin Dashboard (Analytics, Products, Orders, Users)
 │   ├── index.html             # High-converting landing page with featured products
 │   ├── login.html             # Customer & admin login with password reset
