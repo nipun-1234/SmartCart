@@ -424,8 +424,29 @@
 
         // Load Catalog on Boot
         document.addEventListener('DOMContentLoaded', () => {
+            // Check URL search parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const categoryParam = urlParams.get('category');
+            const searchParam = urlParams.get('search');
+
+            if (categoryParam) {
+                const catEl = document.getElementById('catFilter');
+                if (catEl) catEl.value = categoryParam;
+            }
+            if (searchParam) {
+                const searchEl = document.getElementById('catalogSearch');
+                if (searchEl) searchEl.value = searchParam;
+            }
+
+            // Check pending coupon from homepage
+            const pendingCoupon = sessionStorage.getItem('sc_pending_coupon');
+            if (pendingCoupon) {
+                const couponInput = document.getElementById('couponCode');
+                if (couponInput) couponInput.value = pendingCoupon;
+            }
+
             loadBrands();
-            fetchCatalog();
+            fetchCatalog(1);
             setupCatalogEventListeners();
 
             // Hash router check
