@@ -41,7 +41,7 @@ function renderCart() {
     cart.forEach((item, i) => {
         const itemDiv = document.createElement("div");
         itemDiv.className = "cart-item";
-        
+
         itemDiv.innerHTML = `
             <img src="${item.image}" alt="${item.name}">
             <div class="item-details">
@@ -57,7 +57,7 @@ function renderCart() {
                 <i class="fas fa-trash"></i>
             </button>
         `;
-        
+
         fragment.appendChild(itemDiv);
     });
 
@@ -68,12 +68,12 @@ function renderCart() {
 // Change item quantity
 function changeQty(i, value) {
     cart[i].quantity += value;
-    
+
     // If quantity drops to 0 or below, remove the item
     if (cart[i].quantity <= 0) {
         cart.splice(i, 1);
     }
-    
+
     saveCart();
     renderCart();
 }
@@ -99,7 +99,7 @@ function updateSummary() {
 // Checkout button handler
 checkoutBtn.addEventListener("click", () => {
     if (cart.length === 0) return;
-    
+
     alert("Checkout Successful! (Demo)");
     cart = [];
     saveCart();

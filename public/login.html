@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - ShopHub</title>
+    <title>Login - SmartCart</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -780,6 +780,7 @@
         </div>
     </div>
 
+    <script src="/js/shared.js"></script>
     <script>
         // Password Toggle
         const togglePassword = document.getElementById('togglePassword');
@@ -788,10 +789,36 @@
         togglePassword.addEventListener('click', () => {
             const type = passwordInput.type === 'password' ? 'text' : 'password';
             passwordInput.type = type;
-            
             const icon = togglePassword.querySelector('i');
             icon.classList.toggle('fa-eye');
             icon.classList.toggle('fa-eye-slash');
+        });
+
+        // Check for verified or reset query parameters
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('verified') === 'true') {
+                showToast('Email Verified', 'Your email has been verified! You can now log in.', 'success');
+            }
+            if (params.get('reset_token')) {
+                const token = params.get('reset_token');
+                const newPass = prompt('Enter your new password (minimum 6 characters):');
+                if (newPass && newPass.length >= 6) {
+                    fetch('/api/auth/reset-password', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ token, newPassword: newPass })
+                    })
+                    .then(r => r.json())
+                    .then(res => {
+                        if (res.success) {
+                            showToast('Password Reset', res.message, 'success');
+                        } else {
+                            showToast('Reset Failed', res.message, 'error');
+                        }
+                    });
+                }
+            }
         });
 
         // Form Submission
@@ -800,79 +827,66 @@
 
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
-            // Show loading state
             loginBtn.classList.add('loading');
-            
-            // Simulate API call
-            setTimeout(() => {
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
-                const remember = document.getElementById('remember').checked;
-                
-                fetch('/login', {
+            loginBtn.disabled = true;
+
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('/api/auth/login', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ email, password, remember })
-                }).then(response => response.json()).then(data => {
-                    // Remove loading state
-                    loginBtn.classList.remove('loading');
-                    
-                    if (data.success) {
-                        alert('Login successful! 🎉\n\nRedirecting to homepage...');
-                        setTimeout(() => {
-                            window.location.href = 'products.html';
-                        }, 1000);
-                    } else {
-                        alert('Login failed: ' + data.message);
-                    }
-                }).catch(error => {
-                    loginBtn.classList.remove('loading');
-                    alert('An error occurred: ' + error.message);
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
                 });
-                /* // Here you would typically make an API call
-                console.log('Login attempt:', { email, password, remember });
-                
-                // Remove loading state
+                const data = await response.json();
+
+                if (data.success) {
+                    setAuth(data.token, data.user);
+                    showToast('Welcome Back!', `Signed in as ${data.user.first_name}.`, 'success');
+                    setTimeout(() => {
+                        if (data.user.role === 'admin') {
+                            window.location.href = '/admin.html';
+                        } else {
+                            window.location.href = '/products.html';
+                        }
+                    }, 600);
+                } else {
+                    showToast('Login Failed', data.message || 'Invalid credentials.', 'error');
+                }
+            } catch (err) {
+                showToast('Network Error', 'Could not connect to the server.', 'error');
+            } finally {
                 loginBtn.classList.remove('loading');
-                
-                // Show success message
-                alert('Login successful! 🎉\n\nRedirecting to homepage...');
-                
-                // Redirect to home page
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 1000); */
-            }, 2000);
+                loginBtn.disabled = false;
+            }
         });
 
-        // Social Login Buttons
-        document.getElementById('googleLogin').addEventListener('click', () => {
-            alert('Continue with Google coming soon! 🚀\n\nThis will redirect to Google OAuth login.');
-        });
-
-        document.getElementById('facebookLogin').addEventListener('click', () => {
-            alert('Continue with Facebook coming soon! 📘\n\nThis will redirect to Facebook OAuth login.');
-        });
-
-        // Input Focus Animation
-        const inputs = document.querySelectorAll('.form-input');
-        inputs.forEach(input => {
-            input.addEventListener('focus', () => {
-                input.parentElement.style.transform = 'scale(1.02)';
-            });
-            
-            input.addEventListener('blur', () => {
-                input.parentElement.style.transform = 'scale(1)';
-            });
-        });
-
-        // Prevent form submission on demo
-        document.querySelector('.forgot-link').addEventListener('click', (e) => {
+        // Forgot password flow
+        document.querySelector('.forgot-link')?.addEventListener('click', async (e) => {
             e.preventDefault();
-            alert('Password reset functionality coming soon! 📧');
+            const email = prompt('Enter your registered email address to receive a password reset link:');
+            if (email && email.includes('@')) {
+                try {
+                    const res = await fetch('/api/auth/forgot-password', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: email.trim() })
+                    });
+                    const data = await res.json();
+                    showToast('Password Reset', data.message, 'info');
+                } catch (_e) {
+                    showToast('Error', 'Could not process password reset.', 'error');
+                }
+            }
+        });
+
+        // Social login demonstration
+        document.getElementById('googleLogin')?.addEventListener('click', () => {
+            showToast('Google OAuth', 'Redirecting to Google Secure Login in production.', 'info');
+        });
+        document.getElementById('facebookLogin')?.addEventListener('click', () => {
+            showToast('Facebook OAuth', 'Redirecting to Facebook Secure Login in production.', 'info');
         });
     </script>
 </body>

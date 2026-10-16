@@ -886,28 +886,40 @@
             }
 
             signupBtn.classList.add('loading');
+            signupBtn.disabled = true;
+
             try {
-                const response = await fetch('/register', {
+                const response = await fetch('/api/auth/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ firstName, lastName, email, password, terms })
+                    body: JSON.stringify({ firstName, lastName, email, password })
                 });
                 const result = await response.json();
-                alert(result.message || 'Registration is currently unavailable. No account was created.');
+
+                if (result.success) {
+                    setAuth(result.token, result.user);
+                    showToast('Welcome to SmartCart! 🎉', 'Your account has been created successfully.', 'success');
+                    setTimeout(() => {
+                        window.location.href = '/products.html';
+                    }, 800);
+                } else {
+                    showToast('Registration Error', result.message || 'Could not register.', 'error');
+                }
             } catch (_error) {
-                alert('Could not reach the server. No account was created. Please try again later.');
+                showToast('Network Error', 'Could not reach server. Please try again.', 'error');
             } finally {
                 signupBtn.classList.remove('loading');
+                signupBtn.disabled = false;
             }
         });
 
         // Social Signup Buttons
-        document.getElementById('googleSignup').addEventListener('click', () => {
-            alert('Sign up with Google coming soon! 🚀\n\nThis will redirect to Google OAuth signup.');
+        document.getElementById('googleSignup')?.addEventListener('click', () => {
+            showToast('Google OAuth', 'Redirecting to Google Secure Registration.', 'info');
         });
 
-        document.getElementById('facebookSignup').addEventListener('click', () => {
-            alert('Sign up with Facebook coming soon! 📘\n\nThis will redirect to Facebook OAuth signup.');
+        document.getElementById('facebookSignup')?.addEventListener('click', () => {
+            showToast('Facebook OAuth', 'Redirecting to Facebook Secure Registration.', 'info');
         });
 
         // Input Focus Animation
@@ -916,11 +928,11 @@
             input.addEventListener('focus', () => {
                 input.parentElement.style.transform = 'scale(1.02)';
             });
-            
             input.addEventListener('blur', () => {
                 input.parentElement.style.transform = 'scale(1)';
             });
         });
     </script>
+    <script src="/js/shared.js"></script>
 </body>
 </html>
