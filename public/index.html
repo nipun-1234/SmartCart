@@ -772,6 +772,7 @@
             </div>
         `).join('');
         container.querySelectorAll('.btn-add-cart').forEach(btn=>{
+
             btn.addEventListener('click',e=>{
                 const b=e.currentTarget;
                 b.innerHTML='<i class="fas fa-check"></i> Added!';

@@ -885,25 +885,20 @@
                 return;
             }
 
-            // Show loading state
             signupBtn.classList.add('loading');
-            
-            // Simulate API call
-            setTimeout(() => {
-                // Here you would typically make an API call
-                console.log('Signup attempt:', { firstName, lastName, email, password, terms });
-                
-                // Remove loading state
+            try {
+                const response = await fetch('/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ firstName, lastName, email, password, terms })
+                });
+                const result = await response.json();
+                alert(result.message || 'Registration is currently unavailable. No account was created.');
+            } catch (_error) {
+                alert('Could not reach the server. No account was created. Please try again later.');
+            } finally {
                 signupBtn.classList.remove('loading');
-                
-                // Show success message
-                alert('Account created successfully! 🎉\n\nWelcome to ShopHub! Redirecting to login...');
-                
-                // Redirect to login page
-                setTimeout(() => {
-                    window.location.href = 'login.html';
-                }, 1000);
-            }, 2000);
+            }
         });
 
         // Social Signup Buttons
