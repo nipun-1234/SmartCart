@@ -23,9 +23,10 @@ const i18nData = {
     navWishlist: "Wishlist",
     navSignIn: "Sign In",
     searchPlaceholder: "What are you looking for today? (e.g. Shoes, Rice, Tea...)",
-    heroHeadline1: "Layers of Innovation",
-    heroHeadline2: "Step into Tomorrow",
-    heroSubtext: "Experience AI-curated discovery, dynamic budget optimization, and express island-wide delivery at unbeatable prices across Sri Lanka.",
+    heroPretitle: 'SMART CHOICES, BETTER <span class="pretitle-highlight">LIVING</span>',
+    heroHeadline1: "Everything You Need,",
+    heroHeadline2: "All in One Place",
+    heroSubtext: "Discover quality products, amazing deals and a seamless shopping experience — only at SmartCart.",
     heroShopNow: "Shop now",
     trustCod: "Cash on Delivery Available",
     trustCodSub: "Pay safely with cash or card right at your doorstep",
@@ -67,9 +68,10 @@ const i18nData = {
     navWishlist: "පැතුම් ලැයිස්තුව",
     navSignIn: "ඇතුල් වන්න",
     searchPlaceholder: "ඔබ සොයන්නේ කුමක්ද? (උදා: පාවහන්, සහල්, තේ...)",
-    heroHeadline1: "නවෝත්පාදනයේ නව මුහුණුවර",
-    heroHeadline2: "අනාගතයට පියනගන්න",
-    heroSubtext: "AI බලයෙන් ක්‍රියාත්මක ස්මාර්ට් සෙවුම්, අයවැය පාලනය, සහ ශ්‍රී ලංකාව පුරා කඩිනම් බෙදාහැරීම සමඟ සුපිරි සාප්පු සවාරියක් අත්විඳින්න.",
+    heroPretitle: 'ස්මාර්ට් තේරීම්, උසස් <span class="pretitle-highlight">ජීවිතයක්</span>',
+    heroHeadline1: "ඔබට අවශ්‍ය සියල්ල,",
+    heroHeadline2: "එකම තැනකින්",
+    heroSubtext: "විශිෂ්ට නිෂ්පාදන, ආකර්ෂණීය දීමනා සහ පහසුම සාප්පු සවාරි අත්දැකීම — SmartCart වෙතින් පමණි.",
     heroShopNow: "දැන්ම මිලදී ගන්න",
     trustCod: "ලැබුණු පසු මුදල් ගෙවන්න (COD)",
     trustCodSub: "නිවසටම භාණ්ඩ ලැබුණු පසු මුදලින් හෝ කාඩ්පතින් ගෙවන්න",
@@ -111,9 +113,10 @@ const i18nData = {
     navWishlist: "விருப்பப் பட்டியல்",
     navSignIn: "உள்நுழைக",
     searchPlaceholder: "நீங்கள் என்ன தேடுகிறீர்கள்? (எ.கா: பாதணிகள், அரிசி, தேயிலை...)",
-    heroHeadline1: "புதுமையின் புதிய அடுக்கு",
-    heroHeadline2: "எதிர்காலத்தில் கால்பதிக்கவும்",
-    heroSubtext: "AI தொழில்நுட்ப தேடல், பட்ஜெட் கட்டுப்பாடு மற்றும் இலங்கை முழுவதும் அதிவேக விநியோகத்துடன் மிகச்சிறந்த கொள்வனவு அனுபவம்.",
+    heroPretitle: 'புத்திசாலித்தனமான தேர்வுகள், சிறந்த <span class="pretitle-highlight">வாழ்க்கை</span>',
+    heroHeadline1: "உங்களுக்கு தேவையான அனைத்தும்,",
+    heroHeadline2: "ஒரே இடத்தில்",
+    heroSubtext: "தரமான பொருட்கள், அற்புதமான சலுகைகள் மற்றும் சிறந்த கொள்வனவு அனுபவம் — SmartCart இல் மட்டுமே.",
     heroShopNow: "இப்போதே வாங்க",
     trustCod: "வீட்டில் செலுத்தும் வசதி (COD)",
     trustCodSub: "பொருட்களைப் பெற்றதும் பணமாக அல்லது அட்டையில் செலுத்தலாம்",
@@ -167,7 +170,11 @@ function setLanguage(lang) {
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     if (dict[key]) {
-      el.textContent = dict[key];
+      if (dict[key].includes('<')) {
+        el.innerHTML = dict[key];
+      } else {
+        el.textContent = dict[key];
+      }
     }
   });
 
