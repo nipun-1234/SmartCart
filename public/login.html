@@ -650,7 +650,212 @@
         .btn-login.loading .btn-text {
             display: none;
         }
+    
+        /* ===== SMART SNEAKER SHOWCASE STYLES ===== */
+        .login-layout-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1060px;
+            display: flex;
+            background: rgba(13, 10, 30, 0.75);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.7), 0 0 50px rgba(0, 255, 133, 0.08);
+            animation: slideUp 0.8s ease-out;
+            margin: auto;
+        }
+
+        .showcase-panel {
+            flex: 1.15;
+            position: relative;
+            background: #000000;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 2.5rem;
+            min-height: 580px;
+        }
+
+        .showcase-bg-img {
+            position: absolute;
+            inset: 0;
+            background: url('/images/smart-rock-sneaker.jpg') center/cover no-repeat;
+            transition: transform 12s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: subtleZoom 18s ease-in-out infinite alternate;
+        }
+
+        @keyframes subtleZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.08); }
+        }
+
+        .showcase-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.85) 100%);
+            pointer-events: none;
+        }
+
+        .showcase-header {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .showcase-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 9999px;
+        }
+
+        .showcase-badge i {
+            color: #ff5722;
+        }
+
+        .showcase-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        /* The Exact Floating Telemetry Card from Reference */
+        .smart-telemetry-card {
+            background: rgba(18, 14, 20, 0.82);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 77, 46, 0.3);
+            border-radius: 16px;
+            padding: 1.4rem 1.6rem;
+            max-width: 340px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.65), 0 0 30px rgba(255, 77, 46, 0.18);
+            display: flex;
+            flex-direction: column;
+            gap: 0.55rem;
+            transition: all 0.3s ease;
+            animation: floatCard 6s ease-in-out infinite;
+        }
+
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .smart-telemetry-card:hover {
+            border-color: rgba(255, 77, 46, 0.6);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 77, 46, 0.35);
+        }
+
+        .telemetry-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .telemetry-val {
+            font-size: 3.5rem;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: #ff4d2e;
+            line-height: 1;
+            font-weight: 400;
+            text-shadow: 0 0 25px rgba(255, 77, 46, 0.5);
+            letter-spacing: -0.02em;
+        }
+
+        .telemetry-wave-svg {
+            width: 100px;
+            height: 36px;
+        }
+
+        .telemetry-wave-path {
+            stroke: #ff4d2e;
+            stroke-width: 2.5;
+            fill: none;
+            stroke-linecap: round;
+            filter: drop-shadow(0 0 6px rgba(255, 77, 46, 0.8));
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            animation: wavePulse 3s linear infinite;
+        }
+
+        @keyframes wavePulse {
+            0% { stroke-dashoffset: 200; }
+            50% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: -200; }
+        }
+
+        .telemetry-header {
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            margin-top: 0.2rem;
+        }
+
+        .telemetry-desc {
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.65);
+            line-height: 1.45;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-side-panel {
+            flex: 1;
+            padding: 3rem 2.8rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow-y: auto;
+            max-height: 90vh;
+        }
+
+        @media (max-width: 960px) {
+            .login-layout-wrapper {
+                flex-direction: column;
+                max-width: 500px;
+            }
+            .showcase-panel {
+                min-height: 280px;
+                padding: 1.5rem;
+            }
+            .smart-telemetry-card {
+                padding: 1rem 1.2rem;
+                max-width: 100%;
+            }
+            .telemetry-val {
+                font-size: 2.8rem;
+            }
+            .form-side-panel {
+                padding: 2.2rem 1.8rem;
+            }
+        }
+
     </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,400;1,500;1,600&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Background Animation -->
@@ -682,23 +887,54 @@
     </div>
 
     <!-- Login Container -->
-    <div class="login-container">
-        <!-- Logo Section -->
-        <div class="logo-section">
-            <a href="index.html" class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-shopping-bag"></i>
+    
+    <!-- Dual-Column Smart Showcase & Login Wrapper -->
+    <div class="login-layout-wrapper">
+        <!-- Left Side: Smart Sneaker & Telemetry Showcase -->
+        <div class="showcase-panel">
+            <div class="showcase-bg-img"></div>
+            <div class="showcase-overlay"></div>
+
+            <div class="showcase-header">
+                <div class="showcase-badge">
+                    <i class="fas fa-bolt"></i>
+                    <span>AeroCushion Labs</span>
                 </div>
-                <div class="logo-text">
-                    <span class="logo-main">Shop</span>
-                    <span class="logo-accent">Hub</span>
+                <span style="color: rgba(255,255,255,0.7); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.05em;">VOLCANIC ARCHITECTURE</span>
+            </div>
+
+            <div class="showcase-content">
+                <!-- EXACT FLOATING TELEMETRY CARD -->
+                <div class="smart-telemetry-card">
+                    <div class="telemetry-row">
+                        <span class="telemetry-val">78%</span>
+                        <svg class="telemetry-wave-svg" viewBox="0 0 100 30">
+                            <path class="telemetry-wave-path" d="M 5,15 Q 20,2 35,15 T 65,15 T 95,15" />
+                        </svg>
+                    </div>
+                    <div class="telemetry-header">NEXT-GEN CUSHIONING ARCHITECTURE</div>
+                    <div class="telemetry-desc">Impact Absorption & Energy Return Dynamics</div>
                 </div>
-            </a>
-            <p class="welcome-text">Welcome back! Ready to shop?</p>
+            </div>
         </div>
 
-        <!-- Login Card -->
-        <div class="login-card">
+        <!-- Right Side: Form Panel -->
+        <div class="form-side-panel">
+            <!-- Logo Section -->
+            <div class="logo-section" style="margin-bottom: 20px;">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon" style="width: 50px; height: 50px;">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-main" style="background: linear-gradient(45deg, var(--lime-green), var(--electric-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800;">Smart</span><span class="logo-accent" style="color: #fff; font-weight: 800;">Cart</span>
+                    </div>
+                </a>
+                <p class="welcome-text" style="font-size: 13px;">Welcome back! Sign in to continue</p>
+            </div>
+
+            <!-- Login Card -->
+            <div class="login-card" style="box-shadow: none; border: none; padding: 0; background: transparent;">
             <div class="card-header">
                 <h1 class="card-title">Sign In</h1>
                 <p class="card-subtitle">Enter your credentials to access your account</p>

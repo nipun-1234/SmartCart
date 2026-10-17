@@ -3625,6 +3625,102 @@
             font-weight: 500;
         }
 
+    
+        /* ===== FLOATING SMART TELEMETRY CARD IN HERO ===== */
+        .hero-telemetry-card {
+            position: absolute;
+            top: 36%;
+            right: 6%;
+            z-index: 55;
+            background: rgba(18, 14, 20, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 77, 46, 0.35);
+            border-radius: 16px;
+            padding: 1.3rem 1.6rem;
+            max-width: 330px;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7), 0 0 35px rgba(255, 77, 46, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 0.55rem;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: floatHeroCard 6s ease-in-out infinite;
+        }
+
+        @keyframes floatHeroCard {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero-telemetry-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            border-color: rgba(255, 77, 46, 0.7);
+            box-shadow: 0 28px 60px rgba(0, 0, 0, 0.85), 0 0 45px rgba(255, 77, 46, 0.4);
+        }
+
+        .telemetry-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .telemetry-val {
+            font-size: 3.5rem;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: #ff4d2e;
+            line-height: 1;
+            font-weight: 400;
+            text-shadow: 0 0 25px rgba(255, 77, 46, 0.5);
+            letter-spacing: -0.02em;
+        }
+
+        .telemetry-wave-svg {
+            width: 95px;
+            height: 32px;
+        }
+
+        .telemetry-wave-path {
+            stroke: #ff4d2e;
+            stroke-width: 2.5;
+            fill: none;
+            stroke-linecap: round;
+            filter: drop-shadow(0 0 6px rgba(255, 77, 46, 0.8));
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            animation: wavePulse 3s linear infinite;
+        }
+
+        @keyframes wavePulse {
+            0% { stroke-dashoffset: 200; }
+            50% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: -200; }
+        }
+
+        .telemetry-header {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            margin-top: 0.2rem;
+        }
+
+        .telemetry-desc {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.45;
+            font-family: 'Inter', sans-serif;
+        }
+
+        @media (max-width: 900px) {
+            .hero-telemetry-card {
+                display: none;
+            }
+        }
+
     </style>
 
     <!-- Google Fonts for Lithos Hero -->
@@ -3648,10 +3744,10 @@
             </a>
 
             <div class="lithos-center-pill">
-                <button class="lithos-pill-btn active" onclick="setActiveLithosNav(this)">Course</button>
+                <button class="lithos-pill-btn active" onclick="switchRevealTheme('geology', this)">Strata</button>
+                <button class="lithos-pill-btn" onclick="switchRevealTheme('sneaker', this)" title="Spotlight reveals Next-Gen Sneaker Architecture"><i class="fas fa-bolt" style="color:#ff5722; margin-right:4px;"></i>Next-Gen Tech</button>
                 <button class="lithos-pill-btn" onclick="setActiveLithosNav(this)">Field Guides</button>
                 <button class="lithos-pill-btn" onclick="setActiveLithosNav(this)">Geology</button>
-                <button class="lithos-pill-btn" onclick="setActiveLithosNav(this)">Plans</button>
                 <button class="lithos-pill-btn" onclick="openDemoModal()">Live Tour</button>
             </div>
 
@@ -3705,6 +3801,19 @@
             </div>
 
             <!-- Layer 5: Bottom-right block (z-50) -->
+            
+            <!-- Floating Smart Telemetry Card from Reference -->
+            <div class="hero-telemetry-card hero-anim hero-fade" id="heroTelemetryCard" onclick="switchRevealTheme('sneaker')" title="Click to Spotlight AeroCushion Tech">
+                <div class="telemetry-row">
+                    <span class="telemetry-val">78%</span>
+                    <svg class="telemetry-wave-svg" viewBox="0 0 100 30">
+                        <path class="telemetry-wave-path" d="M 5,15 Q 20,2 35,15 T 65,15 T 95,15" />
+                    </svg>
+                </div>
+                <div class="telemetry-header">NEXT-GEN CUSHIONING ARCHITECTURE</div>
+                <div class="telemetry-desc">Impact Absorption & Energy Return Dynamics</div>
+            </div>
+
             <div class="lithos-bottom-right hero-anim hero-fade">
                 <p>Our interactive maps let you peel back the crust to trace how stones, fossils, and deep time combine to shape the ground beneath your feet.</p>
                 <button class="lithos-dig-btn" onclick="scrollToShop()">
@@ -4759,6 +4868,27 @@
                 }
             }, { passive: true });
         })();
+
+        
+        const REVEAL_GEOLOGY = 'https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260609_201152_bba90a12-bf12-459f-91f0-51f237dbaf3b.png&w=1280&q=85';
+        const REVEAL_SNEAKER = '/images/smart-rock-sneaker.jpg';
+
+        function switchRevealTheme(theme, btn) {
+            const revealEl = document.getElementById('lithosRevealImg');
+            if (!revealEl) return;
+            if (theme === 'sneaker') {
+                revealEl.style.backgroundImage = 'url("' + REVEAL_SNEAKER + '")';
+                if (typeof showToast === 'function') {
+                    showToast('Smart Product Loaded', 'Spotlight now reveals AeroCushion Volcanic Tech!', 'success');
+                }
+            } else {
+                revealEl.style.backgroundImage = 'url("' + REVEAL_GEOLOGY + '")';
+            }
+            if (btn) {
+                document.querySelectorAll('.lithos-pill-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            }
+        }
 
         function scrollToShop() {
             const target = document.getElementById('shopSection') || document.querySelector('.trust-features-bar');
