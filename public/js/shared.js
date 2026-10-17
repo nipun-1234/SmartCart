@@ -98,23 +98,23 @@ function updateAuthNavigation() {
     if (user) {
       authSection.innerHTML = `
         <div class="user-menu-dropdown" style="position: relative; display: inline-block;">
-          <button type="button" class="user-profile-btn" style="background: linear-gradient(135deg, rgba(0,255,133,0.15), rgba(0,212,255,0.15)); border: 1px solid rgba(0,255,133,0.4); color: #fff; padding: 6px 14px; border-radius: 25px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: 600;">
-            <i class="fas fa-user-circle" style="color: var(--lime-green, #00FF85); font-size: 1.1rem;"></i>
+          <button type="button" class="user-profile-btn" style="background: linear-gradient(135deg, rgba(232, 112, 42,0.15), rgba(255, 184, 0,0.15)); border: 1px solid rgba(232, 112, 42,0.4); color: #fff; padding: 6px 14px; border-radius: 25px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: 600;">
+            <i class="fas fa-user-circle" style="color: var(--lime-green, #E8702A); font-size: 1.1rem;"></i>
             <span>${user.first_name || 'Account'}</span>
             <i class="fas fa-chevron-down" style="font-size: 0.75rem; opacity: 0.7;"></i>
           </button>
-          <div class="dropdown-content user-dropdown-menu" style="display: none; position: absolute; right: 0; top: 110%; background: rgba(10,10,26,0.96); backdrop-filter: blur(20px); border: 1px solid rgba(0,212,255,0.25); border-radius: 14px; min-width: 200px; padding: 8px; z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+          <div class="dropdown-content user-dropdown-menu" style="display: none; position: absolute; right: 0; top: 110%; background: rgba(10,10,26,0.96); backdrop-filter: blur(20px); border: 1px solid rgba(255, 184, 0,0.25); border-radius: 14px; min-width: 200px; padding: 8px; z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
             <div style="padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 5px;">
               <p style="margin: 0; font-size: 0.85rem; color: #fff; font-weight: 700;">${user.first_name} ${user.last_name || ''}</p>
               <p style="margin: 0; font-size: 0.75rem; color: rgba(255,255,255,0.6);">${user.email}</p>
-              ${user.role === 'admin' ? '<span style="background: #FF0080; color: #fff; font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; text-transform: uppercase;">Admin</span>' : ''}
+              ${user.role === 'admin' ? '<span style="background: #FF3B30; color: #fff; font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; text-transform: uppercase;">Admin</span>' : ''}
             </div>
             <a href="/products.html#ordersPage" onclick="showCustomerOrders(); return false;" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; color: rgba(255,255,255,0.85); text-decoration: none; border-radius: 8px; transition: 0.2s;">
-              <i class="fas fa-box" style="color: var(--electric-blue, #00D4FF);"></i> My Orders
+              <i class="fas fa-box" style="color: var(--electric-blue, #FFB800);"></i> My Orders
             </a>
             ${user.role === 'admin' ? `
             <a href="/admin.html" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; color: rgba(255,255,255,0.85); text-decoration: none; border-radius: 8px; transition: 0.2s;">
-              <i class="fas fa-gauge-high" style="color: var(--neon-pink, #FF0080);"></i> Admin Dashboard
+              <i class="fas fa-gauge-high" style="color: var(--neon-pink, #FF3B30);"></i> Admin Dashboard
             </a>` : ''}
             <a href="#" onclick="logoutUser(); return false;" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; color: #ff6b6b; text-decoration: none; border-radius: 8px; transition: 0.2s; border-top: 1px solid rgba(255,255,255,0.08); margin-top: 4px;">
               <i class="fas fa-right-from-bracket"></i> Sign Out
@@ -330,10 +330,10 @@ function showToast(title, message, type = 'info') {
   const toast = document.createElement('div');
   const bg =
     type === 'success'
-      ? 'linear-gradient(135deg, rgba(0, 255, 133, 0.95), rgba(0, 212, 255, 0.95))'
+      ? 'linear-gradient(135deg, rgba(232, 112, 42, 0.95), rgba(255, 184, 0, 0.95))'
       : type === 'error'
-      ? 'linear-gradient(135deg, rgba(255, 0, 128, 0.95), rgba(255, 75, 75, 0.95))'
-      : 'linear-gradient(135deg, rgba(157, 0, 255, 0.95), rgba(0, 212, 255, 0.95))';
+      ? 'linear-gradient(135deg, rgba(255, 59, 48, 0.95), rgba(255, 75, 75, 0.95))'
+      : 'linear-gradient(135deg, rgba(157, 0, 255, 0.95), rgba(255, 184, 0, 0.95))';
 
   const icon =
     type === 'success'

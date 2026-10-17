@@ -253,7 +253,7 @@ function updateWishlistHearts() {
     const inWish = isInWishlist(pid);
     btn.classList.toggle('active', inWish);
     btn.innerHTML = `<i class="${inWish ? 'fas fa-heart' : 'far fa-heart'}"></i>`;
-    btn.style.color = inWish ? '#FF0080' : 'rgba(255,255,255,0.7)';
+    btn.style.color = inWish ? '#FF3B30' : 'rgba(255,255,255,0.7)';
   });
 }
 
@@ -499,11 +499,11 @@ function updateBudgetCalculations() {
   if (barEl) {
     barEl.style.width = `${pct}%`;
     if (pct < 70) {
-      barEl.style.background = 'linear-gradient(90deg, #00FF85, #00D4FF)';
+      barEl.style.background = 'linear-gradient(90deg, #E8702A, #FFB800)';
     } else if (pct < 95) {
       barEl.style.background = 'linear-gradient(90deg, #FFD600, #FF6B35)';
     } else {
-      barEl.style.background = 'linear-gradient(90deg, #FF6B35, #FF0080)';
+      barEl.style.background = 'linear-gradient(90deg, #FF6B35, #FF3B30)';
     }
   }
 

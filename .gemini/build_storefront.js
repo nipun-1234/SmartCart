@@ -57,8 +57,8 @@ const htmlContent = `<!DOCTYPE html>
             text-transform: uppercase;
             letter-spacing: 1.2px;
             color: var(--primary-glow);
-            background: rgba(0, 255, 133, 0.1);
-            border: 1px solid rgba(0, 255, 133, 0.25);
+            background: rgba(232, 112, 42, 0.1);
+            border: 1px solid rgba(232, 112, 42, 0.25);
             padding: 4px 14px;
             border-radius: 20px;
             margin-bottom: 12px;
@@ -141,9 +141,9 @@ const htmlContent = `<!DOCTYPE html>
         }
 
         .btn-wishlist-del {
-            background: rgba(255, 0, 128, 0.15);
+            background: rgba(255, 71, 58, 0.15);
             color: #ff4d6d;
-            border: 1px solid rgba(255, 0, 128, 0.3);
+            border: 1px solid rgba(255, 71, 58, 0.3);
             width: 34px;
             height: 34px;
             border-radius: 8px;
@@ -164,7 +164,7 @@ const htmlContent = `<!DOCTYPE html>
 
         .ai-rec-card {
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(0, 212, 255, 0.2);
+            border: 1px solid rgba(255, 184, 0, 0.2);
             border-radius: 14px;
             padding: 12px;
             display: flex;
@@ -223,8 +223,8 @@ const htmlContent = `<!DOCTYPE html>
 
         /* Grocery Match Card */
         .grocery-matches-card {
-            background: rgba(0, 255, 133, 0.05);
-            border: 1px solid rgba(0, 255, 133, 0.3);
+            background: rgba(232, 112, 42, 0.05);
+            border: 1px solid rgba(232, 112, 42, 0.3);
             border-radius: 16px;
             padding: 20px;
             margin-top: 16px;
@@ -279,7 +279,7 @@ const htmlContent = `<!DOCTYPE html>
         /* District Info Box */
         .district-info-box {
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(0, 212, 255, 0.25);
+            border: 1px solid rgba(255, 184, 0, 0.25);
             border-radius: 16px;
             padding: 20px;
             margin-top: 18px;
@@ -296,7 +296,7 @@ const htmlContent = `<!DOCTYPE html>
             font-size: 0.85rem;
             font-weight: 700;
             color: #fff;
-            background: rgba(0, 212, 255, 0.15);
+            background: rgba(255, 184, 0, 0.15);
             padding: 4px 10px;
             border-radius: 8px;
         }
@@ -405,7 +405,7 @@ const htmlContent = `<!DOCTYPE html>
         }
 
         .search-res-item:hover {
-            background: rgba(0, 212, 255, 0.08);
+            background: rgba(255, 184, 0, 0.08);
         }
 
         .search-res-thumb {
@@ -454,7 +454,7 @@ const htmlContent = `<!DOCTYPE html>
             font-weight: 700;
             color: var(--accent-cyan);
             cursor: pointer;
-            background: rgba(0, 212, 255, 0.05);
+            background: rgba(255, 184, 0, 0.05);
         }
 
         .search-res-footer:hover {
@@ -667,21 +667,21 @@ const htmlContent = `<!DOCTYPE html>
             <div class="sc-category-grid">
                 <!-- Grocery -->
                 <div class="sc-cat-card" onclick="window.location.href='products.html?category=grocery'">
-                    <div class="sc-cat-icon" style="background: rgba(0, 255, 133, 0.12); color: var(--primary-glow);">🥬</div>
+                    <div class="sc-cat-icon" style="background: rgba(232, 112, 42, 0.12); color: var(--primary-glow);">🥬</div>
                     <div class="sc-cat-name">Grocery & Fresh</div>
                     <div class="sc-cat-desc">Samba Rice, Ceylon Tea & Dairy</div>
                 </div>
 
                 <!-- Electronics -->
                 <div class="sc-cat-card" onclick="window.location.href='products.html?category=electronics'">
-                    <div class="sc-cat-icon" style="background: rgba(0, 212, 255, 0.12); color: var(--accent-cyan);">⚡</div>
+                    <div class="sc-cat-icon" style="background: rgba(255, 184, 0, 0.12); color: var(--accent-cyan);">⚡</div>
                     <div class="sc-cat-name">Electronics & Tech</div>
                     <div class="sc-cat-desc">Audio, Smart Watches & Gaming</div>
                 </div>
 
                 <!-- Fashion -->
                 <div class="sc-cat-card" onclick="window.location.href='products.html?category=clothing'">
-                    <div class="sc-cat-icon" style="background: rgba(255, 0, 128, 0.12); color: var(--accent-pink);">👕</div>
+                    <div class="sc-cat-icon" style="background: rgba(255, 71, 58, 0.12); color: var(--accent-pink);">👕</div>
                     <div class="sc-cat-name">Fashion & Apparel</div>
                     <div class="sc-cat-desc">Performance Jackets & Leather Bags</div>
                 </div>
@@ -695,7 +695,7 @@ const htmlContent = `<!DOCTYPE html>
 
                 <!-- Stationery & Books -->
                 <div class="sc-cat-card" onclick="window.location.href='products.html?category=stationery'">
-                    <div class="sc-cat-icon" style="background: rgba(157, 0, 255, 0.12); color: var(--accent-purple);">📚</div>
+                    <div class="sc-cat-icon" style="background: rgba(217, 83, 30, 0.12); color: var(--accent-purple);">📚</div>
                     <div class="sc-cat-name">Books & Stationery</div>
                     <div class="sc-cat-desc">Executive Journals, Art & Books</div>
                 </div>
@@ -767,10 +767,10 @@ const htmlContent = `<!DOCTYPE html>
                     </div>
 
                     <!-- Voucher & Claim Card -->
-                    <div style="background: rgba(0,0,0,0.4); border: 1px dashed rgba(255, 0, 128, 0.4); border-radius: 20px; padding: 28px; text-align: center;">
+                    <div style="background: rgba(0,0,0,0.4); border: 1px dashed rgba(255, 71, 58, 0.4); border-radius: 20px; padding: 28px; text-align: center;">
                         <span style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-dim); letter-spacing: 1px; font-weight: 700;">Active Promo Code</span>
                         <div style="font-size: 2.2rem; font-weight: 800; color: #fff; letter-spacing: 2px; margin: 10px 0; font-family: monospace;" id="dealVoucherCode">AVURUDU50</div>
-                        <div style="display: inline-block; background: rgba(0, 255, 133, 0.15); border: 1px solid rgba(0, 255, 133, 0.3); color: var(--primary-glow); font-size: 0.85rem; font-weight: 700; padding: 4px 14px; border-radius: 14px; margin-bottom: 18px;" id="dealDiscountBadge">
+                        <div style="display: inline-block; background: rgba(232, 112, 42, 0.15); border: 1px solid rgba(232, 112, 42, 0.3); color: var(--primary-glow); font-size: 0.85rem; font-weight: 700; padding: 4px 14px; border-radius: 14px; margin-bottom: 18px;" id="dealDiscountBadge">
                             50% OFF
                         </div>
                         <br>
@@ -855,7 +855,7 @@ const htmlContent = `<!DOCTYPE html>
                 <!-- 2. Budget Mode -->
                 <div class="sc-smart-card">
                     <div class="sc-smart-header">
-                        <div class="sc-smart-icon" style="color: var(--primary-glow); background: rgba(0, 255, 133, 0.12);"><i class="fas fa-wallet"></i></div>
+                        <div class="sc-smart-icon" style="color: var(--primary-glow); background: rgba(232, 112, 42, 0.12);"><i class="fas fa-wallet"></i></div>
                         <div>
                             <h3 style="color: #fff; font-size: 1.15rem; margin-bottom: 2px;">Interactive Budget Mode</h3>
                             <span style="font-size: 0.8rem; color: var(--text-dim);">Prevent Overspending in Real-Time</span>
@@ -907,7 +907,7 @@ const htmlContent = `<!DOCTYPE html>
                 <!-- 4. Product Comparison Tool -->
                 <div class="sc-smart-card">
                     <div class="sc-smart-header">
-                        <div class="sc-smart-icon" style="color: var(--accent-pink); background: rgba(255, 0, 128, 0.12);"><i class="fas fa-scale-balanced"></i></div>
+                        <div class="sc-smart-icon" style="color: var(--accent-pink); background: rgba(255, 71, 58, 0.12);"><i class="fas fa-scale-balanced"></i></div>
                         <div>
                             <h3 style="color: #fff; font-size: 1.15rem; margin-bottom: 2px;">Product Comparison</h3>
                             <span style="font-size: 0.8rem; color: var(--text-dim);">Side-by-Side Technical Specs & Value</span>
@@ -940,7 +940,7 @@ const htmlContent = `<!DOCTYPE html>
                 <div class="sc-bundle-card">
                     <div style="height: 180px; position: relative; overflow: hidden;">
                         <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&q=80" alt="Avurudu Hamper" style="width: 100%; height: 100%; object-fit: cover;">
-                        <span class="sc-badge-urgent" style="background: rgba(0, 255, 133, 0.9); color: #000;">🌸 Festive Edition</span>
+                        <span class="sc-badge-urgent" style="background: rgba(232, 112, 42, 0.9); color: #000;">🌸 Festive Edition</span>
                     </div>
                     <div style="padding: 22px; display: flex; flex-direction: column; flex: 1;">
                         <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 8px;">Sinhala & Tamil Avurudu Family Hamper</h3>
@@ -982,7 +982,7 @@ const htmlContent = `<!DOCTYPE html>
                 <div class="sc-bundle-card">
                     <div style="height: 180px; position: relative; overflow: hidden;">
                         <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?w=600&q=80" alt="Groceries Pack" style="width: 100%; height: 100%; object-fit: cover;">
-                        <span class="sc-badge-urgent" style="background: rgba(0, 212, 255, 0.9); color: #000;">🛒 Family Box</span>
+                        <span class="sc-badge-urgent" style="background: rgba(255, 184, 0, 0.9); color: #000;">🛒 Family Box</span>
                     </div>
                     <div style="padding: 22px; display: flex; flex-direction: column; flex: 1;">
                         <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 8px;">Monthly Household Grocery Essentials Box</h3>
@@ -1003,7 +1003,7 @@ const htmlContent = `<!DOCTYPE html>
             <!-- "Reorder Last Order" Strip -->
             <div class="sc-reorder-banner">
                 <div style="display: flex; align-items: center; gap: 16px;">
-                    <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(0, 255, 133, 0.2); display: flex; align-items: center; justify-content: center; color: var(--primary-glow); font-size: 1.4rem;">
+                    <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(232, 112, 42, 0.2); display: flex; align-items: center; justify-content: center; color: var(--primary-glow); font-size: 1.4rem;">
                         <i class="fas fa-rotate"></i>
                     </div>
                     <div>
@@ -1134,7 +1134,7 @@ const htmlContent = `<!DOCTYPE html>
                         </div>
                     </div>
 
-                    <div style="margin-top: 24px; padding: 16px; background: rgba(0, 255, 133, 0.05); border: 1px solid rgba(0, 255, 133, 0.2); border-radius: 14px; display: flex; align-items: center; gap: 12px;">
+                    <div style="margin-top: 24px; padding: 16px; background: rgba(232, 112, 42, 0.05); border: 1px solid rgba(232, 112, 42, 0.2); border-radius: 14px; display: flex; align-items: center; gap: 12px;">
                         <i class="fas fa-shield-halved" style="color: var(--primary-glow); font-size: 1.4rem;"></i>
                         <span style="font-size: 0.8rem; color: var(--text-sub); line-height: 1.4;">
                             All online transactions are protected by 256-Bit TLS End-to-End Encryption. SmartCart never stores your card credentials.
@@ -1212,7 +1212,7 @@ const htmlContent = `<!DOCTYPE html>
     <!-- ==================== 10. NEWSLETTER / WHATSAPP SIGNUP ==================== -->
     <div class="container">
         <section class="sc-newsletter-section" id="newsletterSection">
-            <span class="section-tag" style="background: rgba(157, 0, 255, 0.15); border-color: rgba(157, 0, 255, 0.3); color: #fff;"><i class="fas fa-bell"></i> Instant Alerts</span>
+            <span class="section-tag" style="background: rgba(217, 83, 30, 0.15); border-color: rgba(217, 83, 30, 0.3); color: #fff;"><i class="fas fa-bell"></i> Instant Alerts</span>
             <h2 class="section-heading-main" data-i18n="newsletterTitle" style="margin-top: 10px;">Unlock 10% Off Your Next Order</h2>
             <p class="section-subtext-main" data-i18n="newsletterSub" style="max-width: 620px; margin: 0 auto 24px;">
                 Subscribe via Email or WhatsApp for instant flash drops, secret deals, and price alerts.
@@ -1337,7 +1337,7 @@ const htmlContent = `<!DOCTYPE html>
             <p style="color: var(--text-sub); font-size: 0.9rem; margin-bottom: 20px;" id="vipSubscriberText">
                 Your 10% discount promo voucher is unlocked and ready for checkout.
             </p>
-            <div style="background: rgba(0, 255, 133, 0.1); border: 2px dashed var(--primary-glow); border-radius: 16px; padding: 16px; margin-bottom: 20px;">
+            <div style="background: rgba(232, 112, 42, 0.1); border: 2px dashed var(--primary-glow); border-radius: 16px; padding: 16px; margin-bottom: 20px;">
                 <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-dim); letter-spacing: 1px;">Exclusive VIP Voucher Code</span>
                 <div style="font-size: 2.2rem; font-weight: 800; color: var(--primary-glow); letter-spacing: 2px; font-family: monospace;">SMARTVIP10</div>
                 <span style="font-size: 0.8rem; color: #fff;">Flat 10% discount auto-applied on any order</span>
@@ -1353,7 +1353,7 @@ const htmlContent = `<!DOCTYPE html>
         <div class="sc-modal-card">
             <button type="button" class="sc-modal-close" onclick="closeMerchantModal()"><i class="fas fa-times"></i></button>
             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-                <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(0, 255, 133, 0.15); display: flex; align-items: center; justify-content: center; color: var(--primary-glow); font-size: 1.3rem;">
+                <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(232, 112, 42, 0.15); display: flex; align-items: center; justify-content: center; color: var(--primary-glow); font-size: 1.3rem;">
                     <i class="fas fa-store"></i>
                 </div>
                 <div>
@@ -1565,7 +1565,7 @@ const htmlContent = `<!DOCTYPE html>
                     const isUrgent = idx % 2 === 0;
                     return \`
                         <div class="sc-product-card">
-                            \${isUrgent ? '<span class="sc-badge-urgent">⚡ Only 3 left!</span>' : '<span class="sc-badge-urgent" style="background: rgba(0, 255, 133, 0.9); color: #000;">★ 4.9 Top Rated</span>'}
+                            \${isUrgent ? '<span class="sc-badge-urgent">⚡ Only 3 left!</span>' : '<span class="sc-badge-urgent" style="background: rgba(232, 112, 42, 0.9); color: #000;">★ 4.9 Top Rated</span>'}
                             
                             <button type="button" class="btn-wishlist-heart \${inWish ? 'active' : ''}" data-product-id="\${p.id}" onclick="toggleWishlist(\${JSON.stringify(p).replace(/"/g, '&quot;')})" title="Save to Wishlist">
                                 <i class="\${inWish ? 'fas fa-heart' : 'far fa-heart'}"></i>

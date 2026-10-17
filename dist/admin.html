@@ -12,12 +12,12 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', system-ui, sans-serif; }
 
         :root {
-            --neon-pink: #FF0080;
-            --electric-blue: #00D4FF;
-            --vivid-purple: #9D00FF;
-            --lime-green: #00FF85;
-            --sunset-orange: #FF6B35;
-            --bright-yellow: #FFD600;
+            --neon-pink: #FF473A;
+            --electric-blue: #FFB800;
+            --vivid-purple: #D9531E;
+            --lime-green: #E8702A;
+            --sunset-orange: #E8702A;
+            --bright-yellow: #FFC738;
             --bg-card: rgba(255, 255, 255, 0.05);
             --bg-card-hover: rgba(255, 255, 255, 0.08);
             --border-card: rgba(255, 255, 255, 0.12);
@@ -432,7 +432,7 @@
                         datasets: [{
                             label: 'Revenue (LKR)',
                             data: stats.chart.sales,
-                            borderColor: '#00D4FF',
+                            borderColor: '#FFB800',
                             backgroundColor: 'rgba(0, 212, 255, 0.1)',
                             fill: true,
                             tension: 0.35,
@@ -461,7 +461,7 @@
                         labels: stats.categoryCounts.map(c => c.name),
                         datasets: [{
                             data: stats.categoryCounts.map(c => c.count),
-                            backgroundColor: ['#00FF85', '#00D4FF', '#FF0080', '#FFD600', '#9D00FF'],
+                            backgroundColor: ['#E8702A', '#FFB800', '#FF0080', '#FFD600', '#9D00FF'],
                             borderWidth: 0
                         }]
                     },

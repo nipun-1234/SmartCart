@@ -6,15 +6,15 @@
 
 /* ==================== ROOT VARIABLES & THEMING ==================== */
 :root {
-  --primary-glow: #00FF85;
-  --accent-cyan: #00D4FF;
-  --accent-pink: #FF0080;
-  --accent-purple: #9D00FF;
-  --accent-orange: #FF6B35;
-  --accent-yellow: #FFD600;
+  --primary-glow: #E8702A;
+  --accent-cyan: #FFB800;
+  --accent-pink: #FF473A;
+  --accent-purple: #D9531E;
+  --accent-orange: #E8702A;
+  --accent-yellow: #FFC738;
 
   --nav-height: 74px;
-  --glass-bg: rgba(10, 10, 26, 0.78);
+  --glass-bg: rgba(14, 11, 9, 0.85);
   --glass-border: rgba(255, 255, 255, 0.12);
   --card-bg: rgba(255, 255, 255, 0.04);
   --card-bg-hover: rgba(255, 255, 255, 0.08);
@@ -51,7 +51,7 @@
 }
 
 .sc-fixed-navbar.scrolled {
-  background: rgba(5, 5, 18, 0.95);
+  background: rgba(12, 9, 7, 0.96);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   height: 66px;
 }
@@ -93,14 +93,14 @@
   width: 40px;
   height: 40px;
   border-radius: 12px;
-  background: linear-gradient(135deg, rgba(0, 255, 133, 0.2), rgba(0, 212, 255, 0.2));
-  border: 1px solid rgba(0, 255, 133, 0.4);
+  background: linear-gradient(135deg, rgba(232, 112, 42, 0.2), rgba(255, 184, 0, 0.2));
+  border: 1px solid rgba(232, 112, 42, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--primary-glow);
   font-size: 1.15rem;
-  box-shadow: 0 0 16px rgba(0, 255, 133, 0.3);
+  box-shadow: 0 0 16px rgba(232, 112, 42, 0.3);
 }
 
 .sc-logo-accent {
@@ -134,13 +134,13 @@
 .sc-search-bar:focus-within {
   border-color: var(--primary-glow);
   background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 0 3px rgba(0, 255, 133, 0.15);
+  box-shadow: 0 0 0 3px rgba(232, 112, 42, 0.15);
 }
 
 [data-theme="light"] .sc-search-bar:focus-within {
   background: #fff;
   border-color: var(--accent-cyan);
-  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15);
+  box-shadow: 0 0 0 3px rgba(255, 184, 0, 0.15);
 }
 
 .sc-search-bar input {
@@ -181,9 +181,9 @@
   top: calc(100% + 8px);
   left: 0;
   right: 0;
-  background: rgba(12, 12, 30, 0.96);
+  background: rgba(16, 12, 10, 0.98);
   backdrop-filter: blur(25px);
-  border: 1px solid rgba(0, 212, 255, 0.3);
+  border: 1px solid rgba(255, 184, 0, 0.3);
   border-radius: 16px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
   max-height: 400px;
@@ -237,7 +237,7 @@
   background: linear-gradient(135deg, var(--primary-glow), var(--accent-cyan));
   color: #000;
   font-weight: 700;
-  box-shadow: 0 2px 8px rgba(0, 255, 133, 0.3);
+  box-shadow: 0 2px 8px rgba(232, 112, 42, 0.3);
 }
 
 /* Nav Actions Right */
@@ -289,13 +289,13 @@
   min-width: 18px;
   text-align: center;
   line-height: 1.1;
-  box-shadow: 0 2px 6px rgba(0, 255, 133, 0.5);
+  box-shadow: 0 2px 6px rgba(232, 112, 42, 0.5);
 }
 
 .sc-badge-wish {
   background: var(--accent-pink);
   color: #fff;
-  box-shadow: 0 2px 6px rgba(255, 0, 128, 0.5);
+  box-shadow: 0 2px 6px rgba(255, 71, 58, 0.5);
 }
 
 /* Auth Pill */
@@ -305,8 +305,8 @@
   gap: 8px;
   padding: 8px 18px;
   border-radius: 25px;
-  background: linear-gradient(135deg, rgba(0, 255, 133, 0.15), rgba(0, 212, 255, 0.15));
-  border: 1px solid rgba(0, 255, 133, 0.4);
+  background: linear-gradient(135deg, rgba(232, 112, 42, 0.15), rgba(255, 184, 0, 0.15));
+  border: 1px solid rgba(232, 112, 42, 0.4);
   color: #fff;
   text-decoration: none;
   font-size: 0.88rem;
@@ -321,7 +321,7 @@
 .sc-btn-auth:hover {
   background: linear-gradient(135deg, var(--primary-glow), var(--accent-cyan));
   color: #000;
-  box-shadow: 0 4px 15px rgba(0, 255, 133, 0.4);
+  box-shadow: 0 4px 15px rgba(232, 112, 42, 0.4);
   transform: translateY(-2px);
 }
 
@@ -435,13 +435,13 @@
   text-decoration: none;
   border: none;
   cursor: pointer;
-  box-shadow: 0 0 30px rgba(0, 255, 133, 0.45);
+  box-shadow: 0 0 30px rgba(232, 112, 42, 0.45);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .sc-hero-shop-btn:hover {
   transform: translateY(-4px) scale(1.03);
-  box-shadow: 0 10px 40px rgba(0, 255, 133, 0.65);
+  box-shadow: 0 10px 40px rgba(232, 112, 42, 0.65);
 }
 
 .sc-hero-shop-btn i {
@@ -475,7 +475,7 @@
 
 /* ==================== TRUST STRIP (DIRECTLY BELOW HERO) ==================== */
 .sc-trust-strip {
-  background: rgba(10, 10, 26, 0.92);
+  background: rgba(14, 11, 9, 0.94);
   border-bottom: 1px solid var(--glass-border);
   padding: 26px 0;
   position: relative;
@@ -519,7 +519,7 @@
   width: 48px;
   height: 48px;
   border-radius: 12px;
-  background: linear-gradient(135deg, rgba(0, 255, 133, 0.12), rgba(0, 212, 255, 0.12));
+  background: linear-gradient(135deg, rgba(232, 112, 42, 0.12), rgba(255, 184, 0, 0.12));
   color: var(--primary-glow);
   display: flex;
   align-items: center;
@@ -600,8 +600,8 @@
 
 /* ==================== 4. FLASH SALE & SEASONAL DEALS ==================== */
 .sc-deals-box {
-  background: linear-gradient(135deg, rgba(255, 0, 128, 0.08), rgba(0, 212, 255, 0.08));
-  border: 1px solid rgba(255, 0, 128, 0.25);
+  background: linear-gradient(135deg, rgba(255, 71, 58, 0.08), rgba(255, 184, 0, 0.08));
+  border: 1px solid rgba(255, 71, 58, 0.25);
   border-radius: 24px;
   padding: 36px 32px;
   position: relative;
@@ -633,7 +633,7 @@
   background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
   color: #fff;
   border-color: transparent;
-  box-shadow: 0 4px 15px rgba(255, 0, 128, 0.35);
+  box-shadow: 0 4px 15px rgba(255, 71, 58, 0.35);
 }
 
 .sc-countdown-timer {
@@ -714,7 +714,7 @@
   position: absolute;
   top: 12px;
   left: 12px;
-  background: rgba(255, 0, 128, 0.9);
+  background: rgba(255, 71, 58, 0.9);
   color: #fff;
   font-size: 0.72rem;
   font-weight: 700;
@@ -750,7 +750,7 @@
 
 .btn-wishlist-heart.active {
   color: var(--accent-pink);
-  background: rgba(255, 0, 128, 0.2);
+  background: rgba(255, 71, 58, 0.2);
   border-color: var(--accent-pink);
 }
 
@@ -830,7 +830,7 @@
   width: 48px;
   height: 48px;
   border-radius: 14px;
-  background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(157, 0, 255, 0.15));
+  background: linear-gradient(135deg, rgba(255, 184, 0, 0.15), rgba(217, 83, 30, 0.15));
   color: var(--accent-cyan);
   display: flex;
   align-items: center;
@@ -858,7 +858,7 @@
 }
 
 .sc-chip:hover {
-  background: rgba(0, 212, 255, 0.15);
+  background: rgba(255, 184, 0, 0.15);
   border-color: var(--accent-cyan);
   color: #fff;
 }
@@ -889,15 +889,15 @@
 }
 
 .budget-tag.safe {
-  background: rgba(0, 255, 133, 0.15);
+  background: rgba(232, 112, 42, 0.15);
   color: var(--primary-glow);
-  border: 1px solid rgba(0, 255, 133, 0.3);
+  border: 1px solid rgba(232, 112, 42, 0.3);
 }
 
 .budget-tag.alert {
-  background: rgba(255, 0, 128, 0.15);
+  background: rgba(255, 71, 58, 0.15);
   color: #ff4d6d;
-  border: 1px solid rgba(255, 0, 128, 0.3);
+  border: 1px solid rgba(255, 71, 58, 0.3);
 }
 
 /* ==================== 7. SEASONAL BUNDLES ==================== */
@@ -926,8 +926,8 @@
 
 .sc-reorder-banner {
   margin-top: 30px;
-  background: linear-gradient(135deg, rgba(0, 255, 133, 0.1), rgba(0, 212, 255, 0.1));
-  border: 1px dashed rgba(0, 255, 133, 0.4);
+  background: linear-gradient(135deg, rgba(232, 112, 42, 0.1), rgba(255, 184, 0, 0.1));
+  border: 1px dashed rgba(232, 112, 42, 0.4);
   border-radius: 18px;
   padding: 22px 28px;
   display: flex;
@@ -1012,8 +1012,8 @@
 
 /* ==================== 10. NEWSLETTER / WHATSAPP SIGNUP ==================== */
 .sc-newsletter-section {
-  background: linear-gradient(135deg, rgba(157, 0, 255, 0.12), rgba(0, 255, 133, 0.08));
-  border: 1px solid rgba(157, 0, 255, 0.25);
+  background: linear-gradient(135deg, rgba(217, 83, 30, 0.12), rgba(232, 112, 42, 0.08));
+  border: 1px solid rgba(217, 83, 30, 0.25);
   border-radius: 28px;
   padding: 48px 36px;
   text-align: center;
@@ -1062,7 +1062,7 @@
 
 /* ==================== 11. FOOTER ==================== */
 .sc-footer {
-  background: rgba(5, 5, 18, 0.95);
+  background: rgba(12, 9, 7, 0.96);
   border-top: 1px solid var(--glass-border);
   padding: 64px 0 32px;
   color: var(--text-sub);
@@ -1118,7 +1118,7 @@
   width: 420px;
   max-width: 90vw;
   height: 100vh;
-  background: rgba(10, 10, 26, 0.98);
+  background: rgba(14, 11, 9, 0.98);
   backdrop-filter: blur(25px);
   border-left: 1px solid rgba(255, 255, 255, 0.12);
   z-index: 2000;

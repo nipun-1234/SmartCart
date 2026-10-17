@@ -179,17 +179,17 @@ export default function LithosHero() {
         {/* Floating Smart Telemetry Card from Reference */}
         <div
           onClick={() => setRevealTheme(revealTheme === 'sneaker' ? 'geology' : 'sneaker')}
-          className="hidden md:flex absolute top-[36%] right-[6%] z-[55] bg-[#120e14]/85 backdrop-blur-xl border border-[#ff4d2e]/35 hover:border-[#ff4d2e]/70 rounded-2xl p-5 max-w-[320px] flex-col gap-2 cursor-pointer shadow-[0_20px_45px_rgba(0,0,0,0.7),0_0_35px_rgba(255,77,46,0.2)] hover:shadow-[0_28px_60px_rgba(0,0,0,0.85),0_0_45px_rgba(255,77,46,0.4)] transition-all duration-300 hover:-translate-y-2 group"
+          className="hidden md:flex absolute top-[36%] right-[6%] z-[55] bg-[#120e14]/85 backdrop-blur-xl border border-[#E8702A]/35 hover:border-[#E8702A]/70 rounded-2xl p-5 max-w-[320px] flex-col gap-2 cursor-pointer shadow-[0_20px_45px_rgba(0,0,0,0.7),0_0_35px_rgba(255,77,46,0.2)] hover:shadow-[0_28px_60px_rgba(0,0,0,0.85),0_0_45px_rgba(255,77,46,0.4)] transition-all duration-300 hover:-translate-y-2 group"
           title="Click to toggle AeroCushion Sneaker Spotlight"
         >
           <div className="flex items-center justify-between">
-            <span className="text-5xl font-playfair italic text-[#ff4d2e] leading-none select-none drop-shadow-[0_0_20px_rgba(255,77,46,0.5)]">
+            <span className="text-5xl font-playfair italic text-[#E8702A] leading-none select-none drop-shadow-[0_0_20px_rgba(255,77,46,0.5)]">
               78%
             </span>
             <svg className="w-24 h-8" viewBox="0 0 100 30" fill="none">
               <path
                 d="M 5,15 Q 20,2 35,15 T 65,15 T 95,15"
-                stroke="#ff4d2e"
+                stroke="#E8702A"
                 strokeWidth="2.5"
                 strokeLinecap="round"
                 className="drop-shadow-[0_0_6px_rgba(255,77,46,0.8)]"
