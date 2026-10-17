@@ -1042,6 +1042,208 @@ function closeFaqModal() {
   document.getElementById('faqModal')?.classList.remove('active');
 }
 
+// ==================== 12. QUICK VIEW MODAL ====================
+let currentQuickViewProduct = null;
+let quickViewQuantity = 1;
+
+async function openQuickView(productId) {
+  try {
+    const res = await fetch(`/api/products/${productId}`);
+    const data = await res.json();
+    if (!data.success || !data.product) return;
+
+    const p = data.product;
+    currentQuickViewProduct = p;
+    quickViewQuantity = 1;
+
+    const modal = document.getElementById('quickViewModal');
+    const content = document.getElementById('quickViewContent');
+    if (!modal || !content) return;
+
+    content.innerHTML = `
+      <div class="qv-grid">
+        <div class="qv-image-box">
+          <img src="${p.image}" alt="${p.name}">
+        </div>
+        <div>
+          <div class="qv-brand">${p.brand || 'SmartCart Certified'} • SKU: ${p.sku || 'SC-PRD'}</div>
+          <h2 class="qv-title">${p.name}</h2>
+          <div class="qv-rating">
+            ${'★'.repeat(Math.floor(p.rating || 5))}${(p.rating || 5) % 1 !== 0 ? '½' : ''}
+            <span style="color:var(--text-main); font-weight:700;">${p.rating || '5.0'}</span>
+            <span style="color:var(--text-dim); font-size:12px;">(${p.reviews || 0} customer reviews)</span>
+          </div>
+          <div class="qv-price">${fmtLKR(p.price)}</div>
+          <p class="qv-desc">${p.description || 'Premium quality merchandise backed by SmartCart 30-day warranty, authentic serial tracking, and express islandwide dispatch.'}</p>
+          
+          <div style="font-size:12px; margin-bottom:14px; color:${p.stock_quantity > 0 ? 'var(--primary-glow)' : '#ff4d6d'}; font-weight:700;">
+            <i class="fas ${p.stock_quantity > 0 ? 'fa-check-circle' : 'fa-times-circle'}"></i> 
+            ${p.stock_quantity > 0 ? `In Stock (${p.stock_quantity} units available)` : 'Out of Stock'}
+          </div>
+
+          <div class="qv-qty-row">
+            <div class="qv-qty-picker">
+              <button type="button" onclick="adjustQuickViewQty(-1)">-</button>
+              <span class="qv-qty-val" id="qvQtyVal">1</span>
+              <button type="button" onclick="adjustQuickViewQty(1)">+</button>
+            </div>
+            <button type="button" class="btn btn-primary" style="flex:1; padding: 12px 24px;" onclick="handleQuickViewAddToCart()">
+              <i class="fas fa-cart-plus"></i> Add to Cart
+            </button>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(255,255,255,0.08); padding-top:14px;">
+            <a href="products.html" style="font-size:13px; color:var(--accent-cyan); text-decoration:none; font-weight:600;">
+              <i class="fas fa-arrow-up-right-from-square"></i> Open in Catalog
+            </a>
+            <span style="font-size:11px; color:var(--text-dim);"><i class="fas fa-shield-halved"></i> Islandwide COD Available</span>
+          </div>
+        </div>
+      </div>
+    `;
+
+    modal.classList.add('active');
+  } catch (_err) {
+    if (typeof showToast === 'function') {
+      showToast('Error', 'Unable to load product preview', 'error');
+    }
+  }
+}
+
+function adjustQuickViewQty(delta) {
+  quickViewQuantity = Math.max(1, quickViewQuantity + delta);
+  const valEl = document.getElementById('qvQtyVal');
+  if (valEl) valEl.textContent = quickViewQuantity;
+}
+
+function handleQuickViewAddToCart() {
+  if (!currentQuickViewProduct) return;
+  addToCart(currentQuickViewProduct, quickViewQuantity);
+  closeQuickViewModal();
+}
+
+function closeQuickViewModal() {
+  document.getElementById('quickViewModal')?.classList.remove('active');
+}
+
+// ==================== 13. DEMO SHOWCASE TOUR MODAL ====================
+const demoTourData = {
+  catalog: {
+    title: "Smart Catalog & Real-Time Filtering",
+    icon: "fa-layer-group",
+    description: "Explore items effortlessly with high-speed instant search, category filtering (Electronics, Grocery, Fashion, Home, Sports, Books), brand selectors, and price range sliders.",
+    points: [
+      "Instant dynamic search with thumbnail previews & live stock",
+      "Automated sorting: Low-to-High, High-to-Low, Top Rated, and Latest",
+      "Prices automatically formatted in Sri Lankan Rupees (Rs. / LKR)"
+    ]
+  },
+  cart: {
+    title: "Persistent Hybrid Cart & Coupons",
+    icon: "fa-shopping-cart",
+    description: "Your cart never gets lost! Items are seamlessly preserved in browser storage for guests and synchronized with your user account upon login.",
+    points: [
+      "Automatic guest-to-account cart merging upon authentication",
+      "Instant promo coupon redemption (e.g. AVURUDU50, SMART10, SMARTVIP10)",
+      "Transparent breakdown of Subtotal, Islandwide Delivery, and Savings"
+    ]
+  },
+  checkout: {
+    title: "Islandwide Flexible Checkout",
+    icon: "fa-credit-card",
+    description: "Shop with peace of mind. Select between Cash on Delivery (COD) islandwide across Sri Lanka, PayHere, LankaQR, or Koko / Mintpay interest-free installment plans.",
+    points: [
+      "Zero-risk Cash on Delivery across all 25 Sri Lankan districts",
+      "Certified PayHere and LankaQR payment channels",
+      "Instant automated HTML receipt and order confirmation"
+    ]
+  },
+  tracking: {
+    title: "Live Order Status Tracking",
+    icon: "fa-route",
+    description: "Keep complete control over your purchases. Track the live delivery journey from Pending ➔ Paid ➔ Shipped ➔ Delivered right from your account.",
+    points: [
+      "Real-time status updates directly from PromptX / Koombiyo courier dispatch",
+      "Complete itemized purchase history and delivery addresses",
+      "One-click repeat order convenience"
+    ]
+  }
+};
+
+function openDemoModal() {
+  showDemoTab('catalog');
+  document.getElementById('demoModal')?.classList.add('active');
+}
+
+function closeDemoModal() {
+  document.getElementById('demoModal')?.classList.remove('active');
+}
+
+function showDemoTab(tabKey) {
+  const item = demoTourData[tabKey];
+  if (!item) return;
+
+  document.querySelectorAll('.demo-tabs .deal-tab-btn').forEach(b => {
+    b.classList.toggle('active', b.getAttribute('data-tab') === tabKey);
+  });
+
+  const container = document.getElementById('demoTabContent');
+  if (!container) return;
+
+  container.innerHTML = `
+    <div class="demo-feature-card">
+      <div class="demo-feature-icon"><i class="fas ${item.icon}"></i></div>
+      <div class="demo-feature-info">
+        <h3>${item.title}</h3>
+        <p>${item.description}</p>
+        <ul class="demo-feature-points">
+          ${item.points.map(pt => `<li><i class="fas fa-circle-check"></i> ${pt}</li>`).join('')}
+        </ul>
+      </div>
+    </div>
+  `;
+}
+
+// ==================== 14. SOCIAL PROOF TICKER ====================
+const socialProofActivities = [
+  { name: "Kavindu from Colombo", item: "AeroCushion Volcanic Sprint Shoes", time: "2 minutes ago" },
+  { name: "Nipuna from Kandy", item: "Apex Ultra Smart Watch", time: "4 minutes ago" },
+  { name: "Amaya from Galle", item: "Dilmah Ceylon Tea & Samba Rice Box", time: "7 minutes ago" },
+  { name: "Dinuka from Negombo", item: "Mechanical RGB Hot-Swap Keyboard", time: "11 minutes ago" },
+  { name: "Sachini from Kurunegala", item: "Smart Robot Vacuum & Mop", time: "15 minutes ago" },
+  { name: "Roshan from Matara", item: "Atomic Habits by James Clear", time: "19 minutes ago" }
+];
+
+let spTickerTimer;
+function startSocialProofTicker() {
+  const toast = document.getElementById('socialProofToast');
+  const textEl = document.getElementById('spText');
+  const timeEl = document.getElementById('spTime');
+  if (!toast || !textEl || !timeEl) return;
+
+  let currentIndex = 0;
+  function showNextActivity() {
+    const act = socialProofActivities[currentIndex];
+    textEl.innerHTML = `<strong>${act.name}</strong> just purchased <strong>${act.item}</strong>`;
+    timeEl.textContent = `${act.time} • Verified Order ⚡`;
+    toast.classList.add('visible');
+
+    setTimeout(() => {
+      toast.classList.remove('visible');
+    }, 5500);
+
+    currentIndex = (currentIndex + 1) % socialProofActivities.length;
+  }
+
+  setTimeout(showNextActivity, 4000);
+  spTickerTimer = setInterval(showNextActivity, 20000);
+}
+
+function dismissSocialProof() {
+  document.getElementById('socialProofToast')?.classList.remove('visible');
+  clearInterval(spTickerTimer);
+}
+
 // Initialize on DOM Ready
 document.addEventListener('DOMContentLoaded', () => {
   // Set initial language
@@ -1055,6 +1257,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize flash countdown
   startFlashSaleCountdown();
+
+  // Initialize live social proof ticker
+  startSocialProofTicker();
 
   // Listen to cart changes to refresh budget meter
   window.addEventListener('storage', (e) => {
