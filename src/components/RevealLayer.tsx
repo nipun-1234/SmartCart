@@ -91,6 +91,7 @@ export const RevealLayer: React.FC<RevealLayerProps> = ({ image, cursorX, cursor
           backgroundImage: `url(${image})`,
           maskSize: '100% 100%',
           WebkitMaskSize: '100% 100%',
+          filter: 'brightness(1.32) contrast(1.22) saturate(1.2)',
         }}
       />
     </>
