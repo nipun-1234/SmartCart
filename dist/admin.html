@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartCart - Admin Operations Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', system-ui, sans-serif; }
+
+        :root {
+            --neon-pink: #FF0080;
+            --electric-blue: #00D4FF;
+            --vivid-purple: #9D00FF;
+            --lime-green: #00FF85;
+            --sunset-orange: #FF6B35;
+            --bright-yellow: #FFD600;
+            --bg-card: rgba(255, 255, 255, 0.05);
+            --bg-card-hover: rgba(255, 255, 255, 0.08);
+            --border-card: rgba(255, 255, 255, 0.12);
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a1a 0%, #120a24 50%, #0d1a2e 100%);
+            color: #fff; min-height: 100vh; line-height: 1.6;
+        }
+
+        .header {
+            background: rgba(5, 5, 18, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+            padding: 14px 0;
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .container { width: 94%; max-width: 1500px; margin: 0 auto; }
+        .navbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; }
+
+        .logo { font-size: 1.7rem; font-weight: 800; background: linear-gradient(45deg, var(--lime-green), var(--electric-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 8px; text-decoration: none; }
+        .logo i { color: var(--lime-green); font-size: 1.4rem; }
+        .admin-badge { background: linear-gradient(135deg, var(--neon-pink), var(--vivid-purple)); color: #fff; font-size: 0.7rem; font-weight: 800; padding: 3px 8px; border-radius: 6px; letter-spacing: 0.06em; text-transform: uppercase; }
+
+        .nav-actions { display: flex; align-items: center; gap: 15px; }
+        .btn-storefront { background: rgba(0, 212, 255, 0.15); border: 1px solid rgba(0, 212, 255, 0.35); color: var(--electric-blue); padding: 7px 16px; border-radius: 20px; font-weight: 600; text-decoration: none; font-size: 0.85rem; transition: 0.2s; display: flex; align-items: center; gap: 6px; }
+        .btn-storefront:hover { background: rgba(0, 212, 255, 0.25); color: #fff; }
+
+        /* Tabs Nav */
+        .admin-tabs { display: flex; gap: 12px; margin: 25px 0 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 14px; overflow-x: auto; }
+        .tab-btn { background: none; border: none; color: rgba(255, 255, 255, 0.65); font-weight: 600; font-size: 0.95rem; padding: 8px 18px; border-radius: 25px; cursor: pointer; transition: 0.25s; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+        .tab-btn:hover { color: #fff; background: rgba(255, 255, 255, 0.08); }
+        .tab-btn.active { background: linear-gradient(135deg, var(--neon-pink), var(--vivid-purple)); color: #fff; box-shadow: 0 0 15px rgba(255, 0, 128, 0.4); }
+
+        /* Stats Grid */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 18px; padding: 22px; backdrop-filter: blur(10px); position: relative; overflow: hidden; }
+        .stat-card::after { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--electric-blue); }
+        .stat-card.rev::after { background: var(--lime-green); }
+        .stat-card.orders::after { background: var(--vivid-purple); }
+        .stat-card.pending::after { background: var(--sunset-orange); }
+        .stat-label { font-size: 0.85rem; color: rgba(255, 255, 255, 0.6); margin-bottom: 6px; }
+        .stat-val { font-size: 1.8rem; font-weight: 800; color: #fff; }
+
+        /* Charts Layout */
+        .charts-row { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 35px; }
+        .chart-box { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 20px; padding: 24px; backdrop-filter: blur(10px); }
+
+        /* Data Tables */
+        .card-table-wrap { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 20px; padding: 25px; backdrop-filter: blur(10px); margin-bottom: 30px; }
+        .table-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+        .table-search { background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 20px; padding: 8px 16px; color: #fff; outline: none; width: 280px; font-size: 0.9rem; }
+        
+        .admin-table { width: 100%; border-collapse: collapse; text-align: left; }
+        .admin-table th { padding: 12px 14px; font-size: 0.8rem; color: rgba(255,255,255,0.6); text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .admin-table td { padding: 14px; font-size: 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.06); vertical-align: middle; }
+        .admin-table tr:hover { background: rgba(255, 255, 255, 0.03); }
+
+        .btn-action { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); color: #fff; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 0.8rem; transition: 0.2s; }
+        .btn-action:hover { background: rgba(0, 212, 255, 0.2); border-color: var(--electric-blue); color: var(--electric-blue); }
+        .btn-action.del:hover { background: rgba(255, 0, 128, 0.25); border-color: var(--neon-pink); color: var(--neon-pink); }
+
+        .btn-create { background: linear-gradient(135deg, var(--lime-green), var(--electric-blue)); border: none; color: #000; font-weight: 700; padding: 9px 20px; border-radius: 20px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; transition: 0.2s; }
+        .btn-create:hover { box-shadow: 0 0 15px rgba(0, 255, 133, 0.4); transform: translateY(-1px); }
+
+        .status-select { background: rgba(10, 10, 26, 0.8); border: 1px solid rgba(0, 212, 255, 0.3); color: #fff; padding: 4px 10px; border-radius: 8px; font-size: 0.8rem; outline: none; cursor: pointer; }
+
+        /* Modal */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(5, 5, 18, 0.85); backdrop-filter: blur(16px); display: none; align-items: center; justify-content: center; z-index: 10000; padding: 20px; }
+        .modal-overlay.active { display: flex; }
+        .modal-card { background: #0f0d26; border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 20px; width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; padding: 30px; box-shadow: 0 25px 60px rgba(0,0,0,0.7); position: relative; }
+        .modal-close { position: absolute; top: 18px; right: 18px; background: rgba(255,255,255,0.1); border: none; color: #fff; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+        .form-group { margin-bottom: 14px; }
+        .form-label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 5px; color: rgba(255,255,255,0.85); }
+        .form-control { width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; padding: 10px 14px; color: #fff; font-size: 0.9rem; outline: none; }
+        .form-control:focus { border-color: var(--electric-blue); }
+
+        @media (max-width: 950px) {
+            .charts-row { grid-template-columns: 1fr; }
+            .card-table-wrap { overflow-x: auto; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container navbar">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <a href="/admin.html" class="logo"><i class="fas fa-shield-halved"></i> SmartCart</a>
+                <span class="admin-badge">Admin Control Center</span>
+            </div>
+
+            <div class="nav-actions">
+                <a href="/products.html" class="btn-storefront"><i class="fas fa-store"></i> Customer Store</a>
+                <button type="button" class="btn-action del" onclick="logoutUser()" style="border-radius: 20px; padding: 7px 15px;">
+                    <i class="fas fa-power-off"></i> Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" style="padding-bottom: 60px;">
+        <!-- Navigation Tabs -->
+        <div class="admin-tabs">
+            <button class="tab-btn active" onclick="switchAdminTab('overview')"><i class="fas fa-chart-pie"></i> Overview</button>
+            <button class="tab-btn" onclick="switchAdminTab('products')"><i class="fas fa-boxes-stacked"></i> Products Catalog</button>
+            <button class="tab-btn" onclick="switchAdminTab('orders')"><i class="fas fa-clipboard-list"></i> Customer Orders</button>
+            <button class="tab-btn" onclick="switchAdminTab('users')"><i class="fas fa-users"></i> Users & Roles</button>
+            <button class="tab-btn" onclick="switchAdminTab('categories')"><i class="fas fa-tags"></i> Categories</button>
+        </div>
+
+        <!-- TAB 1: OVERVIEW -->
+        <section id="tabOverview">
+            <div class="stats-grid">
+                <div class="stat-card rev">
+                    <div class="stat-label">Total Paid Revenue</div>
+                    <div class="stat-val" id="statRevenue">Rs. 0</div>
+                </div>
+                <div class="stat-card orders">
+                    <div class="stat-label">Total Orders Placed</div>
+                    <div class="stat-val" id="statOrders">0</div>
+                </div>
+                <div class="stat-card pending">
+                    <div class="stat-label">Pending / Processing Orders</div>
+                    <div class="stat-val" id="statPending">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Active Catalog Products</div>
+                    <div class="stat-val" id="statProducts">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Registered Accounts</div>
+                    <div class="stat-val" id="statUsers">0</div>
+                </div>
+            </div>
+
+            <div class="charts-row">
+                <div class="chart-box">
+                    <h3 style="font-size: 1.1rem; margin-bottom: 18px;"><i class="fas fa-chart-line" style="color: var(--electric-blue);"></i> Sales Trend (Last 7 Days)</h3>
+                    <div style="height: 260px;">
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-box">
+                    <h3 style="font-size: 1.1rem; margin-bottom: 18px;"><i class="fas fa-pie-chart" style="color: var(--lime-green);"></i> Products by Category</h3>
+                    <div style="height: 260px;">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: PRODUCTS MANAGEMENT -->
+        <section id="tabProducts" style="display: none;">
+            <div class="card-table-wrap">
+                <div class="table-toolbar">
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input type="text" id="productSearchInput" class="table-search" placeholder="Search products by title, SKU...">
+                    </div>
+                    <button type="button" class="btn-create" onclick="openProductModal()">
+                        <i class="fas fa-plus"></i> Add New Product
+                    </button>
+                </div>
+
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>SKU</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Rating</th>
+                            <th style="text-align: right;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productsTableBody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- TAB 3: ORDERS MANAGEMENT -->
+        <section id="tabOrders" style="display: none;">
+            <div class="card-table-wrap">
+                <div class="table-toolbar">
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <select id="orderStatusFilter" class="form-control" style="width: 180px;" onchange="fetchAdminOrders()">
+                            <option value="all">All Statuses</option>
+                            <option value="pending">Pending</option>
+                            <option value="paid">Paid</option>
+                            <option value="shipped">Shipped</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn-action" onclick="fetchAdminOrders()">
+                        <i class="fas fa-rotate"></i> Refresh Orders
+                    </button>
+                </div>
+
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Order #</th>
+                            <th>Date</th>
+                            <th>Recipient</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                            <th>Payment</th>
+                            <th>Delivery Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- TAB 4: USERS MANAGEMENT -->
+        <section id="tabUsers" style="display: none;">
+            <div class="card-table-wrap">
+                <h3 style="font-size: 1.2rem; margin-bottom: 15px;">Registered Customer & Admin Accounts</h3>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Full Name</th>
+                            <th>Email Address</th>
+                            <th>Role</th>
+                            <th>Email Status</th>
+                            <th>Joined</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- TAB 5: CATEGORIES MANAGEMENT -->
+        <section id="tabCategories" style="display: none;">
+            <div class="card-table-wrap" style="max-width: 800px;">
+                <div class="table-toolbar">
+                    <h3 style="font-size: 1.2rem;">Store Categories</h3>
+                </div>
+                <div style="display: flex; gap: 10px; margin-bottom: 25px;">
+                    <input type="text" id="newCatName" class="form-control" placeholder="New Category Name (e.g. Toys & Hobbies)">
+                    <button type="button" class="btn-create" onclick="handleCreateCategory()">Add</button>
+                </div>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Category Name</th>
+                            <th>Slug</th>
+                            <th style="text-align: right;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="categoriesTableBody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- CREATE / EDIT PRODUCT MODAL -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-card">
+            <button type="button" class="modal-close" onclick="closeModal('productModal')"><i class="fas fa-times"></i></button>
+            <h2 id="modalProductTitle" style="font-size: 1.4rem; margin-bottom: 20px;">Add New Product</h2>
+            
+            <form id="productForm" onsubmit="handleSaveProduct(event)">
+                <input type="hidden" id="editProductId">
+                
+                <div class="form-group">
+                    <label class="form-label">Product Name</label>
+                    <input type="text" id="prodName" class="form-control" required placeholder="e.g. Noise Cancelling Headphones">
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <select id="prodCategory" class="form-control" required></select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Brand</label>
+                        <input type="text" id="prodBrand" class="form-control" placeholder="e.g. SoundPeak">
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div class="form-group">
+                        <label class="form-label">Price (LKR)</label>
+                        <input type="number" id="prodPrice" class="form-control" required placeholder="e.g. 25000">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Stock Quantity</label>
+                        <input type="number" id="prodStock" class="form-control" required placeholder="e.g. 20">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Image URL</label>
+                    <input type="url" id="prodImage" class="form-control" placeholder="https://images.unsplash.com/...">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea id="prodDesc" class="form-control" rows="3" placeholder="Detailed product specifications and highlights..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-create" style="width: 100%; justify-content: center; padding: 12px; margin-top: 15px;">
+                    <i class="fas fa-save"></i> Save Product
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/shared.js"></script>
+    <script>
+        let salesChartInstance = null;
+        let categoryChartInstance = null;
+        let cachedCategories = [];
+        let cachedAdminProducts = [];
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = getAuthToken();
+            if (!token) {
+                promptAdminLogin();
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/admin/stats', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (res.status === 401 || res.status === 403) {
+                    promptAdminLogin();
+                    return;
+                }
+                const data = await res.json();
+                if (data.success) {
+                    renderOverview(data.stats);
+                    loadAdminCategories();
+                }
+            } catch (_e) {
+                promptAdminLogin();
+            }
+        });
+
+        function promptAdminLogin() {
+            const email = prompt('Administrator Access Required.\n\nEnter Admin Email:', 'admin@smartcart.lk');
+            const password = prompt('Enter Admin Password:', 'admin123');
+            if (email && password) {
+                fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                })
+                .then(r => r.json())
+                .then(res => {
+                    if (res.success && res.user.role === 'admin') {
+                        setAuth(res.token, res.user);
+                        window.location.reload();
+                    } else {
+                        alert('Admin authorization failed. Redirecting to store.');
+                        window.location.href = '/products.html';
+                    }
+                });
+            } else {
+                window.location.href = '/products.html';
+            }
+        }
+
+        function switchAdminTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            document.getElementById('tabOverview').style.display   = tab === 'overview'   ? 'block' : 'none';
+            document.getElementById('tabProducts').style.display   = tab === 'products'   ? 'block' : 'none';
+            document.getElementById('tabOrders').style.display     = tab === 'orders'     ? 'block' : 'none';
+            document.getElementById('tabUsers').style.display      = tab === 'users'      ? 'block' : 'none';
+            document.getElementById('tabCategories').style.display = tab === 'categories' ? 'block' : 'none';
+
+            if (tab === 'products') fetchAdminProducts();
+            if (tab === 'orders') fetchAdminOrders();
+            if (tab === 'users') fetchAdminUsers();
+            if (tab === 'categories') loadAdminCategories();
+        }
+
+        function renderOverview(stats) {
+            document.getElementById('statRevenue').textContent  = fmtLKR(stats.totalRevenue);
+            document.getElementById('statOrders').textContent   = stats.totalOrders;
+            document.getElementById('statPending').textContent  = stats.pendingOrders;
+            document.getElementById('statProducts').textContent = stats.totalProducts;
+            document.getElementById('statUsers').textContent    = stats.totalUsers;
+
+            // Render Sales Chart
+            const salesCtx = document.getElementById('salesChart');
+            if (salesCtx && stats.chart) {
+                if (salesChartInstance) salesChartInstance.destroy();
+                salesChartInstance = new Chart(salesCtx, {
+                    type: 'line',
+                    data: {
+                        labels: stats.chart.labels,
+                        datasets: [{
+                            label: 'Revenue (LKR)',
+                            data: stats.chart.sales,
+                            borderColor: '#00D4FF',
+                            backgroundColor: 'rgba(0, 212, 255, 0.1)',
+                            fill: true,
+                            tension: 0.35,
+                            borderWidth: 2.5
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: 'rgba(255,255,255,0.6)' } },
+                            y: { grid: { color: 'rgba(255,255,255,0.06)' }, ticks: { color: 'rgba(255,255,255,0.6)' } }
+                        }
+                    }
+                });
+            }
+
+            // Render Category Chart
+            const catCtx = document.getElementById('categoryChart');
+            if (catCtx && stats.categoryCounts) {
+                if (categoryChartInstance) categoryChartInstance.destroy();
+                categoryChartInstance = new Chart(catCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: stats.categoryCounts.map(c => c.name),
+                        datasets: [{
+                            data: stats.categoryCounts.map(c => c.count),
+                            backgroundColor: ['#00FF85', '#00D4FF', '#FF0080', '#FFD600', '#9D00FF'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { position: 'bottom', labels: { color: '#fff' } } }
+                    }
+                });
+            }
+        }
+
+        // ================= PRODUCT MANAGEMENT =================
+
+        async function fetchAdminProducts() {
+            const tbody = document.getElementById('productsTableBody');
+            tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:30px;">Loading catalog...</td></tr>';
+
+            const token = getAuthToken();
+            try {
+                const res = await fetch('/api/admin/products', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                if (data.success) {
+                    cachedAdminProducts = data.products;
+                    renderProductsTable(data.products);
+                }
+            } catch (_e) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:#ff6b6b;">Error loading products.</td></tr>';
+            }
+        }
+
+        function renderProductsTable(products) {
+            const tbody = document.getElementById('productsTableBody');
+            if (!products.length) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:30px;">No products in store.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = products.map(p => `
+                <tr>
+                    <td style="display: flex; align-items: center; gap: 12px;">
+                        <img src="${p.image}" style="width: 44px; height: 44px; border-radius: 8px; object-fit: cover;">
+                        <div>
+                            <div style="font-weight: 700; color: #fff;">${p.name}</div>
+                            <small style="color: rgba(255,255,255,0.5);">${p.brand || 'SmartCart'}</small>
+                        </div>
+                    </td>
+                    <td><code>${p.sku || 'N/A'}</code></td>
+                    <td><span style="text-transform: capitalize; background: rgba(0,212,255,0.15); color: var(--electric-blue); padding: 3px 8px; border-radius: 6px; font-size: 0.8rem;">${p.category}</span></td>
+                    <td style="font-weight: 700; color: var(--lime-green);">${fmtLKR(p.price)}</td>
+                    <td>
+                        <span style="font-weight: 700; ${p.stock_quantity <= 5 ? 'color:#FF6B35;' : 'color:#fff;'}">${p.stock_quantity}</span>
+                    </td>
+                    <td>★ ${p.rating.toFixed(1)}</td>
+                    <td style="text-align: right;">
+                        <button type="button" class="btn-action" onclick="openProductModal(${p.id})"><i class="fas fa-edit"></i></button>
+                        <button type="button" class="btn-action del" onclick="handleDeleteProduct(${p.id})"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        document.getElementById('productSearchInput')?.addEventListener('input', (e) => {
+            const q = e.target.value.toLowerCase().trim();
+            const filtered = cachedAdminProducts.filter(p => p.name.toLowerCase().includes(q) || (p.sku && p.sku.toLowerCase().includes(q)));
+            renderProductsTable(filtered);
+        });
+
+        function openProductModal(productId = null) {
+            const modal = document.getElementById('productModal');
+            document.getElementById('productForm').reset();
+            populateCategoryDropdown();
+
+            if (productId) {
+                const p = cachedAdminProducts.find(item => item.id === productId);
+                if (p) {
+                    document.getElementById('modalProductTitle').textContent = 'Edit Product';
+                    document.getElementById('editProductId').value = p.id;
+                    document.getElementById('prodName').value     = p.name;
+                    document.getElementById('prodCategory').value = p.category;
+                    document.getElementById('prodBrand').value    = p.brand || '';
+                    document.getElementById('prodPrice').value    = p.price;
+                    document.getElementById('prodStock').value    = p.stock_quantity;
+                    document.getElementById('prodImage').value    = p.image;
+                    document.getElementById('prodDesc').value     = p.description || '';
+                }
+            } else {
+                document.getElementById('modalProductTitle').textContent = 'Add New Product';
+                document.getElementById('editProductId').value = '';
+            }
+            modal.classList.add('active');
+        }
+
+        async function handleSaveProduct(e) {
+            e.preventDefault();
+            const token = getAuthToken();
+            const id = document.getElementById('editProductId').value;
+
+            const payload = {
+                name: document.getElementById('prodName').value,
+                category: document.getElementById('prodCategory').value,
+                brand: document.getElementById('prodBrand').value,
+                price: parseFloat(document.getElementById('prodPrice').value),
+                stock: parseInt(document.getElementById('prodStock').value, 10),
+                image: document.getElementById('prodImage').value,
+                description: document.getElementById('prodDesc').value
+            };
+
+            const url = id ? `/api/admin/products/${id}` : '/api/admin/products';
+            const method = id ? 'PUT' : 'POST';
+
+            try {
+                const res = await fetch(url, {
+                    method,
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                if (data.success) {
+                    closeModal('productModal');
+                    showToast('Success', data.message, 'success');
+                    fetchAdminProducts();
+                } else {
+                    showToast('Error', data.message, 'error');
+                }
+            } catch (_e) {
+                showToast('Error', 'Failed to save product.', 'error');
+            }
+        }
+
+        async function handleDeleteProduct(id) {
+            if (!confirm('Are you sure you want to delete this product?')) return;
+            const token = getAuthToken();
+            try {
+                const res = await fetch(`/api/admin/products/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast('Deleted', data.message, 'info');
+                    fetchAdminProducts();
+                }
+            } catch (_e) {}
+        }
+
+        // ================= ORDERS MANAGEMENT =================
+
+        async function fetchAdminOrders() {
+            const tbody = document.getElementById('ordersTableBody');
+            tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:30px;">Loading orders...</td></tr>';
+
+            const status = document.getElementById('orderStatusFilter').value;
+            const token = getAuthToken();
+
+            try {
+                const res = await fetch(`/api/admin/orders?status=${status}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                if (data.success) {
+                    renderOrdersTable(data.orders);
+                }
+            } catch (_e) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:#ff6b6b;">Error loading orders.</td></tr>';
+            }
+        }
+
+        function renderOrdersTable(orders) {
+            const tbody = document.getElementById('ordersTableBody');
+            if (!orders.length) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:30px;">No orders found.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = orders.map(o => `
+                <tr>
+                    <td><strong>#${o.order_number}</strong></td>
+                    <td style="color: rgba(255,255,255,0.6);">${new Date(o.created_at).toLocaleDateString()}</td>
+                    <td>
+                        <div style="font-weight: 600;">${o.shipping_address ? o.shipping_address.recipient_name : 'Guest'}</div>
+                        <small style="color: rgba(255,255,255,0.5);">${o.shipping_address ? o.shipping_address.phone : ''}</small>
+                    </td>
+                    <td>${o.items.length} items</td>
+                    <td style="font-weight: 700; color: var(--lime-green);">${fmtLKR(o.total)}</td>
+                    <td><span style="text-transform: capitalize;">${o.payment_method.replace(/_/g, ' ')}</span></td>
+                    <td>
+                        <select class="status-select" onchange="handleUpdateOrderStatus(${o.id}, this.value)">
+                            <option value="pending"   ${o.status === 'pending'   ? 'selected' : ''}>Pending</option>
+                            <option value="paid"      ${o.status === 'paid'      ? 'selected' : ''}>Paid</option>
+                            <option value="shipped"   ${o.status === 'shipped'   ? 'selected' : ''}>Shipped</option>
+                            <option value="delivered" ${o.status === 'delivered' ? 'selected' : ''}>Delivered</option>
+                            <option value="cancelled" ${o.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+                        </select>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function handleUpdateOrderStatus(orderId, newStatus) {
+            const token = getAuthToken();
+            try {
+                const res = await fetch(`/api/admin/orders/${orderId}/status`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ status: newStatus })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast('Order Updated', data.message, 'success');
+                } else {
+                    showToast('Update Failed', data.message, 'error');
+                }
+            } catch (_e) {
+                showToast('Error', 'Failed to update order.', 'error');
+            }
+        }
+
+        // ================= USERS MANAGEMENT =================
+
+        async function fetchAdminUsers() {
+            const tbody = document.getElementById('usersTableBody');
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:30px;">Loading users...</td></tr>';
+            const token = getAuthToken();
+
+            try {
+                const res = await fetch('/api/admin/users', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                if (data.success && data.users) {
+                    tbody.innerHTML = data.users.map(u => `
+                        <tr>
+                            <td>#${u.id}</td>
+                            <td><strong>${u.first_name} ${u.last_name || ''}</strong></td>
+                            <td>${u.email}</td>
+                            <td>
+                                <span style="text-transform: uppercase; font-size: 0.75rem; font-weight: 800; padding: 3px 8px; border-radius: 6px; ${u.role === 'admin' ? 'background: #FF0080; color:#fff;' : 'background: rgba(0,212,255,0.15); color: var(--electric-blue);'}">
+                                    ${u.role}
+                                </span>
+                            </td>
+                            <td>
+                                <span style="font-size: 0.75rem; font-weight: 700; color: ${u.email_verified_at ? 'var(--lime-green)' : 'var(--sunset-orange)'}">
+                                    ${u.email_verified_at ? '<i class="fas fa-check"></i> Verified' : '<i class="fas fa-clock"></i> Unverified'}
+                                </span>
+                            </td>
+                            <td style="color: rgba(255,255,255,0.6);">${new Date(u.created_at).toLocaleDateString()}</td>
+                        </tr>
+                    `).join('');
+                }
+            } catch (_e) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#ff6b6b;">Error loading users.</td></tr>';
+            }
+        }
+
+        // ================= CATEGORIES MANAGEMENT =================
+
+        async function loadAdminCategories() {
+            const token = getAuthToken();
+            try {
+                const res = await fetch('/api/admin/categories', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                if (data.success) {
+                    cachedCategories = data.categories;
+                    populateCategoryDropdown();
+                    const tbody = document.getElementById('categoriesTableBody');
+                    if (tbody) {
+                        tbody.innerHTML = data.categories.map(c => `
+                            <tr>
+                                <td>#${c.id}</td>
+                                <td><strong>${c.name}</strong></td>
+                                <td><code>${c.slug}</code></td>
+                                <td style="text-align: right;">
+                                    <button type="button" class="btn-action del" onclick="handleDeleteCategory(${c.id})"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        `).join('');
+                    }
+                }
+            } catch (_e) {}
+        }
+
+        function populateCategoryDropdown() {
+            const select = document.getElementById('prodCategory');
+            if (!select || !cachedCategories.length) return;
+            select.innerHTML = cachedCategories.map(c => `<option value="${c.slug}">${c.name}</option>`).join('');
+        }
+
+        async function handleCreateCategory() {
+            const name = document.getElementById('newCatName').value.trim();
+            if (!name) return;
+            const token = getAuthToken();
+            try {
+                const res = await fetch('/api/admin/categories', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ name })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    document.getElementById('newCatName').value = '';
+                    showToast('Created', data.message, 'success');
+                    loadAdminCategories();
+                }
+            } catch (_e) {}
+        }
+
+        async function handleDeleteCategory(id) {
+            if (!confirm('Delete this category?')) return;
+            const token = getAuthToken();
+            try {
+                const res = await fetch(`/api/admin/categories/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast('Deleted', data.message, 'info');
+                    loadAdminCategories();
+                }
+            } catch (_e) {}
+        }
+
+        function closeModal(id) {
+            document.getElementById(id)?.classList.remove('active');
+        }
+    </script>
+</body>
+</html>
