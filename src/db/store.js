@@ -20,13 +20,16 @@ checkPostgres();
 
 // Initial mock data store for resilient local development & offline testing
 const initialCategories = [
-  { id: 1, name: 'Electronics', slug: 'electronics' },
-  { id: 2, name: 'Clothing', slug: 'clothing' },
-  { id: 3, name: 'Home & Garden', slug: 'home' },
-  { id: 4, name: 'Sports', slug: 'sports' },
-  { id: 5, name: 'Books', slug: 'books' },
-  { id: 6, name: 'Grocery & Gourmet', slug: 'grocery' },
-  { id: 7, name: 'Stationery & Office', slug: 'stationery' }
+  { id: 1, name: 'Electronics & Tech', slug: 'electronics' },
+  { id: 2, name: 'Clothing & Fashion', slug: 'clothing' },
+  { id: 3, name: 'Home & Living', slug: 'home' },
+  { id: 4, name: 'Sports & Fitness', slug: 'sports' },
+  { id: 5, name: 'Books & Literature', slug: 'books' },
+  { id: 6, name: 'Grocery & Fresh', slug: 'grocery' },
+  { id: 7, name: 'Stationery & Office', slug: 'stationery' },
+  { id: 8, name: 'Health & Wellness', slug: 'health' },
+  { id: 9, name: 'Beauty & Personal Care', slug: 'beauty' },
+  { id: 10, name: 'Toys & Kids', slug: 'toys' }
 ];
 
 const initialProducts = [
@@ -57,7 +60,16 @@ const initialProducts = [
   { id: 25, sku: 'SC-GRO-003', name: 'Anchor Full Cream Milk Powder 400g', slug: 'anchor-milk-powder-400g', category_id: 6, category: 'grocery', price: 1180, currency: 'LKR', stock_quantity: 45, rating: 4.8, reviews: 489, brand: 'Anchor', image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=600&q=80', description: '100% pure New Zealand dairy fortified with Vitamins A & D3 for daily family nutrition.', is_active: true },
   { id: 26, sku: 'SC-GRO-004', name: 'Munchee Super Cream Cracker 500g', slug: 'munchee-cream-cracker-500g', category_id: 6, category: 'grocery', price: 650, currency: 'LKR', stock_quantity: 90, rating: 4.9, reviews: 830, brand: 'Munchee', image: 'https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?w=600&q=80', description: 'Crispy oven-baked cream crackers, the classic Sri Lankan teatime companion.', is_active: true },
   { id: 27, sku: 'SC-STA-001', name: 'Executive Hardcover Journal & Metal Pen Set', slug: 'executive-journal-pen-set', category_id: 7, category: 'stationery', price: 2850, currency: 'LKR', stock_quantity: 30, rating: 4.7, reviews: 140, brand: 'Atlas', image: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&q=80', description: 'A5 leatherette dotted notebook with ribbon marker and matching weighted rollerball pen.', is_active: true },
-  { id: 28, sku: 'SC-STA-002', name: 'Artist Dual-Tip Brush Marker Pens (24 Pack)', slug: 'artist-dual-tip-markers-24', category_id: 7, category: 'stationery', price: 3450, currency: 'LKR', stock_quantity: 25, rating: 4.9, reviews: 215, brand: 'Atlas', image: 'https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=600&q=80', description: 'Vibrant blendable water-based dual brush and fine tip markers for calligraphy and sketching.', is_active: true }
+  { id: 28, sku: 'SC-STA-002', name: 'Artist Dual-Tip Brush Marker Pens (24 Pack)', slug: 'artist-dual-tip-markers-24', category_id: 7, category: 'stationery', price: 3450, currency: 'LKR', stock_quantity: 25, rating: 4.9, reviews: 215, brand: 'Atlas', image: 'https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=600&q=80', description: 'Vibrant blendable water-based dual brush and fine tip markers for calligraphy and sketching.', is_active: true },
+  { id: 29, sku: 'SC-HLT-001', name: 'Link Natural Samahan Herbal Tea (30 Sachets)', slug: 'link-natural-samahan-tea', category_id: 8, category: 'health', price: 1450, currency: 'LKR', stock_quantity: 60, rating: 5.0, reviews: 1420, brand: 'Link Natural', image: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=600&q=80', description: 'Authentic Sri Lankan 14-herb formulation for rapid relief from cold, catarrh, and immunity boost.', is_active: true },
+  { id: 30, sku: 'SC-HLT-002', name: 'Baraka Organic Extra Virgin Coconut Oil 500ml', slug: 'baraka-virgin-coconut-oil-500ml', category_id: 8, category: 'health', price: 1850, currency: 'LKR', stock_quantity: 40, rating: 4.9, reviews: 380, brand: 'Baraka', image: 'https://images.unsplash.com/photo-1526947425960-945c6e72858f?w=600&q=80', description: '100% pure cold-pressed unrefined Ceylon virgin coconut oil rich in Lauric Acid and MCTs.', is_active: true },
+  { id: 31, sku: 'SC-HLT-003', name: 'Siddhalepa Herbal Ayurvedic Balm 50g', slug: 'siddhalepa-ayurvedic-balm-50g', category_id: 8, category: 'health', price: 420, currency: 'LKR', stock_quantity: 120, rating: 4.9, reviews: 2100, brand: 'Siddhalepa', image: 'https://images.unsplash.com/photo-1512069772995-ec65ed45afd6?w=600&q=80', description: 'Traditional herbal pain relief balm crafted from clove, cinnamon, eucalyptus and citronella essence.', is_active: true },
+  { id: 32, sku: 'SC-BTY-001', name: 'Spa Ceylon Cinnamon & Honey Facial Cleanser 150ml', slug: 'spa-ceylon-cinnamon-honey-cleanser', category_id: 9, category: 'beauty', price: 3850, currency: 'LKR', stock_quantity: 35, rating: 4.8, reviews: 310, brand: 'Spa Ceylon', image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&q=80', description: 'Ayurvedic brightening face wash infused with pure organic Ceylon cinnamon and raw forest bee honey.', is_active: true },
+  { id: 33, sku: 'SC-BTY-002', name: 'Pure Aloe Vera Soothing Hydration Gel 250ml', slug: 'pure-aloe-vera-soothing-gel', category_id: 9, category: 'beauty', price: 1250, currency: 'LKR', stock_quantity: 50, rating: 4.8, reviews: 490, brand: "Nature's Secret", image: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=600&q=80', description: '99% pure soothing gel for instant skin cooling, deep daily moisture, and sun damage recovery.', is_active: true },
+  { id: 34, sku: 'SC-BTY-003', name: 'Natural Sandalwood Luxury Soap (Pack of 3)', slug: 'natural-sandalwood-luxury-soap', category_id: 9, category: 'beauty', price: 1950, currency: 'LKR', stock_quantity: 45, rating: 4.7, reviews: 275, brand: 'Spa Ceylon', image: 'https://images.unsplash.com/photo-1607006310405-9705f4bf239f?w=600&q=80', description: 'Triple-milled aromatic sandalwood cleansing soap for radiant, smooth, and deeply nourished skin.', is_active: true },
+  { id: 35, sku: 'SC-TOY-001', name: 'STEM Robotic Science & Coding Kit for Kids', slug: 'stem-robotic-science-kit', category_id: 10, category: 'toys', price: 8750, currency: 'LKR', stock_quantity: 20, rating: 4.9, reviews: 185, brand: 'SmartKidz', image: 'https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=600&q=80', description: 'Solar-powered 14-in-1 programmable robot building kit to develop engineering and logic skills.', is_active: true },
+  { id: 36, sku: 'SC-TOY-002', name: 'Eco Wooden Geometric Puzzle Board & Blocks', slug: 'eco-wooden-geometric-puzzle', category_id: 10, category: 'toys', price: 3250, currency: 'LKR', stock_quantity: 30, rating: 4.8, reviews: 160, brand: 'SmartKidz', image: 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600&q=80', description: 'Non-toxic organic wooden sorting and stacking Montessori sensory educational toy for toddlers.', is_active: true },
+  { id: 37, sku: 'SC-TOY-003', name: 'High-Speed 4WD All-Terrain Remote Control Stunt Car', slug: '4wd-remote-control-stunt-car', category_id: 10, category: 'toys', price: 6850, currency: 'LKR', stock_quantity: 22, rating: 4.7, reviews: 240, brand: 'Turborun', image: 'https://images.unsplash.com/photo-1594787318286-3d835c1d207f?w=600&q=80', description: '360-degree double-sided tumbling RC stunt car with shockproof tires and USB rechargeable battery.', is_active: true }
 ];
 
 const mockStore = {

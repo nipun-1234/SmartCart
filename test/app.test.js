@@ -150,12 +150,20 @@ test('categories endpoints return dynamic categories with product counts', async
   assert.equal(res1.status, 200);
   assert.equal(res1.body.success, true);
   assert.ok(Array.isArray(res1.body.categories));
-  assert.ok(res1.body.categories.length >= 7);
+  assert.equal(res1.body.categories.length, 10);
 
   const grocery = res1.body.categories.find((c) => c.slug === 'grocery');
   assert.ok(grocery);
-  assert.equal(grocery.name, 'Grocery & Gourmet');
+  assert.equal(grocery.name, 'Grocery & Fresh');
   assert.ok(grocery.product_count > 0);
+
+  // Verify newly added curated categories
+  const health = res1.body.categories.find((c) => c.slug === 'health');
+  const beauty = res1.body.categories.find((c) => c.slug === 'beauty');
+  const toys = res1.body.categories.find((c) => c.slug === 'toys');
+  assert.ok(health && health.product_count > 0);
+  assert.ok(beauty && beauty.product_count > 0);
+  assert.ok(toys && toys.product_count > 0);
 
   // Alias /api/products/categories works identically
   const res2 = await request(app).get('/api/products/categories');
@@ -164,7 +172,7 @@ test('categories endpoints return dynamic categories with product counts', async
   assert.equal(res2.body.categories.length, res1.body.categories.length);
 });
 
-test('filtering products by grocery and stationery categories returns correct items', async () => {
+test('filtering products by grocery, stationery, health, beauty, and toys categories returns correct items', async () => {
   // Test grocery filter
   const groceryRes = await request(app).get('/api/products?category=grocery');
   assert.equal(groceryRes.status, 200);
@@ -174,13 +182,22 @@ test('filtering products by grocery and stationery categories returns correct it
     assert.equal(p.category, 'grocery');
   });
 
-  // Test stationery filter
-  const stationeryRes = await request(app).get('/api/products?category=stationery');
-  assert.equal(stationeryRes.status, 200);
-  assert.equal(stationeryRes.body.success, true);
-  assert.ok(stationeryRes.body.products.length > 0);
-  stationeryRes.body.products.forEach((p) => {
-    assert.equal(p.category, 'stationery');
+  // Test health filter
+  const healthRes = await request(app).get('/api/products?category=health');
+  assert.equal(healthRes.status, 200);
+  assert.equal(healthRes.body.success, true);
+  assert.ok(healthRes.body.products.length > 0);
+  healthRes.body.products.forEach((p) => {
+    assert.equal(p.category, 'health');
+  });
+
+  // Test toys filter
+  const toysRes = await request(app).get('/api/products?category=toys');
+  assert.equal(toysRes.status, 200);
+  assert.equal(toysRes.body.success, true);
+  assert.ok(toysRes.body.products.length > 0);
+  toysRes.body.products.forEach((p) => {
+    assert.equal(p.category, 'toys');
   });
 });
 
