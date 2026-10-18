@@ -59,6 +59,17 @@ router.get('/brands', async (_req, res) => {
     return res.status(500).json({ success: false, message: 'Could not load brands.' });
   }
 });
+/**
+ * Get all active categories with product counts
+ */
+router.get('/categories', async (_req, res) => {
+  try {
+    const categories = await store.getCategories();
+    return res.json({ success: true, categories });
+  } catch (err) {
+    return res.status(500).json({ success: false, message: 'Could not load categories.' });
+  }
+});
 
 /**
  * Get single product by ID or Slug

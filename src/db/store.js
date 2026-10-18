@@ -255,7 +255,11 @@ const store = {
     let list = [...mockStore.products].filter((p) => p.is_active);
 
     if (category && category !== 'all') {
-      list = list.filter((p) => p.category === category || p.category_id === Number(category));
+      const catVal = String(category).toLowerCase().trim();
+      list = list.filter((p) => {
+        const pCat = (p.category || '').toLowerCase();
+        return pCat === catVal || p.category_id === Number(category);
+      });
     }
 
     if (search && search.trim()) {
@@ -357,7 +361,16 @@ const store = {
 
   // --- CATEGORIES ---
   async getCategories() {
-    return mockStore.categories;
+    return mockStore.categories.map((c) => {
+      const cSlug = (c.slug || '').toLowerCase();
+      const count = mockStore.products.filter(
+        (p) => p.is_active && (p.category_id === c.id || (p.category || '').toLowerCase() === cSlug)
+      ).length;
+      return {
+        ...c,
+        product_count: count
+      };
+    });
   },
 
   async createCategory({ name, slug }) {

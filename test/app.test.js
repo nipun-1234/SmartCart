@@ -144,3 +144,51 @@ test('unknown endpoints return JSON 404', async () => {
   assert.equal(response.status, 404);
   assert.equal(response.body.success, false);
 });
+
+test('categories endpoints return dynamic categories with product counts', async () => {
+  const res1 = await request(app).get('/api/categories');
+  assert.equal(res1.status, 200);
+  assert.equal(res1.body.success, true);
+  assert.ok(Array.isArray(res1.body.categories));
+  assert.ok(res1.body.categories.length >= 7);
+
+  const grocery = res1.body.categories.find((c) => c.slug === 'grocery');
+  assert.ok(grocery);
+  assert.equal(grocery.name, 'Grocery & Gourmet');
+  assert.ok(grocery.product_count > 0);
+
+  // Alias /api/products/categories works identically
+  const res2 = await request(app).get('/api/products/categories');
+  assert.equal(res2.status, 200);
+  assert.equal(res2.body.success, true);
+  assert.equal(res2.body.categories.length, res1.body.categories.length);
+});
+
+test('filtering products by grocery and stationery categories returns correct items', async () => {
+  // Test grocery filter
+  const groceryRes = await request(app).get('/api/products?category=grocery');
+  assert.equal(groceryRes.status, 200);
+  assert.equal(groceryRes.body.success, true);
+  assert.ok(groceryRes.body.products.length > 0);
+  groceryRes.body.products.forEach((p) => {
+    assert.equal(p.category, 'grocery');
+  });
+
+  // Test stationery filter
+  const stationeryRes = await request(app).get('/api/products?category=stationery');
+  assert.equal(stationeryRes.status, 200);
+  assert.equal(stationeryRes.body.success, true);
+  assert.ok(stationeryRes.body.products.length > 0);
+  stationeryRes.body.products.forEach((p) => {
+    assert.equal(p.category, 'stationery');
+  });
+});
+
+test('filtering by non-existent or newly added category safely returns empty catalog without error', async () => {
+  const res = await request(app).get('/api/products?category=automotive');
+  assert.equal(res.status, 200);
+  assert.equal(res.body.success, true);
+  assert.equal(res.body.products.length, 0);
+  assert.equal(res.body.total, 0);
+});
+

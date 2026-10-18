@@ -518,6 +518,30 @@
                 <span>Smart<span class="sc-logo-accent">Cart</span></span>
             </a>
 
+            <!-- Navbar Category Dropdown & Quick Links -->
+            <nav class="sc-main-nav-links" id="scMainNavLinks">
+                <div class="sc-nav-dropdown-wrap" id="scCatNavDropdownWrap">
+                    <button type="button" class="sc-nav-link-btn" id="scCatDropdownToggle" aria-haspopup="true" aria-expanded="false" onclick="toggleNavCatDropdown(event)">
+                        <i class="fas fa-layer-group" style="color: var(--primary-glow);"></i>
+                        <span>Categories</span>
+                        <i class="fas fa-chevron-down nav-chevron"></i>
+                    </button>
+                    <div class="sc-cat-dropdown-menu" id="scNavCategoriesMenu">
+                        <div class="sc-cat-dropdown-header">
+                            <span>Shop by Category</span>
+                            <a href="products.html" class="sc-cat-view-all">All Products &rarr;</a>
+                        </div>
+                        <div class="sc-cat-dropdown-grid" id="scNavCategoriesGrid">
+                            <!-- Populated dynamically via loadStorefrontCategories() -->
+                        </div>
+                    </div>
+                </div>
+                <a href="products.html" class="sc-nav-link-item">
+                    <i class="fas fa-store"></i>
+                    <span>Catalog</span>
+                </a>
+            </nav>
+
             <!-- Autocomplete Search Bar -->
             <div class="sc-search-wrap" id="scSearchWrap">
                 <form class="sc-search-bar" id="scHeaderSearchForm" onsubmit="event.preventDefault(); submitInstantSearch();">
@@ -666,7 +690,7 @@
                 <p class="section-subtext-main" data-i18n="catSub">Select a category to jump straight into tailored catalog filters</p>
             </div>
 
-            <div class="sc-category-grid">
+            <div class="sc-category-grid" id="scCategoryGrid">
                 <!-- Grocery -->
                 <div class="sc-cat-card" onclick="window.location.href='products.html?category=grocery'">
                     <div class="sc-cat-icon" style="background: rgba(232, 112, 42, 0.12); color: var(--primary-glow);">🥬</div>
@@ -1708,8 +1732,141 @@
             }
         }, { passive: true });
 
+        // ==================== DYNAMIC CATEGORIES LOADER ====================
+        const categoryMetadata = {
+            grocery: {
+                icon: '🥬',
+                name: 'Grocery & Fresh',
+                desc: 'Samba Rice, Ceylon Tea & Dairy',
+                bg: 'rgba(232, 112, 42, 0.12)',
+                color: 'var(--primary-glow)'
+            },
+            electronics: {
+                icon: '⚡',
+                name: 'Electronics & Tech',
+                desc: 'Audio, Smart Watches & Gaming',
+                bg: 'rgba(255, 184, 0, 0.12)',
+                color: 'var(--accent-cyan)'
+            },
+            clothing: {
+                icon: '👕',
+                name: 'Fashion & Apparel',
+                desc: 'Performance Jackets & Leather Bags',
+                bg: 'rgba(255, 71, 58, 0.12)',
+                color: 'var(--accent-pink)'
+            },
+            home: {
+                icon: '🏠',
+                name: 'Home & Living',
+                desc: 'Robot Vacuums, Air Fryers & Lamps',
+                bg: 'rgba(255, 214, 0, 0.12)',
+                color: 'var(--accent-yellow)'
+            },
+            sports: {
+                icon: '🏃',
+                name: 'Sports & Fitness',
+                desc: 'AeroCushion Shoes & Dumbbells',
+                bg: 'rgba(255, 107, 53, 0.12)',
+                color: 'var(--accent-orange)'
+            },
+            books: {
+                icon: '📚',
+                name: 'Books & Literature',
+                desc: 'Bestsellers, Wisdom & Learning',
+                bg: 'rgba(217, 83, 30, 0.12)',
+                color: 'var(--accent-purple)'
+            },
+            stationery: {
+                icon: '✏️',
+                name: 'Books & Stationery',
+                desc: 'Executive Journals, Art & Markers',
+                bg: 'rgba(217, 83, 30, 0.12)',
+                color: 'var(--accent-purple)'
+            }
+        };
+
+        function getCategoryMeta(cat) {
+            const slug = (cat.slug || '').toLowerCase();
+            if (categoryMetadata[slug]) {
+                return {
+                    ...categoryMetadata[slug],
+                    count: cat.product_count !== undefined ? cat.product_count : null
+                };
+            }
+            return {
+                icon: '🏷️',
+                name: cat.name || slug,
+                desc: cat.product_count !== undefined ? `${cat.product_count} items available` : 'Curated collection',
+                bg: 'rgba(232, 112, 42, 0.1)',
+                color: 'var(--primary-glow)',
+                count: cat.product_count !== undefined ? cat.product_count : null
+            };
+        }
+
+        async function loadStorefrontCategories() {
+            try {
+                const res = await fetch('/api/categories');
+                const data = await res.json();
+                if (!data.success || !Array.isArray(data.categories)) return;
+
+                const categories = data.categories;
+
+                // 1. Render into Home Page Section Grid
+                const gridEl = document.getElementById('scCategoryGrid');
+                if (gridEl && categories.length > 0) {
+                    gridEl.innerHTML = categories.map((cat) => {
+                        const meta = getCategoryMeta(cat);
+                        const countBadge = meta.count !== null ? `<span style="display:inline-block; margin-top: 6px; font-size: 0.72rem; padding: 2px 8px; border-radius: 10px; background: rgba(255,255,255,0.08); color: var(--text-sub);">${meta.count} items</span>` : '';
+                        return `
+                            <div class="sc-cat-card" onclick="window.location.href='products.html?category=${encodeURIComponent(cat.slug)}'">
+                                <div class="sc-cat-icon" style="background: ${meta.bg}; color: ${meta.color};">${meta.icon}</div>
+                                <div class="sc-cat-name">${meta.name}</div>
+                                <div class="sc-cat-desc">${meta.desc}</div>
+                                ${countBadge}
+                            </div>
+                        `;
+                    }).join('');
+                }
+
+                // 2. Render into Navbar Categories Dropdown
+                const navGrid = document.getElementById('scNavCategoriesGrid');
+                if (navGrid && categories.length > 0) {
+                    navGrid.innerHTML = categories.map((cat) => {
+                        const meta = getCategoryMeta(cat);
+                        return `
+                            <a href="products.html?category=${encodeURIComponent(cat.slug)}" class="sc-nav-cat-item">
+                                <span class="sc-nav-cat-icon">${meta.icon}</span>
+                                <div class="sc-nav-cat-info">
+                                    <div class="sc-nav-cat-name">${meta.name}</div>
+                                    <div class="sc-nav-cat-count">${meta.count !== null ? meta.count + ' items' : 'Explore'}</div>
+                                </div>
+                            </a>
+                        `;
+                    }).join('');
+                }
+            } catch (err) {
+                console.warn('Could not load dynamic categories, fallback in place:', err);
+            }
+        }
+
+        function toggleNavCatDropdown(e) {
+            e.stopPropagation();
+            const wrap = document.getElementById('scCatNavDropdownWrap');
+            if (wrap) {
+                wrap.classList.toggle('open');
+            }
+        }
+
+        document.addEventListener('click', (e) => {
+            const wrap = document.getElementById('scCatNavDropdownWrap');
+            if (wrap && !wrap.contains(e.target)) {
+                wrap.classList.remove('open');
+            }
+        });
+
         // ==================== INITIALIZE STOREFRONT ====================
         document.addEventListener('DOMContentLoaded', () => {
+            loadStorefrontCategories();
             loadFeaturedStoreProducts();
             if (typeof checkAuthSession === 'function') checkAuthSession();
             if (typeof updateCartBadge === 'function') updateCartBadge();

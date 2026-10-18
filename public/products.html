@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/smartcart-sections.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', system-ui, sans-serif; }
 
@@ -179,7 +180,24 @@
 
             <nav class="nav-links">
                 <a href="/index.html"><i class="fas fa-home"></i> Home</a>
-                <a href="#products" id="navProductsLink" class="active" onclick="switchView('products')"><i class="fas fa-layer-group"></i> Catalog</a>
+
+                <!-- Category Quick Dropdown in Navbar -->
+                <div class="sc-nav-dropdown-wrap" id="productsNavCatWrap" style="position: relative; display: inline-block;">
+                    <a href="javascript:void(0)" id="productsNavCatToggle" onclick="toggleProductsNavCat(event)" style="color: rgba(255,255,255,0.85); text-decoration: none; padding: 8px 14px; border-radius: 30px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; border: 1px solid transparent;">
+                        <i class="fas fa-layer-group" style="color: var(--lime-green);"></i> Categories <i class="fas fa-chevron-down" style="font-size: 0.72rem; opacity: 0.7;"></i>
+                    </a>
+                    <div class="sc-cat-dropdown-menu" id="productsNavCatMenu" style="width: 320px; top: calc(100% + 8px);">
+                        <div class="sc-cat-dropdown-header">
+                            <span>Filter by Category</span>
+                            <a href="javascript:void(0)" onclick="selectCategory('all'); closeProductsNavCat();" class="sc-cat-view-all">View All &rarr;</a>
+                        </div>
+                        <div id="productsNavCatList" style="display: flex; flex-direction: column; gap: 6px; max-height: 320px; overflow-y: auto;">
+                            <!-- Populated dynamically via loadCategories() -->
+                        </div>
+                    </div>
+                </div>
+
+                <a href="#products" id="navProductsLink" class="active" onclick="switchView('products')"><i class="fas fa-store"></i> Catalog</a>
                 <a href="#orders" id="navOrdersLink" onclick="switchView('orders')"><i class="fas fa-receipt"></i> Orders</a>
                 <a href="#cart" id="navCartLink" class="cart-link" onclick="switchView('cart')">
                     <i class="fas fa-shopping-cart"></i> Cart
@@ -194,16 +212,16 @@
     <main class="container" style="min-height: 80vh;">
         <!-- VIEW 1: PRODUCTS CATALOG -->
         <section id="productsSection">
+            <!-- Visual Category Pills Bar -->
+            <div class="category-pills-bar" id="categoryPillsContainer">
+                <!-- Dynamically rendered pills with live counts -->
+            </div>
+
             <!-- Filter & Sort Bar -->
             <div class="catalog-controls">
                 <div class="filter-group">
                     <select id="catFilter" class="filter-select">
                         <option value="all">All Categories</option>
-                        <option value="electronics">Electronics</option>
-                        <option value="clothing">Clothing & Fashion</option>
-                        <option value="home">Home & Living</option>
-                        <option value="sports">Sports & Outdoors</option>
-                        <option value="books">Books & Stationery</option>
                     </select>
 
                     <select id="sortFilter" class="filter-select">
@@ -421,18 +439,151 @@
         let currentPage = 1;
         let activeCoupon = null;
         let selectedPaymentMethod = 'cash_on_delivery';
+        let storeCategories = [];
+
+        const categoryIcons = {
+            all: '✨',
+            grocery: '🥬',
+            electronics: '⚡',
+            clothing: '👕',
+            home: '🏠',
+            sports: '🏃',
+            books: '📚',
+            stationery: '✏️'
+        };
+
+        function getCatIcon(slug) {
+            return categoryIcons[(slug || '').toLowerCase()] || '🏷️';
+        }
+
+        // ================= DYNAMIC CATEGORY ENGINE =================
+        async function loadCategories() {
+            try {
+                const res = await fetch('/api/categories');
+                const data = await res.json();
+                if (data.success && Array.isArray(data.categories)) {
+                    storeCategories = data.categories;
+                    renderCategoriesUI(data.categories);
+                }
+            } catch (err) {
+                console.warn('Could not load categories:', err);
+            }
+        }
+
+        function renderCategoriesUI(categories) {
+            const catSelect = document.getElementById('catFilter');
+            const pillsContainer = document.getElementById('categoryPillsContainer');
+            const navList = document.getElementById('productsNavCatList');
+
+            const currentSelected = catSelect ? catSelect.value : 'all';
+            const totalCount = categories.reduce((sum, c) => sum + (c.product_count || 0), 0);
+
+            // 1. Populate Dropdown Filter
+            if (catSelect) {
+                catSelect.innerHTML = `<option value="all">All Categories (${totalCount})</option>`;
+                categories.forEach(c => {
+                    const opt = document.createElement('option');
+                    opt.value = c.slug;
+                    opt.textContent = `${c.name} (${c.product_count !== undefined ? c.product_count : 0})`;
+                    catSelect.appendChild(opt);
+                });
+                catSelect.value = currentSelected;
+            }
+
+            // 2. Populate Interactive Category Pills Bar
+            if (pillsContainer) {
+                let pillsHtml = `
+                    <button type="button" class="cat-pill-btn ${currentSelected === 'all' ? 'active' : ''}" data-slug="all" onclick="selectCategory('all')">
+                        <span>✨ All Products</span>
+                        <span class="cat-pill-badge">${totalCount}</span>
+                    </button>
+                `;
+
+                categories.forEach(c => {
+                    const icon = getCatIcon(c.slug);
+                    const isActive = currentSelected.toLowerCase() === (c.slug || '').toLowerCase();
+                    pillsHtml += `
+                        <button type="button" class="cat-pill-btn ${isActive ? 'active' : ''}" data-slug="${c.slug}" onclick="selectCategory('${c.slug}')">
+                            <span>${icon} ${c.name}</span>
+                            <span class="cat-pill-badge">${c.product_count !== undefined ? c.product_count : 0}</span>
+                        </button>
+                    `;
+                });
+
+                pillsContainer.innerHTML = pillsHtml;
+            }
+
+            // 3. Populate Navbar Quick Categories Dropdown
+            if (navList) {
+                navList.innerHTML = categories.map(c => `
+                    <a href="javascript:void(0)" onclick="selectCategory('${c.slug}'); closeProductsNavCat();" class="sc-nav-cat-item" style="padding: 8px 12px;">
+                        <span class="sc-nav-cat-icon" style="font-size: 0.95rem;">${getCatIcon(c.slug)}</span>
+                        <div class="sc-nav-cat-info">
+                            <div class="sc-nav-cat-name" style="font-size: 0.85rem;">${c.name}</div>
+                            <div class="sc-nav-cat-count">${c.product_count !== undefined ? c.product_count + ' items' : ''}</div>
+                        </div>
+                    </a>
+                `).join('');
+            }
+        }
+
+        function selectCategory(slug) {
+            const catSelect = document.getElementById('catFilter');
+            if (catSelect) {
+                // If slug option doesn't exist yet, dynamically append it so filter never breaks
+                const exists = Array.from(catSelect.options).some(o => o.value.toLowerCase() === slug.toLowerCase());
+                if (!exists && slug !== 'all') {
+                    const opt = document.createElement('option');
+                    opt.value = slug;
+                    opt.textContent = slug.charAt(0).toUpperCase() + slug.slice(1);
+                    catSelect.appendChild(opt);
+                }
+                catSelect.value = slug;
+            }
+
+            // Synchronize active state across Category Pills
+            document.querySelectorAll('.cat-pill-btn').forEach(btn => {
+                const btnSlug = btn.getAttribute('data-slug');
+                btn.classList.toggle('active', (btnSlug || '').toLowerCase() === (slug || '').toLowerCase());
+            });
+
+            // Update URL search parameters without reloading page
+            const url = new URL(window.location);
+            if (slug === 'all') {
+                url.searchParams.delete('category');
+            } else {
+                url.searchParams.set('category', slug);
+            }
+            window.history.pushState({}, '', url);
+
+            fetchCatalog(1);
+        }
+
+        function toggleProductsNavCat(e) {
+            e.stopPropagation();
+            const wrap = document.getElementById('productsNavCatWrap');
+            if (wrap) wrap.classList.toggle('open');
+        }
+
+        function closeProductsNavCat() {
+            const wrap = document.getElementById('productsNavCatWrap');
+            if (wrap) wrap.classList.remove('open');
+        }
+
+        document.addEventListener('click', (e) => {
+            const wrap = document.getElementById('productsNavCatWrap');
+            if (wrap && !wrap.contains(e.target)) {
+                wrap.classList.remove('open');
+            }
+        });
 
         // Load Catalog on Boot
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
             // Check URL search parameters
             const urlParams = new URLSearchParams(window.location.search);
             const categoryParam = urlParams.get('category');
             const searchParam = urlParams.get('search');
 
-            if (categoryParam) {
-                const catEl = document.getElementById('catFilter');
-                if (catEl) catEl.value = categoryParam;
-            }
             if (searchParam) {
                 const searchEl = document.getElementById('catalogSearch');
                 if (searchEl) searchEl.value = searchParam;
@@ -445,8 +596,16 @@
                 if (couponInput) couponInput.value = pendingCoupon;
             }
 
+            // Load categories and brands dynamically
+            await loadCategories();
             loadBrands();
-            fetchCatalog(1);
+
+            if (categoryParam) {
+                selectCategory(categoryParam);
+            } else {
+                fetchCatalog(1);
+            }
+
             setupCatalogEventListeners();
 
             // Hash router check
@@ -526,11 +685,18 @@
         function renderProductsGrid(products) {
             const grid = document.getElementById('productsGrid');
             if (!products || products.length === 0) {
+                const catVal = document.getElementById('catFilter').value;
+                const catLabel = catVal !== 'all' ? ` in "${catVal}"` : '';
                 grid.innerHTML = `
-                    <div style="grid-column: 1/-1; text-align: center; padding: 80px 20px;">
-                        <i class="fas fa-box-open" style="font-size: 3rem; color: rgba(255,255,255,0.3); margin-bottom: 15px;"></i>
-                        <h3 style="font-size: 1.3rem;">No products found</h3>
-                        <p style="color: rgba(255,255,255,0.6);">Try clearing your search query or filters.</p>
+                    <div style="grid-column: 1/-1; text-align: center; padding: 70px 20px;">
+                        <i class="fas fa-box-open" style="font-size: 3.2rem; color: rgba(255,255,255,0.25); margin-bottom: 16px;"></i>
+                        <h3 style="font-size: 1.4rem; color: #fff; margin-bottom: 8px;">No products found${catLabel}</h3>
+                        <p style="color: rgba(255,255,255,0.6); max-width: 440px; margin: 0 auto 20px;">
+                            We couldn't find matching items for your selection. Try clearing your search query or choosing another category.
+                        </p>
+                        <button type="button" class="btn-add-cart" onclick="selectCategory('all')" style="margin: 0 auto; padding: 10px 24px; font-size: 0.95rem;">
+                            <i class="fas fa-rotate-left"></i> View All Products
+                        </button>
                     </div>
                 `;
                 return;
@@ -578,7 +744,7 @@
 
         function setupCatalogEventListeners() {
             document.getElementById('applyFiltersBtn').addEventListener('click', () => fetchCatalog(1));
-            document.getElementById('catFilter').addEventListener('change', () => fetchCatalog(1));
+            document.getElementById('catFilter').addEventListener('change', (e) => selectCategory(e.target.value));
             document.getElementById('sortFilter').addEventListener('change', () => fetchCatalog(1));
             document.getElementById('brandFilter').addEventListener('change', () => fetchCatalog(1));
             document.getElementById('searchBtn').addEventListener('click', () => fetchCatalog(1));
@@ -586,13 +752,12 @@
                 if (e.key === 'Enter') fetchCatalog(1);
             });
             document.getElementById('resetFiltersBtn').addEventListener('click', () => {
-                document.getElementById('catFilter').value = 'all';
                 document.getElementById('sortFilter').value = 'default';
                 document.getElementById('brandFilter').value = 'all';
                 document.getElementById('minPrice').value = '';
                 document.getElementById('maxPrice').value = '';
                 document.getElementById('catalogSearch').value = '';
-                fetchCatalog(1);
+                selectCategory('all');
             });
 
             // Coupon validation
