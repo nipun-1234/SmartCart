@@ -882,6 +882,409 @@
             transform: translateY(-2px);
         }
 
+        /* ==================== ENHANCED CARD & TELEMETRY STYLING ==================== */
+        .catalog-telemetry-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            padding: 10px 18px;
+            background: rgba(18, 14, 26, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            backdrop-filter: blur(14px);
+        }
+
+        .telemetry-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .live-pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00FF85;
+            box-shadow: 0 0 10px #00FF85;
+            animation: pulseGreen 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseGreen {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.35); opacity: 0.6; }
+        }
+
+        .telemetry-divider {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .telemetry-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.78rem;
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        /* Quick Filter Tags */
+        .quick-tags-scroll {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .quick-tag-chip {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 9999px;
+            padding: 5px 12px;
+            color: rgba(255, 255, 255, 0.82);
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .quick-tag-chip:hover {
+            background: rgba(232, 112, 42, 0.18);
+            border-color: rgba(232, 112, 42, 0.45);
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .quick-tag-chip.active {
+            background: linear-gradient(135deg, rgba(232, 112, 42, 0.35), rgba(255, 184, 0, 0.25));
+            border-color: var(--primary-glow);
+            color: #ffffff;
+            box-shadow: 0 0 12px rgba(232, 112, 42, 0.3);
+        }
+
+        /* View Mode Switcher */
+        .view-mode-switcher {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 3px;
+        }
+
+        .view-switch-btn {
+            background: none;
+            border: none;
+            width: 32px;
+            height: 30px;
+            border-radius: 8px;
+            color: rgba(255, 255, 255, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.88rem;
+            transition: all 0.2s ease;
+        }
+
+        .view-switch-btn:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .view-switch-btn.active {
+            background: var(--primary-glow);
+            color: #0b0704;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(232, 112, 42, 0.4);
+        }
+
+        /* Active Filter Chips Tray */
+        .active-filter-chips-tray {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 10px 16px;
+            background: rgba(232, 112, 42, 0.08);
+            border: 1px solid rgba(232, 112, 42, 0.25);
+            border-radius: 14px;
+            flex-wrap: wrap;
+            animation: slideDown 0.25s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tray-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tray-chips-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            flex: 1;
+        }
+
+        .tray-chip {
+            background: rgba(14, 11, 22, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 20px;
+            padding: 4px 10px 4px 12px;
+            font-size: 0.75rem;
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tray-chip-remove {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: color 0.15s;
+        }
+        .tray-chip-remove:hover {
+            color: #ff473a;
+        }
+
+        .btn-clear-all-chips {
+            background: none;
+            border: none;
+            color: #ff7b72;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 4px 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: opacity 0.2s;
+        }
+        .btn-clear-all-chips:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        /* Upgraded Product Card Styles */
+        .product-card {
+            background: linear-gradient(180deg, rgba(28, 22, 38, 0.78) 0%, rgba(18, 14, 26, 0.85) 100%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            border-top: 1px solid rgba(232, 112, 42, 0.35) !important;
+            border-radius: 20px;
+            padding: 15px;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(18px);
+            box-shadow: 0 12px 30px -5px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.03);
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px) scale(1.015);
+            border-color: rgba(232, 112, 42, 0.55) !important;
+            border-top-color: var(--accent-cyan) !important;
+            box-shadow: 0 25px 55px -10px rgba(0, 0, 0, 0.85), 0 0 35px -5px rgba(232, 112, 42, 0.28) !important;
+        }
+
+        /* Quick-Action Overlay on Product Image */
+        .card-quick-actions {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            display: flex;
+            gap: 6px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .product-card:hover .card-quick-actions {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .quick-action-btn {
+            flex: 1;
+            background: rgba(14, 11, 24, 0.88);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 0.76rem;
+            font-weight: 700;
+            padding: 8px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .quick-action-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .quick-action-btn.primary {
+            background: linear-gradient(135deg, var(--primary-glow), var(--accent-cyan));
+            color: #0b0704;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(232, 112, 42, 0.4);
+        }
+
+        .quick-action-btn.primary:hover {
+            filter: brightness(1.1);
+        }
+
+        /* Discount Tag */
+        .card-discount-tag {
+            position: absolute;
+            bottom: 12px;
+            left: 10px;
+            background: linear-gradient(135deg, #ff4924, #ff6e2b);
+            color: #ffffff;
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 6px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(255, 73, 36, 0.35);
+            z-index: 2;
+            transition: opacity 0.2s;
+        }
+
+        .product-card:hover .card-discount-tag {
+            opacity: 0;
+        }
+
+        /* Trust Badges on Card Body */
+        .card-trust-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        .card-trust-pill {
+            font-size: 0.66rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.55);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 4px;
+            padding: 2px 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .card-trust-pill i {
+            color: var(--primary-glow);
+            font-size: 0.62rem;
+        }
+
+        /* 3-Column Large Showcase Grid */
+        .products-grid.view-large {
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)) !important;
+            gap: 30px !important;
+        }
+
+        .products-grid.view-large .product-image {
+            height: 270px !important;
+        }
+
+        /* 1-Column List View */
+        .products-grid.view-list {
+            grid-template-columns: 1fr !important;
+            gap: 16px !important;
+        }
+
+        .products-grid.view-list .product-card {
+            flex-direction: row !important;
+            gap: 20px;
+            padding: 14px 18px;
+            align-items: center;
+        }
+
+        .products-grid.view-list .product-image-wrap {
+            width: 150px;
+            margin-bottom: 0;
+            flex-shrink: 0;
+        }
+
+        .products-grid.view-list .product-image {
+            height: 130px !important;
+        }
+
+        .products-grid.view-list .product-card-body {
+            flex: 1;
+        }
+
+        .products-grid.view-list .product-actions {
+            width: 220px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        /* Wishlist Heart Active */
+        .btn-card-wishlist.active {
+            color: #ff3366 !important;
+            background: rgba(255, 51, 102, 0.18) !important;
+            border-color: rgba(255, 51, 102, 0.45) !important;
+            box-shadow: 0 0 14px rgba(255, 51, 102, 0.3) !important;
+        }
+
+        @media (max-width: 768px) {
+            .catalog-telemetry-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .products-grid.view-list .product-card {
+                flex-direction: column !important;
+                align-items: stretch;
+            }
+            .products-grid.view-list .product-image-wrap {
+                width: 100%;
+            }
+            .products-grid.view-list .product-actions {
+                width: 100%;
+                display: grid;
+                grid-template-columns: 1fr 44px;
+            }
+        }
+
         /* ==================== 6. PAGINATION ==================== */
         .pagination {
             display: flex;
@@ -1283,6 +1686,54 @@
                         <span>Reset</span>
                     </button>
                 </div>
+            </div>
+
+            <!-- Catalog Telemetry & Quick Filter Chips Bar -->
+            <div class="catalog-telemetry-bar">
+                <div class="telemetry-info">
+                    <span class="live-pulse-dot"></span>
+                    <span class="telemetry-text" id="catalogResultsCount">Showing <strong>37</strong> products</span>
+                    <span class="telemetry-divider">|</span>
+                    <span class="telemetry-tag"><i class="fas fa-truck-fast"></i> Express Islandwide Dispatch</span>
+                </div>
+
+                <!-- Quick Filter Pills -->
+                <div class="quick-tags-scroll">
+                    <button type="button" class="quick-tag-chip" id="qtag-deal" data-quick="deal" onclick="applyQuickTag('deal')">
+                        <i class="fas fa-bolt" style="color: #FFB800;"></i> Flash Deals
+                    </button>
+                    <button type="button" class="quick-tag-chip" id="qtag-top-rated" data-quick="top-rated" onclick="applyQuickTag('top-rated')">
+                        <i class="fas fa-star" style="color: #FFB800;"></i> 4.5+ Rated
+                    </button>
+                    <button type="button" class="quick-tag-chip" id="qtag-under-5k" data-quick="under-5k" onclick="applyQuickTag('under-5k')">
+                        <i class="fas fa-tags" style="color: #00FF85;"></i> Under Rs. 5,000
+                    </button>
+                    <button type="button" class="quick-tag-chip" id="qtag-ceylon" data-quick="ceylon" onclick="applyQuickTag('ceylon')">
+                        <i class="fas fa-mug-hot" style="color: #E8702A;"></i> Ceylon Specials
+                    </button>
+                </div>
+
+                <!-- View Mode Switcher -->
+                <div class="view-mode-switcher">
+                    <button type="button" class="view-switch-btn active" id="viewModeGrid" onclick="setCatalogViewMode('grid')" title="4-Column Grid View">
+                        <i class="fas fa-grip"></i>
+                    </button>
+                    <button type="button" class="view-switch-btn" id="viewModeLarge" onclick="setCatalogViewMode('large')" title="3-Column Large Showcase View">
+                        <i class="fas fa-table-cells-large"></i>
+                    </button>
+                    <button type="button" class="view-switch-btn" id="viewModeList" onclick="setCatalogViewMode('list')" title="Compact List View">
+                        <i class="fas fa-list"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Active Filter Dismiss Tray -->
+            <div class="active-filter-chips-tray" id="activeFilterChipsTray" style="display: none;">
+                <div class="tray-label"><i class="fas fa-sliders"></i> Active Filters:</div>
+                <div class="tray-chips-container" id="trayChipsContainer"></div>
+                <button type="button" class="btn-clear-all-chips" onclick="resetAllCatalogFilters()">
+                    <i class="fas fa-rotate-left"></i> Clear All
+                </button>
             </div>
 
             <!-- Active Category Banner & Indicator -->
@@ -1797,6 +2248,11 @@
                 return;
             }
 
+            // Update live telemetry count and active filter chips
+            updateActiveFilterChipsTray(products.length);
+
+            const wishlistItems = JSON.parse(localStorage.getItem('smartcart_wishlist') || '[]');
+
             grid.innerHTML = products.map(p => {
                 const isLow = p.stock_quantity > 0 && p.stock_quantity <= 5;
                 const isOut = p.stock_quantity <= 0;
@@ -1806,6 +2262,9 @@
                 const reviewCount = p.reviews || 0;
                 const priceFormatted = (typeof fmtLKR === 'function') ? fmtLKR(p.price) : `Rs. ${Number(p.price).toLocaleString()}`;
                 const serializedProduct = JSON.stringify(p).replace(/"/g, '&quot;');
+                const isWishlisted = wishlistItems.some(item => (typeof item === 'object' ? item.id === p.id : item === p.id));
+                const originalPrice = Math.round(Number(p.price) * 1.15);
+                const originalPriceFmt = (typeof fmtLKR === 'function') ? fmtLKR(originalPrice) : `Rs. ${originalPrice.toLocaleString()}`;
 
                 return `
                 <div class="product-card" data-id="${p.id}">
@@ -1817,9 +2276,18 @@
                             <span class="stock-dot"></span>
                             <span>${stockText}</span>
                         </div>
-                        <button type="button" class="btn-card-wishlist" onclick="event.stopPropagation(); toggleWishlistHeart(this, ${p.id});" title="Save to Wishlist">
-                            <i class="far fa-heart"></i>
+                        <div class="card-discount-tag"><i class="fas fa-bolt"></i> 15% OFF</div>
+                        <button type="button" class="btn-card-wishlist ${isWishlisted ? 'active' : ''}" onclick="event.stopPropagation(); toggleWishlistHeart(this, ${p.id});" title="${isWishlisted ? 'In Wishlist' : 'Save to Wishlist'}">
+                            <i class="${isWishlisted ? 'fas fa-heart' : 'far fa-heart'}"></i>
                         </button>
+                        <div class="card-quick-actions">
+                            <button type="button" class="quick-action-btn" onclick="openProductDetail(${p.id})" title="Quick View Product">
+                                <i class="fas fa-eye"></i> <span>Quick View</span>
+                            </button>
+                            <button type="button" class="quick-action-btn primary" onclick="addToCart(${serializedProduct})" title="Instant Add to Cart">
+                                <i class="fas fa-cart-plus"></i> <span>Quick Add</span>
+                            </button>
+                        </div>
                     </div>
                     <div class="product-card-body">
                         <div class="product-card-meta">
@@ -1831,14 +2299,19 @@
                             </div>
                         </div>
                         <h3 class="product-title" onclick="openProductDetail(${p.id})" title="${p.name}">${p.name}</h3>
-                        <div class="product-price-row">
+                        <div class="card-trust-row">
+                            <span class="card-trust-pill"><i class="fas fa-shield-halved"></i> Genuine LK</span>
+                            <span class="card-trust-pill"><i class="fas fa-truck-fast"></i> Express Dispatch</span>
+                        </div>
+                        <div class="product-price-row" style="display: flex; align-items: baseline; gap: 8px;">
                             <div class="product-price">${priceFormatted}</div>
+                            <span style="font-size: 0.8rem; color: var(--text-dim); text-decoration: line-through;">${originalPriceFmt}</span>
                         </div>
                         <div class="product-actions">
                             <button type="button" class="btn-add-cart" onclick="addToCart(${serializedProduct})">
                                 <i class="fas fa-cart-plus"></i> Add to Cart
                             </button>
-                            <button type="button" class="btn-view-details" onclick="openProductDetail(${p.id})" title="Quick View">
+                            <button type="button" class="btn-view-details" onclick="openProductDetail(${p.id})" title="View Details">
                                 <i class="fas fa-eye"></i>
                             </button>
                         </div>
@@ -1846,6 +2319,118 @@
                 </div>
                 `;
             }).join('');
+        }
+
+        // ================= CATALOG VIEW MODE & FILTER HELPERS =================
+        let currentCatalogViewMode = 'grid';
+        let activeQuickTag = null;
+
+        function setCatalogViewMode(mode) {
+            currentCatalogViewMode = mode;
+            const grid = document.getElementById('productsGrid');
+            if (!grid) return;
+
+            grid.classList.remove('view-large', 'view-list');
+            if (mode === 'large') grid.classList.add('view-large');
+            if (mode === 'list') grid.classList.add('view-list');
+
+            document.querySelectorAll('.view-switch-btn').forEach(btn => btn.classList.remove('active'));
+            if (mode === 'grid') document.getElementById('viewModeGrid')?.classList.add('active');
+            if (mode === 'large') document.getElementById('viewModeLarge')?.classList.add('active');
+            if (mode === 'list') document.getElementById('viewModeList')?.classList.add('active');
+        }
+
+        function applyQuickTag(tag) {
+            if (activeQuickTag === tag) {
+                activeQuickTag = null;
+                document.querySelectorAll('.quick-tag-chip').forEach(c => c.classList.remove('active'));
+                fetchCatalog(1);
+                return;
+            }
+
+            activeQuickTag = tag;
+            document.querySelectorAll('.quick-tag-chip').forEach(c => {
+                c.classList.toggle('active', c.getAttribute('data-quick') === tag);
+            });
+
+            if (tag === 'top-rated') {
+                document.getElementById('sortFilter').value = 'rating';
+            } else if (tag === 'under-5k') {
+                document.getElementById('maxPrice').value = '5000';
+            } else if (tag === 'ceylon') {
+                document.getElementById('catalogSearch').value = 'Tea';
+            }
+
+            fetchCatalog(1);
+        }
+
+        function updateActiveFilterChipsTray(totalShown) {
+            const countEl = document.getElementById('catalogResultsCount');
+            if (countEl) {
+                countEl.innerHTML = `Showing <strong>${totalShown !== undefined ? totalShown : 0}</strong> verified products`;
+            }
+
+            const tray = document.getElementById('activeFilterChipsTray');
+            const chipsContainer = document.getElementById('trayChipsContainer');
+            if (!tray || !chipsContainer) return;
+
+            const catVal = document.getElementById('catFilter')?.value;
+            const brandVal = document.getElementById('brandFilter')?.value;
+            const searchVal = document.getElementById('catalogSearch')?.value?.trim();
+            const minPrice = document.getElementById('minPrice')?.value;
+            const maxPrice = document.getElementById('maxPrice')?.value;
+
+            let chips = [];
+
+            if (catVal && catVal !== 'all') {
+                const matchedCat = storeCategories.find(c => (c.slug || '').toLowerCase() === catVal.toLowerCase());
+                const catName = matchedCat ? matchedCat.name : catVal;
+                chips.push({ label: `Category: ${catName}`, clear: () => selectCategory('all') });
+            }
+            if (brandVal && brandVal !== 'all') {
+                chips.push({ label: `Brand: ${brandVal}`, clear: () => { document.getElementById('brandFilter').value = 'all'; fetchCatalog(1); } });
+            }
+            if (searchVal) {
+                chips.push({ label: `Search: "${searchVal}"`, clear: () => { document.getElementById('catalogSearch').value = ''; fetchCatalog(1); } });
+            }
+            if (minPrice || maxPrice) {
+                const priceTxt = minPrice && maxPrice ? `Rs. ${minPrice} - ${maxPrice}` : (minPrice ? `> Rs. ${minPrice}` : `< Rs. ${maxPrice}`);
+                chips.push({ label: `Price: ${priceTxt}`, clear: () => { document.getElementById('minPrice').value = ''; document.getElementById('maxPrice').value = ''; fetchCatalog(1); } });
+            }
+            if (activeQuickTag) {
+                chips.push({ label: `Tag: ${activeQuickTag}`, clear: () => applyQuickTag(activeQuickTag) });
+            }
+
+            if (chips.length > 0) {
+                tray.style.display = 'flex';
+                chipsContainer.innerHTML = chips.map((c, i) => `
+                    <span class="tray-chip">
+                        <span>${c.label}</span>
+                        <button type="button" class="tray-chip-remove" onclick="window._clearChipFilter(${i})" title="Remove filter">&times;</button>
+                    </span>
+                `).join('');
+                window._chipFilters = chips;
+            } else {
+                tray.style.display = 'none';
+            }
+        }
+
+        window._clearChipFilter = function(index) {
+            if (window._chipFilters && window._chipFilters[index]) {
+                window._chipFilters[index].clear();
+            }
+        };
+
+        function resetAllCatalogFilters() {
+            document.getElementById('catFilter').value = 'all';
+            document.getElementById('brandFilter').value = 'all';
+            document.getElementById('sortFilter').value = 'default';
+            document.getElementById('minPrice').value = '';
+            document.getElementById('maxPrice').value = '';
+            document.getElementById('catalogSearch').value = '';
+            activeQuickTag = null;
+            document.querySelectorAll('.quick-tag-chip').forEach(c => c.classList.remove('active'));
+            selectCategory('all');
         }
 
         async function loadFallbackRecommendations() {
@@ -1911,17 +2496,25 @@
         function toggleWishlistHeart(btn, id) {
             const icon = btn.querySelector('i');
             if (!icon) return;
-            if (icon.classList.contains('far')) {
-                icon.classList.remove('far');
-                icon.classList.add('fas');
-                icon.style.color = '#ff473a';
+            let wishlist = JSON.parse(localStorage.getItem('smartcart_wishlist') || '[]');
+            const exists = wishlist.some(item => (typeof item === 'object' ? item.id === id : item === id));
+
+            if (!exists) {
+                wishlist.push(id);
+                localStorage.setItem('smartcart_wishlist', JSON.stringify(wishlist));
+                btn.classList.add('active');
+                icon.className = 'fas fa-heart';
                 if (typeof showToast === 'function') {
                     showToast('Saved to Wishlist', 'Item added to your saved favorites.', 'success');
                 }
             } else {
-                icon.classList.remove('fas');
-                icon.classList.add('far');
-                icon.style.color = '';
+                wishlist = wishlist.filter(item => (typeof item === 'object' ? item.id !== id : item !== id));
+                localStorage.setItem('smartcart_wishlist', JSON.stringify(wishlist));
+                btn.classList.remove('active');
+                icon.className = 'far fa-heart';
+                if (typeof showToast === 'function') {
+                    showToast('Removed from Wishlist', 'Item removed from your favorites.', 'info');
+                }
             }
         }
 
@@ -1946,14 +2539,7 @@
             document.getElementById('catalogSearch').addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') fetchCatalog(1);
             });
-            document.getElementById('resetFiltersBtn').addEventListener('click', () => {
-                document.getElementById('sortFilter').value = 'default';
-                document.getElementById('brandFilter').value = 'all';
-                document.getElementById('minPrice').value = '';
-                document.getElementById('maxPrice').value = '';
-                document.getElementById('catalogSearch').value = '';
-                selectCategory('all');
-            });
+            document.getElementById('resetFiltersBtn').addEventListener('click', resetAllCatalogFilters);
 
             // Coupon validation
             document.getElementById('applyCouponBtn').addEventListener('click', handleApplyCoupon);
