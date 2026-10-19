@@ -167,7 +167,7 @@ function getCartCount() {
 
 function updateCartBadge() {
   const count = getCartCount();
-  document.querySelectorAll('.cart-count, #cartCount').forEach((badge) => {
+  document.querySelectorAll('.cart-count, #cartCount, #navCartChip').forEach((badge) => {
     badge.textContent = count;
     badge.style.display = count > 0 ? 'inline-block' : 'none';
   });
