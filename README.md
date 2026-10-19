@@ -1,4 +1,6 @@
+# SmartCart - Modern E-Commerce Platform
 
+A production-grade, full-stack e-commerce application built with **Node.js, Express, PostgreSQL, and modern Vanilla Web Components**. Featuring real user authentication, server-backed product catalog, persistent shopping carts, coupon validation, checkout with Cash on Delivery and Stripe sandbox integration, order history tracking, and a comprehensive admin analytics dashboard.
 
 ---
 
