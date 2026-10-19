@@ -299,223 +299,480 @@
             gap: 6px;
         }
 
-        /* ==================== 2. CATEGORY PILLS BAR (NO SYSTEM SCROLLBAR) ==================== */
+        /* ==================== 2. CATALOG HERO HUB & UNIFIED COMMAND CENTER ==================== */
+        .catalog-hero-hub {
+            margin: 20px 0 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        /* Top Header Row */
+        .catalog-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .catalog-title-group {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .catalog-badge-pulse {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.78rem;
+            color: rgba(255, 255, 255, 0.75);
+            font-weight: 600;
+        }
+
+        .live-pulse-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #00FF85;
+            box-shadow: 0 0 10px #00FF85;
+            animation: pulseGreen 2s infinite ease-in-out;
+            flex-shrink: 0;
+        }
+
+        @keyframes pulseGreen {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.4); opacity: 0.6; }
+        }
+
+        .catalog-page-title {
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin: 0;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #ffffff 60%, rgba(255, 255, 255, 0.7));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .catalog-page-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin: 0;
+        }
+
+        /* Right Utility Controls Bar */
+        .catalog-utility-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* Inline Search inside Utility Bar */
+        .catalog-search-inline {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            background: rgba(18, 14, 26, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 30px;
+            padding: 0 14px;
+            height: 42px;
+            transition: all 0.25s ease;
+            width: 230px;
+            backdrop-filter: blur(14px);
+        }
+
+        .catalog-search-inline:focus-within {
+            border-color: var(--primary-glow);
+            box-shadow: 0 0 0 3px rgba(232, 112, 42, 0.2);
+            width: 260px;
+            background: rgba(22, 17, 32, 0.95);
+        }
+
+        .catalog-search-inline i {
+            color: rgba(255, 255, 255, 0.45);
+            font-size: 0.85rem;
+            margin-right: 8px;
+        }
+
+        .catalog-search-inline input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #ffffff;
+            font-size: 0.85rem;
+            font-weight: 500;
+            width: 100%;
+        }
+
+        .catalog-search-inline input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .search-clear-btn {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.45);
+            cursor: pointer;
+            padding: 2px 4px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.15s;
+        }
+        .search-clear-btn:hover {
+            color: #ff5252;
+        }
+
+        /* Sort Shell */
+        .catalog-sort-shell {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            background: rgba(18, 14, 26, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 30px;
+            padding: 0 32px 0 36px;
+            height: 42px;
+            backdrop-filter: blur(14px);
+            transition: all 0.2s ease;
+        }
+
+        .catalog-sort-shell:hover, .catalog-sort-shell:focus-within {
+            border-color: var(--primary-glow);
+            box-shadow: 0 0 0 3px rgba(232, 112, 42, 0.16);
+        }
+
+        .catalog-sort-shell i {
+            position: absolute;
+            left: 14px;
+            color: var(--primary-glow);
+            font-size: 0.82rem;
+            pointer-events: none;
+        }
+
+        .catalog-sort-select {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #ffffff;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .catalog-sort-shell::after {
+            content: "";
+            position: absolute;
+            right: 14px;
+            width: 8px;
+            height: 5px;
+            background-color: var(--primary-glow);
+            clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+            pointer-events: none;
+        }
+
+        .catalog-sort-select option {
+            background: #15101d;
+            color: #ffffff;
+        }
+
+        /* Filter Toggle Button */
+        .catalog-filter-toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(18, 14, 26, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 30px;
+            padding: 0 18px;
+            height: 42px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            backdrop-filter: blur(14px);
+            transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .catalog-filter-toggle-btn:hover {
+            background: rgba(232, 112, 42, 0.14);
+            border-color: var(--primary-glow);
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .catalog-filter-toggle-btn.active, .catalog-filter-toggle-btn.has-active {
+            background: rgba(232, 112, 42, 0.2);
+            border-color: var(--primary-glow);
+            color: #ffffff;
+            box-shadow: 0 0 14px rgba(232, 112, 42, 0.28);
+        }
+
+        .filter-count-badge {
+            background: var(--primary-glow);
+            color: #0b0704;
+            font-size: 0.7rem;
+            font-weight: 800;
+            border-radius: 12px;
+            padding: 1px 7px;
+            line-height: 1.2;
+        }
+
+        /* Category Pills Strip */
         .category-pills-bar-wrap {
             position: relative;
             display: flex;
             align-items: center;
-            margin: 22px 0 20px;
-            background: rgba(20, 16, 26, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            border-radius: 50px;
-            padding: 6px 8px;
+            background: rgba(18, 14, 26, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 40px;
+            padding: 5px 6px;
             backdrop-filter: blur(16px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
         }
 
         .category-pills-bar {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 7px;
             overflow-x: auto;
             scroll-behavior: smooth;
-            padding: 4px 6px;
+            padding: 2px 4px;
             width: 100%;
-            scrollbar-width: none !important; /* Firefox */
-            -ms-overflow-style: none !important; /* Edge */
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
         }
+
         .category-pills-bar::-webkit-scrollbar {
-            display: none !important; /* Chrome, Safari, Opera */
+            display: none !important;
             width: 0 !important;
             height: 0 !important;
         }
 
         .pill-scroll-btn {
             flex-shrink: 0;
-            width: 32px;
-            height: 32px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            color: rgba(255, 255, 255, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: all 0.2s ease;
-            z-index: 3;
-            font-size: 0.8rem;
+            z-index: 2;
+            font-size: 0.78rem;
         }
+
         .pill-scroll-btn:hover {
-            background: rgba(232, 112, 42, 0.22);
+            background: rgba(232, 112, 42, 0.25);
             border-color: var(--primary-glow);
-            color: #fff;
+            color: #ffffff;
             transform: scale(1.08);
         }
 
         .cat-pill-btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
+            gap: 7px;
+            padding: 7px 15px;
             border-radius: 30px;
             background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.09);
-            color: rgba(255, 255, 255, 0.82);
-            font-size: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.83rem;
             font-weight: 600;
             white-space: nowrap;
             cursor: pointer;
             transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
             flex-shrink: 0;
         }
+
         .cat-pill-btn:hover {
             background: rgba(232, 112, 42, 0.12);
             border-color: rgba(232, 112, 42, 0.4);
             color: #ffffff;
-            transform: translateY(-2px);
+            transform: translateY(-1px);
         }
+
         .cat-pill-btn.active {
             background: linear-gradient(135deg, #E8702A, #FFB800) !important;
             border-color: transparent !important;
             color: #0b0704 !important;
             font-weight: 700 !important;
-            box-shadow: 0 4px 18px rgba(232, 112, 42, 0.45) !important;
-            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(232, 112, 42, 0.45) !important;
         }
 
         .cat-pill-badge {
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             padding: 2px 7px;
             border-radius: 12px;
-            background: rgba(255, 255, 255, 0.09);
+            background: rgba(255, 255, 255, 0.08);
             color: rgba(255, 255, 255, 0.85);
             font-weight: 700;
         }
+
         .cat-pill-btn.active .cat-pill-badge {
             background: rgba(0, 0, 0, 0.22);
             color: #000;
         }
 
-        /* ==================== 3. COMMAND FILTER TOOLBAR ==================== */
-        .catalog-controls {
-            background: rgba(22, 17, 28, 0.75);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            padding: 16px 22px;
-            margin: 0 0 26px;
-            backdrop-filter: blur(20px);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-        }
-
-        .filter-group {
+        /* Quick Picks Strip */
+        .quick-tags-strip {
             display: flex;
             align-items: center;
             gap: 12px;
+            padding: 2px 4px;
             flex-wrap: wrap;
         }
 
-        .custom-select-wrap {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-        }
-        .select-prefix-icon {
-            position: absolute;
-            left: 14px;
-            color: var(--primary-glow);
-            font-size: 0.82rem;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .filter-select {
-            background: rgba(14, 11, 18, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            color: #ffffff;
-            padding: 9px 34px 9px 36px;
-            border-radius: 14px;
-            outline: none;
-            font-size: 0.88rem;
-            font-weight: 600;
-            cursor: pointer;
-            appearance: none;
-            -webkit-appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FFB800' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-            background-size: 14px;
-            transition: all 0.2s ease;
-        }
-        .filter-select:hover, .filter-select:focus {
-            border-color: var(--primary-glow);
-            box-shadow: 0 0 0 3px rgba(232, 112, 42, 0.16);
-        }
-        .filter-select option {
-            background: #140f1a;
-            color: #fff;
-        }
-
-        /* Price Range Input Group */
-        .price-range-wrap {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(14, 11, 18, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 14px;
-            padding: 4px 10px;
-        }
-        .price-range-label {
-            font-size: 0.8rem;
+        .quick-tags-label {
+            font-size: 0.78rem;
             font-weight: 700;
             color: var(--text-dim);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.06em;
             display: inline-flex;
             align-items: center;
             gap: 5px;
         }
-        .price-range-label i {
-            color: var(--accent-cyan);
+
+        .quick-tags-label i {
+            color: var(--primary-glow);
+        }
+
+        /* Collapsible Filter Drawer */
+        .catalog-filter-drawer {
+            background: rgba(20, 16, 28, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 18px 22px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+            animation: drawerExpand 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes drawerExpand {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .filter-drawer-inner {
+            display: flex;
+            align-items: flex-end;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .drawer-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+            min-width: 170px;
+        }
+
+        .drawer-field-label {
+            font-size: 0.76rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .drawer-field-label i {
+            color: var(--primary-glow);
+        }
+
+        .drawer-select {
+            background: rgba(12, 9, 18, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #ffffff;
+            padding: 9px 14px;
+            border-radius: 12px;
+            outline: none;
+            font-size: 0.86rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s ease;
+        }
+
+        .drawer-select:hover, .drawer-select:focus {
+            border-color: var(--primary-glow);
+            box-shadow: 0 0 0 3px rgba(232, 112, 42, 0.16);
+        }
+
+        .drawer-select option {
+            background: #140f1a;
+            color: #fff;
+        }
+
+        .price-drawer-field {
+            min-width: 220px;
+        }
+
+        .drawer-price-inputs {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .price-input-box {
             display: inline-flex;
             align-items: center;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 10px;
-            padding: 2px 8px;
+            background: rgba(12, 9, 18, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 2px 10px;
+            flex: 1;
         }
+
         .currency-tag {
             font-size: 0.74rem;
             color: var(--primary-glow);
             font-weight: 700;
             margin-right: 4px;
         }
+
         .filter-input {
-            width: 75px;
+            width: 100%;
             background: transparent;
             border: none;
             color: #ffffff;
             font-size: 0.88rem;
             font-weight: 600;
             outline: none;
-            padding: 4px 0;
+            padding: 7px 0;
         }
+
         .filter-input::placeholder {
             color: var(--text-dim);
             font-weight: 500;
         }
+
         .price-dash {
             color: var(--text-dim);
             font-size: 0.85rem;
+        }
+
+        .drawer-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .btn-filter-apply {
@@ -523,7 +780,7 @@
             border: none;
             color: #0b0704;
             font-weight: 700;
-            padding: 9px 18px;
+            padding: 10px 20px;
             border-radius: 12px;
             font-size: 0.86rem;
             cursor: pointer;
@@ -531,17 +788,19 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            box-shadow: 0 4px 14px rgba(232, 112, 42, 0.25);
+            box-shadow: 0 4px 14px rgba(232, 112, 42, 0.3);
+            white-space: nowrap;
         }
+
         .btn-filter-apply:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(232, 112, 42, 0.4);
+            box-shadow: 0 6px 18px rgba(232, 112, 42, 0.45);
             filter: brightness(1.06);
         }
 
         .btn-filter-reset {
-            background: transparent;
-            border: none;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--text-muted);
             font-size: 0.84rem;
             font-weight: 600;
@@ -549,16 +808,18 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
-            padding: 8px 12px;
-            border-radius: 10px;
+            padding: 9px 14px;
+            border-radius: 12px;
             transition: all 0.2s ease;
-        }
-        .btn-filter-reset:hover {
-            color: #ffffff;
-            background: rgba(255, 255, 255, 0.06);
+            white-space: nowrap;
         }
 
-        /* ==================== 4. ACTIVE CATEGORY BANNER ==================== */
+        .btn-filter-reset:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Active Category Banner */
         .active-category-banner {
             display: flex;
             align-items: center;
@@ -567,34 +828,34 @@
             border: 1px solid rgba(232, 112, 42, 0.35);
             border-left: 4px solid var(--primary-glow);
             border-radius: 16px;
-            padding: 14px 20px;
-            margin-bottom: 26px;
+            padding: 12px 18px;
             backdrop-filter: blur(16px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
             animation: bannerSlideIn 0.3s ease;
         }
+
         @keyframes bannerSlideIn {
-            from { opacity: 0; transform: translateY(-8px); }
+            from { opacity: 0; transform: translateY(-6px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .active-banner-left {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 14px;
         }
 
         .active-cat-icon-aura {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
             background: rgba(232, 112, 42, 0.18);
             border: 1px solid rgba(232, 112, 42, 0.38);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.45rem;
-            box-shadow: 0 0 16px rgba(232, 112, 42, 0.25);
+            font-size: 1.35rem;
+            box-shadow: 0 0 14px rgba(232, 112, 42, 0.25);
             flex-shrink: 0;
         }
 
@@ -625,10 +886,10 @@
 
         .active-cat-title {
             color: #ffffff;
-            font-size: 1.18rem;
+            font-size: 1.12rem;
             font-weight: 800;
             margin: 0;
-            letter-spacing: -0.3px;
+            letter-spacing: -0.2px;
         }
 
         .btn-clear-cat-filter {
@@ -636,8 +897,8 @@
             border: 1px solid rgba(255, 255, 255, 0.15);
             color: #ffffff;
             border-radius: 30px;
-            padding: 7px 16px;
-            font-size: 0.82rem;
+            padding: 6px 14px;
+            font-size: 0.8rem;
             font-weight: 600;
             cursor: pointer;
             display: inline-flex;
@@ -645,6 +906,7 @@
             gap: 6px;
             transition: all 0.2s ease;
         }
+
         .btn-clear-cat-filter:hover {
             background: rgba(255, 71, 58, 0.2);
             border-color: rgba(255, 71, 58, 0.45);
@@ -883,115 +1145,31 @@
         }
 
         /* ==================== ENHANCED CARD & TELEMETRY STYLING ==================== */
-        .catalog-telemetry-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            padding: 10px 18px;
-            background: rgba(18, 14, 26, 0.55);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            backdrop-filter: blur(14px);
-        }
-
-        .telemetry-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.75);
-        }
-
-        .live-pulse-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #00FF85;
-            box-shadow: 0 0 10px #00FF85;
-            animation: pulseGreen 2s infinite ease-in-out;
-        }
-
-        @keyframes pulseGreen {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.35); opacity: 0.6; }
-        }
-
-        .telemetry-divider {
-            color: rgba(255, 255, 255, 0.2);
-        }
-
-        .telemetry-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.78rem;
-            color: var(--accent-cyan);
-            font-weight: 600;
-        }
-
-        /* Quick Filter Tags */
-        .quick-tags-scroll {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .quick-tag-chip {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 9999px;
-            padding: 5px 12px;
-            color: rgba(255, 255, 255, 0.82);
-            font-size: 0.78rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .quick-tag-chip:hover {
-            background: rgba(232, 112, 42, 0.18);
-            border-color: rgba(232, 112, 42, 0.45);
-            color: #ffffff;
-            transform: translateY(-1px);
-        }
-
-        .quick-tag-chip.active {
-            background: linear-gradient(135deg, rgba(232, 112, 42, 0.35), rgba(255, 184, 0, 0.25));
-            border-color: var(--primary-glow);
-            color: #ffffff;
-            box-shadow: 0 0 12px rgba(232, 112, 42, 0.3);
-        }
-
         /* View Mode Switcher */
         .view-mode-switcher {
             display: inline-flex;
             align-items: center;
-            gap: 4px;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
+            gap: 3px;
+            background: rgba(18, 14, 26, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 30px;
             padding: 3px;
+            height: 42px;
+            backdrop-filter: blur(14px);
         }
 
         .view-switch-btn {
-            background: none;
+            background: transparent;
             border: none;
-            width: 32px;
-            height: 30px;
-            border-radius: 8px;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
             color: rgba(255, 255, 255, 0.5);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 0.88rem;
+            font-size: 0.86rem;
             transition: all 0.2s ease;
         }
 
@@ -1004,7 +1182,7 @@
             background: var(--primary-glow);
             color: #0b0704;
             font-weight: 700;
-            box-shadow: 0 2px 8px rgba(232, 112, 42, 0.4);
+            box-shadow: 0 2px 10px rgba(232, 112, 42, 0.45);
         }
 
         /* Active Filter Chips Tray */
@@ -1555,8 +1733,20 @@
         @media (max-width: 900px) {
             .cart-wrapper { grid-template-columns: 1fr; }
             .cart-item-row { grid-template-columns: 60px 1fr; gap: 12px; }
-            .catalog-controls { flex-direction: column; align-items: stretch; }
-            .filter-group { justify-content: space-between; }
+            .catalog-header-row { flex-direction: column; align-items: stretch; gap: 14px; }
+            .catalog-utility-bar { justify-content: space-between; }
+            .catalog-search-inline { flex: 1; min-width: 140px; }
+            .catalog-search-inline:focus-within { width: 100%; }
+            .filter-drawer-inner { flex-direction: column; align-items: stretch; }
+            .drawer-actions { justify-content: flex-end; }
+        }
+        @media (max-width: 600px) {
+            .catalog-utility-bar { gap: 8px; }
+            .catalog-search-inline { width: 100%; order: 1; }
+            .catalog-sort-shell { flex: 1; order: 2; }
+            .catalog-filter-toggle-btn { order: 3; }
+            .view-mode-switcher { order: 4; }
+            .quick-tags-strip { flex-direction: column; align-items: flex-start; }
         }
     </style>
 </head>
@@ -1620,141 +1810,169 @@
     <main class="container" style="min-height: 80vh;">
         <!-- VIEW 1: PRODUCTS CATALOG -->
         <section id="productsSection">
-            <!-- Visual Category Pills Bar with Smooth Chevrons (NO SYSTEM SCROLLBAR) -->
-            <div class="category-pills-bar-wrap">
-                <button type="button" class="pill-scroll-btn left" id="pillScrollLeft" onclick="scrollCategoryPills(-240)" aria-label="Scroll categories left">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <div class="category-pills-bar" id="categoryPillsContainer">
-                    <!-- Dynamically rendered pills with live counts -->
-                </div>
-                <button type="button" class="pill-scroll-btn right" id="pillScrollRight" onclick="scrollCategoryPills(240)" aria-label="Scroll categories right">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-            </div>
-
-            <!-- Command Filter Toolbar -->
-            <div class="catalog-controls">
-                <div class="filter-group left-filters">
-                    <div class="custom-select-wrap">
-                        <i class="fas fa-layer-group select-prefix-icon"></i>
-                        <select id="catFilter" class="filter-select">
-                            <option value="all">All Categories</option>
-                        </select>
-                    </div>
-
-                    <div class="custom-select-wrap">
-                        <i class="fas fa-arrow-down-short-wide select-prefix-icon"></i>
-                        <select id="sortFilter" class="filter-select">
-                            <option value="default">Featured &amp; Popular</option>
-                            <option value="price-low">Price: Low to High</option>
-                            <option value="price-high">Price: High to Low</option>
-                            <option value="rating">Top Customer Rated</option>
-                            <option value="newest">Newest Arrivals</option>
-                        </select>
-                    </div>
-
-                    <div class="custom-select-wrap">
-                        <i class="fas fa-tag select-prefix-icon"></i>
-                        <select id="brandFilter" class="filter-select">
-                            <option value="all">All Brands</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="filter-group right-filters">
-                    <div class="price-range-wrap">
-                        <span class="price-range-label"><i class="fas fa-coins"></i> Price:</span>
-                        <div class="price-input-box">
-                            <span class="currency-tag">Rs.</span>
-                            <input type="number" id="minPrice" class="filter-input" placeholder="Min" min="0">
+            <!-- ==================== UNIFIED CATALOG COMMAND CENTER ==================== -->
+            <div class="catalog-hero-hub">
+                <!-- Top Row: Title, Live Stats & Action Controls -->
+                <div class="catalog-header-row">
+                    <div class="catalog-title-group">
+                        <div class="catalog-badge-pulse">
+                            <span class="live-pulse-dot"></span>
+                            <span id="catalogResultsCount">Showing <strong>37</strong> verified products</span>
                         </div>
-                        <span class="price-dash">&ndash;</span>
-                        <div class="price-input-box">
-                            <span class="currency-tag">Rs.</span>
-                            <input type="number" id="maxPrice" class="filter-input" placeholder="Max" min="0">
+                        <h1 class="catalog-page-title">Curated Collection</h1>
+                        <p class="catalog-page-subtitle">Islandwide express delivery &bull; 100% Genuine Sri Lankan Products</p>
+                    </div>
+
+                    <div class="catalog-utility-bar">
+                        <!-- Inline Quick Search -->
+                        <div class="catalog-search-inline">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="catalogSearchInline" placeholder="Search catalog..." autocomplete="off">
+                            <button type="button" id="catalogSearchClear" class="search-clear-btn" style="display: none;" title="Clear search">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                        <!-- Instant Sort By Shell -->
+                        <div class="catalog-sort-shell">
+                            <i class="fas fa-arrow-down-short-wide"></i>
+                            <select id="sortFilter" class="catalog-sort-select">
+                                <option value="default">Featured &amp; Popular</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="rating">Top Customer Rated</option>
+                                <option value="newest">Newest Arrivals</option>
+                            </select>
+                        </div>
+
+                        <!-- Filter Toggle Button -->
+                        <button type="button" class="catalog-filter-toggle-btn" id="filterDrawerToggle" onclick="toggleFilterDrawer()">
+                            <i class="fas fa-sliders"></i>
+                            <span>Filters</span>
+                            <span class="filter-count-badge" id="activeFilterBadge" style="display: none;">0</span>
+                        </button>
+
+                        <!-- View Mode Switcher -->
+                        <div class="view-mode-switcher">
+                            <button type="button" class="view-switch-btn active" id="viewModeGrid" onclick="setCatalogViewMode('grid')" title="4-Column Grid View">
+                                <i class="fas fa-grip"></i>
+                            </button>
+                            <button type="button" class="view-switch-btn" id="viewModeLarge" onclick="setCatalogViewMode('large')" title="3-Column Large Showcase View">
+                                <i class="fas fa-table-cells-large"></i>
+                            </button>
+                            <button type="button" class="view-switch-btn" id="viewModeList" onclick="setCatalogViewMode('list')" title="Compact List View">
+                                <i class="fas fa-list"></i>
+                            </button>
                         </div>
                     </div>
-
-                    <button type="button" class="btn-filter-apply" id="applyFiltersBtn">
-                        <i class="fas fa-filter"></i>
-                        <span>Apply</span>
-                    </button>
-
-                    <button type="button" class="btn-filter-reset" id="resetFiltersBtn" title="Reset all filters">
-                        <i class="fas fa-rotate-left"></i>
-                        <span>Reset</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Catalog Telemetry & Quick Filter Chips Bar -->
-            <div class="catalog-telemetry-bar">
-                <div class="telemetry-info">
-                    <span class="live-pulse-dot"></span>
-                    <span class="telemetry-text" id="catalogResultsCount">Showing <strong>37</strong> products</span>
-                    <span class="telemetry-divider">|</span>
-                    <span class="telemetry-tag"><i class="fas fa-truck-fast"></i> Express Islandwide Dispatch</span>
                 </div>
 
-                <!-- Quick Filter Pills -->
-                <div class="quick-tags-scroll">
-                    <button type="button" class="quick-tag-chip" id="qtag-deal" data-quick="deal" onclick="applyQuickTag('deal')">
-                        <i class="fas fa-bolt" style="color: #FFB800;"></i> Flash Deals
+                <!-- Smooth Horizontal Category Pills Strip -->
+                <div class="category-pills-bar-wrap">
+                    <button type="button" class="pill-scroll-btn left" id="pillScrollLeft" onclick="scrollCategoryPills(-240)" aria-label="Scroll categories left">
+                        <i class="fas fa-chevron-left"></i>
                     </button>
-                    <button type="button" class="quick-tag-chip" id="qtag-top-rated" data-quick="top-rated" onclick="applyQuickTag('top-rated')">
-                        <i class="fas fa-star" style="color: #FFB800;"></i> 4.5+ Rated
-                    </button>
-                    <button type="button" class="quick-tag-chip" id="qtag-under-5k" data-quick="under-5k" onclick="applyQuickTag('under-5k')">
-                        <i class="fas fa-tags" style="color: #00FF85;"></i> Under Rs. 5,000
-                    </button>
-                    <button type="button" class="quick-tag-chip" id="qtag-ceylon" data-quick="ceylon" onclick="applyQuickTag('ceylon')">
-                        <i class="fas fa-mug-hot" style="color: #E8702A;"></i> Ceylon Specials
-                    </button>
-                </div>
-
-                <!-- View Mode Switcher -->
-                <div class="view-mode-switcher">
-                    <button type="button" class="view-switch-btn active" id="viewModeGrid" onclick="setCatalogViewMode('grid')" title="4-Column Grid View">
-                        <i class="fas fa-grip"></i>
-                    </button>
-                    <button type="button" class="view-switch-btn" id="viewModeLarge" onclick="setCatalogViewMode('large')" title="3-Column Large Showcase View">
-                        <i class="fas fa-table-cells-large"></i>
-                    </button>
-                    <button type="button" class="view-switch-btn" id="viewModeList" onclick="setCatalogViewMode('list')" title="Compact List View">
-                        <i class="fas fa-list"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Active Filter Dismiss Tray -->
-            <div class="active-filter-chips-tray" id="activeFilterChipsTray" style="display: none;">
-                <div class="tray-label"><i class="fas fa-sliders"></i> Active Filters:</div>
-                <div class="tray-chips-container" id="trayChipsContainer"></div>
-                <button type="button" class="btn-clear-all-chips" onclick="resetAllCatalogFilters()">
-                    <i class="fas fa-rotate-left"></i> Clear All
-                </button>
-            </div>
-
-            <!-- Active Category Banner & Indicator -->
-            <div class="active-category-banner" id="activeCategoryBanner" style="display: none;">
-                <div class="active-banner-left">
-                    <div class="active-cat-icon-aura">
-                        <span id="activeCatIcon">🌿</span>
+                    <div class="category-pills-bar" id="categoryPillsContainer">
+                        <!-- Dynamically rendered pills with live counts -->
                     </div>
-                    <div class="active-cat-text">
-                        <div class="active-cat-meta">
-                            <span class="active-pill-badge">Active Filter</span>
-                            <span class="active-count-badge" id="activeCatCountBadge">3 Products</span>
+                    <button type="button" class="pill-scroll-btn right" id="pillScrollRight" onclick="scrollCategoryPills(240)" aria-label="Scroll categories right">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <!-- Quick Picks Row -->
+                <div class="quick-tags-strip">
+                    <span class="quick-tags-label"><i class="fas fa-bolt"></i> Quick Picks:</span>
+                    <div class="quick-tags-scroll">
+                        <button type="button" class="quick-tag-chip" id="qtag-deal" data-quick="deal" onclick="applyQuickTag('deal')">
+                            <i class="fas fa-fire-flame-curved" style="color: #FF7B00;"></i> Flash Deals
+                        </button>
+                        <button type="button" class="quick-tag-chip" id="qtag-top-rated" data-quick="top-rated" onclick="applyQuickTag('top-rated')">
+                            <i class="fas fa-star" style="color: #FFB800;"></i> Top Rated (4.5+)
+                        </button>
+                        <button type="button" class="quick-tag-chip" id="qtag-under-5k" data-quick="under-5k" onclick="applyQuickTag('under-5k')">
+                            <i class="fas fa-tag" style="color: #00FF85;"></i> Under Rs. 5,000
+                        </button>
+                        <button type="button" class="quick-tag-chip" id="qtag-ceylon" data-quick="ceylon" onclick="applyQuickTag('ceylon')">
+                            <i class="fas fa-mug-hot" style="color: #E8702A;"></i> Ceylon Specials
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Collapsible Advanced Filters Drawer -->
+                <div class="catalog-filter-drawer" id="catalogFilterDrawer" style="display: none;">
+                    <div class="filter-drawer-inner">
+                        <div class="drawer-field">
+                            <label class="drawer-field-label"><i class="fas fa-layer-group"></i> Category</label>
+                            <select id="catFilter" class="drawer-select">
+                                <option value="all">All Categories</option>
+                            </select>
                         </div>
-                        <h2 id="activeCatTitle" class="active-cat-title">Health &amp; Wellness</h2>
+
+                        <div class="drawer-field">
+                            <label class="drawer-field-label"><i class="fas fa-tag"></i> Brand</label>
+                            <select id="brandFilter" class="drawer-select">
+                                <option value="all">All Brands</option>
+                            </select>
+                        </div>
+
+                        <div class="drawer-field price-drawer-field">
+                            <label class="drawer-field-label"><i class="fas fa-coins"></i> Price Range</label>
+                            <div class="drawer-price-inputs">
+                                <div class="price-input-box">
+                                    <span class="currency-tag">Rs.</span>
+                                    <input type="number" id="minPrice" class="filter-input" placeholder="Min" min="0">
+                                </div>
+                                <span class="price-dash">&ndash;</span>
+                                <div class="price-input-box">
+                                    <span class="currency-tag">Rs.</span>
+                                    <input type="number" id="maxPrice" class="filter-input" placeholder="Max" min="0">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="drawer-actions">
+                            <button type="button" class="btn-filter-apply" id="applyFiltersBtn">
+                                <i class="fas fa-filter"></i>
+                                <span>Apply</span>
+                            </button>
+                            <button type="button" class="btn-filter-reset" id="resetFiltersBtn" title="Reset all filters">
+                                <i class="fas fa-rotate-left"></i>
+                                <span>Reset</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div class="active-banner-right">
-                    <button type="button" class="btn-clear-cat-filter" onclick="selectCategory('all')">
-                        <i class="fas fa-times"></i>
-                        <span>Clear Filter</span>
+
+                <!-- Active Filter Dismiss Tray -->
+                <div class="active-filter-chips-tray" id="activeFilterChipsTray" style="display: none;">
+                    <div class="tray-label"><i class="fas fa-sliders"></i> Active Filters:</div>
+                    <div class="tray-chips-container" id="trayChipsContainer"></div>
+                    <button type="button" class="btn-clear-all-chips" onclick="resetAllCatalogFilters()">
+                        <i class="fas fa-rotate-left"></i> Clear All
                     </button>
+                </div>
+
+                <!-- Active Category Banner & Indicator -->
+                <div class="active-category-banner" id="activeCategoryBanner" style="display: none;">
+                    <div class="active-banner-left">
+                        <div class="active-cat-icon-aura">
+                            <span id="activeCatIcon">🌿</span>
+                        </div>
+                        <div class="active-cat-text">
+                            <div class="active-cat-meta">
+                                <span class="active-pill-badge">Selected Category</span>
+                                <span class="active-count-badge" id="activeCatCountBadge">3 Products</span>
+                            </div>
+                            <h2 id="activeCatTitle" class="active-cat-title">Health &amp; Wellness</h2>
+                        </div>
+                    </div>
+                    <div class="active-banner-right">
+                        <button type="button" class="btn-clear-cat-filter" onclick="selectCategory('all')">
+                            <i class="fas fa-times"></i>
+                            <span>View All Products</span>
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -2340,6 +2558,41 @@
             if (mode === 'list') document.getElementById('viewModeList')?.classList.add('active');
         }
 
+        function toggleFilterDrawer(forceState) {
+            const drawer = document.getElementById('catalogFilterDrawer');
+            const toggleBtn = document.getElementById('filterDrawerToggle');
+            if (!drawer) return;
+            const isCurrentlyOpen = drawer.style.display === 'block';
+            const shouldOpen = (forceState !== undefined) ? forceState : !isCurrentlyOpen;
+            drawer.style.display = shouldOpen ? 'block' : 'none';
+            if (toggleBtn) {
+                toggleBtn.classList.toggle('active', shouldOpen);
+            }
+        }
+
+        let searchDebounceTimer = null;
+        function handleInlineSearch(val) {
+            const searchHeader = document.getElementById('catalogSearch');
+            if (searchHeader) searchHeader.value = val;
+            const clearBtn = document.getElementById('catalogSearchClear');
+            if (clearBtn) clearBtn.style.display = val.trim() ? 'flex' : 'none';
+
+            clearTimeout(searchDebounceTimer);
+            searchDebounceTimer = setTimeout(() => {
+                fetchCatalog(1);
+            }, 280);
+        }
+
+        function clearInlineSearch() {
+            const input = document.getElementById('catalogSearchInline');
+            const searchHeader = document.getElementById('catalogSearch');
+            if (input) input.value = '';
+            if (searchHeader) searchHeader.value = '';
+            const clearBtn = document.getElementById('catalogSearchClear');
+            if (clearBtn) clearBtn.style.display = 'none';
+            fetchCatalog(1);
+        }
+
         function applyQuickTag(tag) {
             if (activeQuickTag === tag) {
                 activeQuickTag = null;
@@ -2359,6 +2612,12 @@
                 document.getElementById('maxPrice').value = '5000';
             } else if (tag === 'ceylon') {
                 document.getElementById('catalogSearch').value = 'Tea';
+                const inlineInput = document.getElementById('catalogSearchInline');
+                if (inlineInput) {
+                    inlineInput.value = 'Tea';
+                    const clearBtn = document.getElementById('catalogSearchClear');
+                    if (clearBtn) clearBtn.style.display = 'flex';
+                }
             }
 
             fetchCatalog(1);
@@ -2372,13 +2631,33 @@
 
             const tray = document.getElementById('activeFilterChipsTray');
             const chipsContainer = document.getElementById('trayChipsContainer');
-            if (!tray || !chipsContainer) return;
+            const activeBadge = document.getElementById('activeFilterBadge');
+            const toggleBtn = document.getElementById('filterDrawerToggle');
 
             const catVal = document.getElementById('catFilter')?.value;
             const brandVal = document.getElementById('brandFilter')?.value;
             const searchVal = document.getElementById('catalogSearch')?.value?.trim();
             const minPrice = document.getElementById('minPrice')?.value;
             const maxPrice = document.getElementById('maxPrice')?.value;
+
+            // Compute active filter count
+            let filterCount = 0;
+            if (catVal && catVal !== 'all') filterCount++;
+            if (brandVal && brandVal !== 'all') filterCount++;
+            if (searchVal) filterCount++;
+            if (minPrice || maxPrice) filterCount++;
+            if (activeQuickTag) filterCount++;
+
+            if (activeBadge) {
+                if (filterCount > 0) {
+                    activeBadge.textContent = filterCount;
+                    activeBadge.style.display = 'inline-flex';
+                    toggleBtn?.classList.add('has-active');
+                } else {
+                    activeBadge.style.display = 'none';
+                    toggleBtn?.classList.remove('has-active');
+                }
+            }
 
             let chips = [];
 
@@ -2391,7 +2670,7 @@
                 chips.push({ label: `Brand: ${brandVal}`, clear: () => { document.getElementById('brandFilter').value = 'all'; fetchCatalog(1); } });
             }
             if (searchVal) {
-                chips.push({ label: `Search: "${searchVal}"`, clear: () => { document.getElementById('catalogSearch').value = ''; fetchCatalog(1); } });
+                chips.push({ label: `Search: "${searchVal}"`, clear: () => clearInlineSearch() });
             }
             if (minPrice || maxPrice) {
                 const priceTxt = minPrice && maxPrice ? `Rs. ${minPrice} - ${maxPrice}` : (minPrice ? `> Rs. ${minPrice}` : `< Rs. ${maxPrice}`);
@@ -2401,17 +2680,19 @@
                 chips.push({ label: `Tag: ${activeQuickTag}`, clear: () => applyQuickTag(activeQuickTag) });
             }
 
-            if (chips.length > 0) {
-                tray.style.display = 'flex';
-                chipsContainer.innerHTML = chips.map((c, i) => `
-                    <span class="tray-chip">
-                        <span>${c.label}</span>
-                        <button type="button" class="tray-chip-remove" onclick="window._clearChipFilter(${i})" title="Remove filter">&times;</button>
-                    </span>
-                `).join('');
-                window._chipFilters = chips;
-            } else {
-                tray.style.display = 'none';
+            if (tray && chipsContainer) {
+                if (chips.length > 0) {
+                    tray.style.display = 'flex';
+                    chipsContainer.innerHTML = chips.map((c, i) => `
+                        <span class="tray-chip">
+                            <span>${c.label}</span>
+                            <button type="button" class="tray-chip-remove" onclick="window._clearChipFilter(${i})" title="Remove filter">&times;</button>
+                        </span>
+                    `).join('');
+                    window._chipFilters = chips;
+                } else {
+                    tray.style.display = 'none';
+                }
             }
         }
 
@@ -2428,6 +2709,10 @@
             document.getElementById('minPrice').value = '';
             document.getElementById('maxPrice').value = '';
             document.getElementById('catalogSearch').value = '';
+            const inlineInput = document.getElementById('catalogSearchInline');
+            if (inlineInput) inlineInput.value = '';
+            const clearBtn = document.getElementById('catalogSearchClear');
+            if (clearBtn) clearBtn.style.display = 'none';
             activeQuickTag = null;
             document.querySelectorAll('.quick-tag-chip').forEach(c => c.classList.remove('active'));
             selectCategory('all');
@@ -2531,18 +2816,40 @@
         }
 
         function setupCatalogEventListeners() {
-            document.getElementById('applyFiltersBtn').addEventListener('click', () => fetchCatalog(1));
-            document.getElementById('catFilter').addEventListener('change', (e) => selectCategory(e.target.value));
-            document.getElementById('sortFilter').addEventListener('change', () => fetchCatalog(1));
-            document.getElementById('brandFilter').addEventListener('change', () => fetchCatalog(1));
-            document.getElementById('searchBtn').addEventListener('click', () => fetchCatalog(1));
-            document.getElementById('catalogSearch').addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') fetchCatalog(1);
+            document.getElementById('applyFiltersBtn')?.addEventListener('click', () => fetchCatalog(1));
+            document.getElementById('catFilter')?.addEventListener('change', (e) => selectCategory(e.target.value));
+            document.getElementById('sortFilter')?.addEventListener('change', () => fetchCatalog(1));
+            document.getElementById('brandFilter')?.addEventListener('change', () => fetchCatalog(1));
+            document.getElementById('searchBtn')?.addEventListener('click', () => {
+                const sVal = document.getElementById('catalogSearch')?.value;
+                const inlineInput = document.getElementById('catalogSearchInline');
+                if (inlineInput && sVal !== undefined) inlineInput.value = sVal;
+                fetchCatalog(1);
             });
-            document.getElementById('resetFiltersBtn').addEventListener('click', resetAllCatalogFilters);
+            document.getElementById('catalogSearch')?.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    const inlineInput = document.getElementById('catalogSearchInline');
+                    if (inlineInput) inlineInput.value = e.target.value;
+                    fetchCatalog(1);
+                }
+            });
+            document.getElementById('resetFiltersBtn')?.addEventListener('click', resetAllCatalogFilters);
+
+            // Inline Catalog Search bindings
+            const inlineSearch = document.getElementById('catalogSearchInline');
+            if (inlineSearch) {
+                inlineSearch.addEventListener('input', (e) => handleInlineSearch(e.target.value));
+                inlineSearch.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        clearTimeout(searchDebounceTimer);
+                        fetchCatalog(1);
+                    }
+                });
+            }
+            document.getElementById('catalogSearchClear')?.addEventListener('click', clearInlineSearch);
 
             // Coupon validation
-            document.getElementById('applyCouponBtn').addEventListener('click', handleApplyCoupon);
+            document.getElementById('applyCouponBtn')?.addEventListener('click', handleApplyCoupon);
         }
 
         // ================= PRODUCT DETAIL MODAL =================
