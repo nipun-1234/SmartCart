@@ -209,3 +209,4 @@ test('filtering by non-existent or newly added category safely returns empty cat
   assert.equal(res.body.total, 0);
 });
 
+
