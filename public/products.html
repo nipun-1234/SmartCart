@@ -310,7 +310,15 @@
             position: relative;
         }
 
-        /* Ambient Glowing Background Orbs */
+        /* Ambient Glowing Background Orbs (Fixed Canvas - Prevents Any Scroll Overflow) */
+        .ambient-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
         .ambient-orb-top-left {
             position: absolute;
             top: -120px;
@@ -321,20 +329,18 @@
             background: radial-gradient(circle, rgba(255, 87, 34, 0.35) 0%, rgba(255, 87, 34, 0) 70%);
             filter: blur(80px);
             pointer-events: none;
-            z-index: 0;
         }
 
         .ambient-orb-bottom-left {
             position: absolute;
-            bottom: -150px;
-            left: -150px;
+            bottom: -100px;
+            left: -100px;
             width: 520px;
             height: 520px;
             border-radius: 50%;
             background: radial-gradient(circle, rgba(255, 87, 34, 0.3) 0%, rgba(255, 87, 34, 0) 70%);
             filter: blur(90px);
             pointer-events: none;
-            z-index: 0;
         }
 
         .ambient-orb-top-right {
@@ -347,7 +353,6 @@
             background: radial-gradient(circle, rgba(255, 87, 34, 0.22) 0%, rgba(255, 87, 34, 0) 70%);
             filter: blur(80px);
             pointer-events: none;
-            z-index: 0;
         }
 
         .dark-container {
@@ -2339,9 +2344,12 @@
     </style>
 </head>
 <body>
-    <div class="ambient-orb-top-left"></div>
-    <div class="ambient-orb-bottom-left"></div>
-    <div class="ambient-orb-top-right"></div>
+    <!-- Ambient Canvas (Fixed & Non-overflowing) -->
+    <div class="ambient-canvas">
+        <div class="ambient-orb-top-left"></div>
+        <div class="ambient-orb-bottom-left"></div>
+        <div class="ambient-orb-top-right"></div>
+    </div>
 
     <!-- Navigation Header -->
     <header class="dark-header">
