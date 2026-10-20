@@ -498,6 +498,28 @@
             font-size: 0.65rem;
         }
 
+        .dark-user-icon-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #c4c2d3;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .dark-user-icon-btn:hover {
+            background: rgba(255, 255, 255, 0.14);
+            border-color: #ff5722;
+            color: #ffffff;
+            transform: scale(1.06);
+        }
+
         /* Right Header Controls */
         .dark-header-right {
             display: flex;
@@ -2819,20 +2841,13 @@
                     <span class="dark-cart-red-badge" id="cartCount">3</span>
                 </a>
 
-                <!-- User Profile Pill (Placed past the cart logo) -->
+                <!-- User Profile Pill / Icon (Placed past the cart logo) -->
                 <div class="sc-nav-dropdown-wrap" id="userProfileDropdownWrap" style="position: relative; display: inline-block;">
-                    <div class="dark-nav-pill-box" id="userProfileNavPill" style="cursor: pointer;" onclick="toggleUserProfileMenu(event)">
-                        <span class="dark-user-avatar-circle"><i class="fas fa-user"></i></span>
-                        <span id="navUserNameDisplay">Kasun</span>
-                        <i class="fas fa-chevron-down" style="font-size: 0.7rem; opacity: 0.7;"></i>
+                    <div id="userProfileNavPill" style="cursor: pointer;" onclick="toggleUserProfileMenu(event)" title="Account & Profile">
+                        <!-- Populated dynamically by renderUserProfileNav() -->
                     </div>
-                    <div id="userProfileDropdownMenu" style="display: none; position: absolute; right: 0; top: calc(100% + 8px); background: #13121b; border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; min-width: 170px; padding: 6px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); z-index: 1000;">
-                        <a href="#orders" onclick="switchView('orders'); closeUserProfileMenu();" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; color: #ffffff; text-decoration: none; font-size: 0.85rem; border-radius: 8px; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='transparent'">
-                            <i class="fas fa-file-invoice" style="color: #ff5722;"></i> <span>My Orders</span>
-                        </a>
-                        <a href="javascript:void(0)" onclick="if(typeof logoutUser==='function'){logoutUser();}else{localStorage.clear();window.location.href='/login.html';}" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; color: #ff6b6b; text-decoration: none; font-size: 0.85rem; border-radius: 8px; border-top: 1px solid rgba(255,255,255,0.08); margin-top: 4px; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='transparent'">
-                            <i class="fas fa-sign-out-alt"></i> <span>Sign Out</span>
-                        </a>
+                    <div id="userProfileDropdownMenu" style="display: none; position: absolute; right: 0; top: calc(100% + 10px); background: #13121b; border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; min-width: 220px; padding: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.65); z-index: 1000;">
+                        <!-- Populated dynamically by renderUserProfileNav() -->
                     </div>
                 </div>
             </div>
@@ -3656,7 +3671,7 @@
         }
 
         function toggleUserProfileMenu(e) {
-            e.stopPropagation();
+            if (e) e.stopPropagation();
             const menu = document.getElementById('userProfileDropdownMenu');
             if (menu) {
                 menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
@@ -3666,6 +3681,85 @@
         function closeUserProfileMenu() {
             const menu = document.getElementById('userProfileDropdownMenu');
             if (menu) menu.style.display = 'none';
+        }
+
+        function renderUserProfileNav() {
+            const pill = document.getElementById('userProfileNavPill');
+            const menu = document.getElementById('userProfileDropdownMenu');
+            if (!pill || !menu) return;
+
+            let user = null;
+            try {
+                if (typeof getAuthUser === 'function') user = getAuthUser();
+                if (!user) {
+                    const raw = localStorage.getItem('smartcart_user_data') || localStorage.getItem('smartcart_user');
+                    if (raw) user = JSON.parse(raw);
+                }
+            } catch (_e) {
+                user = null;
+            }
+
+            if (user && user.first_name) {
+                // ========== LOGGED IN: [ 👤 Kasun ▾ ] ==========
+                pill.className = 'dark-nav-pill-box';
+                pill.innerHTML = `
+                    <span class="dark-user-avatar-circle"><i class="fas fa-user"></i></span>
+                    <span id="navUserNameDisplay">${user.first_name}</span>
+                    <i class="fas fa-chevron-down" style="font-size: 0.7rem; opacity: 0.7;"></i>
+                `;
+
+                menu.innerHTML = `
+                    <div style="padding-bottom: 8px; margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                        <div style="font-size: 0.88rem; font-weight: 700; color: #ffffff;">${user.first_name} ${user.last_name || ''}</div>
+                        <div style="font-size: 0.75rem; color: #8c8a9e; overflow: hidden; text-overflow: ellipsis;">${user.email || ''}</div>
+                        ${user.role === 'admin' ? '<span style="display: inline-block; background: #ff5722; color: #fff; font-size: 0.65rem; font-weight: 800; padding: 2px 6px; border-radius: 4px; margin-top: 4px; text-transform: uppercase;">Admin</span>' : ''}
+                    </div>
+                    <a href="#orders" onclick="switchView('orders'); closeUserProfileMenu();" style="display: flex; align-items: center; gap: 9px; padding: 8px 10px; color: #ffffff; text-decoration: none; font-size: 0.84rem; border-radius: 8px; transition: background 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='transparent'">
+                        <i class="fas fa-file-invoice" style="color: #ff5722; width: 16px;"></i> <span>My Orders</span>
+                    </a>
+                    ${user.role === 'admin' ? `
+                    <a href="/admin.html" style="display: flex; align-items: center; gap: 9px; padding: 8px 10px; color: #ffffff; text-decoration: none; font-size: 0.84rem; border-radius: 8px; transition: background 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='transparent'">
+                        <i class="fas fa-gauge-high" style="color: #ffb800; width: 16px;"></i> <span>Admin Dashboard</span>
+                    </a>` : ''}
+                    <a href="javascript:void(0)" onclick="handleUserSignOut()" style="display: flex; align-items: center; gap: 9px; padding: 8px 10px; color: #ff6b6b; text-decoration: none; font-size: 0.84rem; border-radius: 8px; border-top: 1px solid rgba(255,255,255,0.08); margin-top: 6px; transition: background 0.15s;" onmouseover="this.style.background='rgba(255,107,107,0.1)'" onmouseout="this.style.background='transparent'">
+                        <i class="fas fa-sign-out-alt" style="width: 16px;"></i> <span>Sign Out</span>
+                    </a>
+                `;
+            } else {
+                // ========== LOGGED OUT: ONLY 👤 ICON ==========
+                pill.className = 'dark-user-icon-btn';
+                pill.innerHTML = `<i class="fas fa-user"></i>`;
+
+                menu.innerHTML = `
+                    <div style="text-align: center; padding: 4px 0 10px 0;">
+                        <div style="width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 87, 34, 0.15); color: #ff5722; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-size: 1.25rem;">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div style="font-size: 0.92rem; font-weight: 700; color: #ffffff; margin-bottom: 2px;">Welcome to SmartCart</div>
+                        <div style="font-size: 0.76rem; color: #8c8a9e;">Sign in to view your orders &amp; saved items</div>
+                    </div>
+                    <a href="/login.html" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #ff5722 0%, #ff7043 100%); color: #ffffff; text-decoration: none; padding: 9px 16px; border-radius: 20px; font-weight: 700; font-size: 0.86rem; box-shadow: 0 4px 15px rgba(255, 87, 34, 0.35); transition: transform 0.15s; margin-bottom: 10px;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                        <i class="fas fa-sign-in-alt"></i> Sign In
+                    </a>
+                    <div style="text-align: center; font-size: 0.78rem; color: #8c8a9e; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 8px;">
+                        New customer? <a href="/signup.html" style="color: #ff5722; font-weight: 700; text-decoration: none;">Register here</a>
+                    </div>
+                `;
+            }
+        }
+
+        function handleUserSignOut() {
+            closeUserProfileMenu();
+            try {
+                localStorage.removeItem('smartcart_jwt_token');
+                localStorage.removeItem('smartcart_user_data');
+                localStorage.removeItem('smartcart_user');
+                fetch('/api/auth/logout', { method: 'POST' }).catch(() => {});
+            } catch (_e) {
+                localStorage.clear();
+            }
+            renderUserProfileNav();
+            showNotification('You have been signed out safely.', 'info');
         }
 
         document.addEventListener('click', (e) => {
@@ -3696,14 +3790,11 @@
                 if (couponInput) couponInput.value = pendingCoupon;
             }
 
-            // Sync user display name if available in localStorage
-            try {
-                const user = JSON.parse(localStorage.getItem('smartcart_user') || 'null');
-                if (user && user.first_name) {
-                    const nameEl = document.getElementById('navUserNameDisplay');
-                    if (nameEl) nameEl.textContent = user.first_name;
-                }
-            } catch (_err) {}
+            // Sync user authentication state and navbar profile
+            if (typeof checkAuthSession === 'function') {
+                try { await checkAuthSession(); } catch (_e) {}
+            }
+            renderUserProfileNav();
 
             await loadCategories();
             await loadBrands();
