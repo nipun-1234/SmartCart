@@ -1,163 +1,204 @@
-# SmartCart - Modern E-Commerce Platform
+# 🛒 SmartCart - Next-Gen E-Commerce Platform
 
-A production-grade, full-stack e-commerce application built with **Node.js, Express, PostgreSQL, and modern Vanilla Web Components**. Featuring real user authentication, server-backed product catalog, persistent shopping carts, coupon validation, checkout with Cash on Delivery and Stripe sandbox integration, order history tracking, and a comprehensive admin analytics dashboard.
+[![Node.js Version](https://img.shields.io/badge/Node.js-v20%2B-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Express.js](https://img.shields.io/badge/Express-v5.2-000000?logo=express&logoColor=white)](https://expressjs.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-v14%2B-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Tests](https://img.shields.io/badge/Tests-14%2F14%20Passing-brightgreen?logo=node.js&logoColor=white)](https://github.com/)
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 
----
-
-## 🌟 Implemented Core Real-World Features
-
-### 1. User Accounts & Security
-* **Registration & Login**: Secure password hashing with `bcryptjs` and session issuance via signed HTTP-only cookies and JWTs.
-* **Email Verification**: Sends an email verification token with direct verification endpoint (`/api/auth/verify`).
-* **Password Reset**: Automated password reset request with token generation (`/api/auth/forgot-password` and `/api/auth/reset-password`).
-* **Customer Profile**: View and update customer details, phone number, and default delivery address.
-* **Role-Based Authorization**: Distinct `customer` and `admin` roles protected by server-side middleware (`requireAuth`, `requireAdmin`).
-
-### 2. Product Catalog & Discovery
-* **REST API**: Fully powered by `/api/products` with parameterized database queries.
-* **Filtering**: Real-time category filtering (Electronics, Clothing, Home, Sports, Books), brand selector, and price range controls (Min/Max LKR).
-* **Search**: Live search by product name, description, and brand.
-* **Sorting & Pagination**: Sort by Price (Low to High / High to Low), Top Customer Rated, and Newest with multi-page navigation.
-* **Product Detail Modal**: High-res gallery image, brand, SKU, live stock badge (`In Stock`, `Only X Left`, `Sold Out`), star rating & reviews, detailed description, and quantity selector.
-
-### 3. Shopping Cart & Coupons
-* **Cart Persistence**: Automatically synchronizes to PostgreSQL for logged-in accounts, persists to `localStorage` for guests, and automatically merges guest items into user accounts upon sign-in.
-* **Dynamic Calculations**: Real-time authoritative computation of line totals, 10% VAT/Tax, and delivery fees.
-* **Free Shipping Threshold**: Free delivery on orders over **Rs. 48,000** (otherwise Rs. 1,917).
-* **Coupon Engine**: Validates promo codes with minimum spend constraints and live discount feedback:
-  * `SMART10`: 10% discount on orders over Rs. 3,000.
-  * `WELCOME500`: Flat Rs. 500 discount on orders over Rs. 2,500.
-  * `SUPER20`: 20% discount on orders over Rs. 15,000.
-
-### 4. Checkout & Order Processing
-* **Delivery Address Form**: Form with validation for recipient name, phone, street address, and city.
-* **Payment Integrations**:
-  * **Cash on Delivery (COD)**: Order placed in `pending` payment status, due upon parcel arrival.
-  * **Credit / Debit Card (Stripe)**: Card fields with instant sandbox processing and tokenization.
-* **Order Confirmation Email**: Dispatches itemized HTML invoice with delivery address snapshot and delivery details (logged to console in development, or sent via SMTP).
-
-### 5. Order Management & Tracking
-* **Order History**: Customers can view past and active orders via the storefront `Orders` tab.
-* **Live Status Tracking**: Color-coded status badges: `Pending`, `Paid`, `Shipped`, `Delivered`, and `Cancelled`.
-* **Cancellation**: Customers can safely cancel pending orders before shipment.
-
-### 6. Admin Control Center (`/admin.html`)
-* **Overview & Analytics**:
-  * Real-time metrics: Total Paid Revenue, Total Orders, Pending Orders, Total Products, and Total Users.
-  * Interactive **Sales Trend Chart** (last 7 days line chart) powered by Chart.js.
-  * Interactive **Category Breakdown Chart** (doughnut chart).
-* **Product Catalog Management**: Full CRUD operations (Add product with images, edit details, update stock, delete products).
-* **Order Operations**: View all customer orders, filter by status, and update delivery status with live changes.
-* **User Accounts View**: View all registered customers, email verification flags, and roles.
-* **Category Management**: Create and delete store categories.
+A production-grade, full-stack digital commerce platform engineered with **Node.js, Express, PostgreSQL, and high-performance Vanilla Web Components**. SmartCart combines a luxury dark-mode shopping experience with an interactive **AI Shopping Assistant**, persistent cart synchronization, dynamic coupon calculation, order tracking, and an extensive admin analytics control center.
 
 ---
 
-## 🚀 Quick Start & Local Setup
+## 🌟 Key Highlights & Real-World Features
 
-### Requirements
-- **Node.js**: v20 or later
-- **PostgreSQL**: v14 or later (Optional: Built-in high-performance fallback store enables instant offline development).
+### 🤖 1. Live AI Shopping Assistant (`POST /api/chat`)
+* **Floating 24/7 Chatbot**: Dark glassmorphic interface accessible from anywhere on the catalog via the floating action widget.
+* **Natural Language Product Discovery**: Type queries like *"show me Dell laptops"* or *"Nike sneakers"* to receive rich interactive cards with images, discounts, and direct `[ Add to Cart ]` actions.
+* **Instant Order Tracking**: Enter order IDs like `SC-2026-1001` or `101` to view live shipping status, destination, item breakdowns, and totals inside the chat.
+* **1-Click Coupon Claim**: Inquiring about offers returns active codes (`SMART10`, `WELCOME500`, `SUPER20`) with 1-click apply buttons.
+* **FAQ & Policy Guidance**: Answers queries regarding delivery times, island-wide COD, 14-day return policies, and hotline support in both **English and Sinhala**.
 
-### 1. Install Dependencies
+### 🛍️ 2. Premium Storefront & Catalog Experience (`/products.html`)
+* **Luxury Dark Theme & Glassmorphism**: Tailored HSL color palette, smooth gradients, and ambient lighting with zero viewport overflow.
+* **Dynamic Header & Navigation**:
+  * Quick Category dropdown menu with live product counts.
+  * Direct search bar with multi-token keyword matching.
+  * Wishlist quick access.
+  * Dedicated Cart icon that opens in a **new tab** (`/products.html#cart`).
+  * **Dynamic Account Profile Pill**:
+    * **Logged In**: Displays `[ 👤 FirstName ▾ ]` with dropdown for *My Orders* and *Sign Out*.
+    * **Logged Out**: Displays a clean `👤` circular icon that opens a welcome card with a prominent **Sign In** button and **Register** link.
+* **Dual View Catalog**: Instant toggle between **Grid View** and **List View**.
+* **Advanced Multi-Filter Engine**: Filter simultaneously by Category, Brand, Rating, and Price Range (Min/Max LKR) with active filter chip removal.
+
+### 🛒 3. Cart, Coupons & Free Shipping
+* **Persistent Hybrid Cart**:
+  * Guest items saved to `localStorage` and automatically merged to the user's PostgreSQL account upon sign-in.
+  * Live cart counter badges in the navbar and floating buttons.
+* **Automated Calculations**: Authoritative server-side tax/VAT, subtotal, and shipping fee calculation.
+* **Free Delivery Threshold**: Free island-wide shipping on orders exceeding **Rs. 48,000** (standard delivery: Rs. 1,917).
+* **Coupon Validation Engine**:
+  * `SMART10`: 10% OFF on orders over Rs. 3,000.
+  * `WELCOME500`: Flat Rs. 500 OFF on orders over Rs. 2,500.
+  * `SUPER20`: 20% OFF on orders over Rs. 15,000.
+
+### 💳 4. Checkout & Order Lifecycle
+* **Flexible Payment Methods**:
+  * **Cash on Delivery (COD)**: Instant order placement with payment due upon doorstep delivery.
+  * **Credit / Debit Cards**: Integrated Stripe sandbox processing.
+* **Email Notifications**: Generates itemized HTML receipts with delivery tracking numbers and shipping addresses.
+* **Customer Orders Dashboard**: View all past deliveries with live status badges (`Pending`, `Paid`, `Processing`, `Shipped`, `Delivered`, `Cancelled`).
+
+### 📊 5. Administrative Control Center (`/admin.html`)
+* **Real-Time Analytics**: Live metrics for Total Revenue, Total Orders, Active Users, and Catalog Items.
+* **Interactive Data Visualizations**: Sales Trend 7-day line chart and Category Breakdown doughnut chart powered by Chart.js.
+* **Full CRUD Management**:
+  * Add, edit, update stock, and delete products.
+  * Filter and update order fulfillment statuses.
+  * Manage customer accounts, verification flags, and roles.
+
+---
+
+## 🛠️ Technology Stack
+
+| Layer | Technologies |
+| :--- | :--- |
+| **Backend** | Node.js (v20+), Express.js (v5.2), PostgreSQL (`pg`), RESTful APIs |
+| **Security & Auth** | JWT (`jsonwebtoken`), `bcryptjs`, `helmet`, `express-rate-limit`, `cookie-parser` |
+| **Frontend** | Semantic HTML5, Vanilla JavaScript (ES6+), Glassmorphic CSS3, Font Awesome 6 |
+| **Data & State** | PostgreSQL with resilient in-memory offline fallback store, `localStorage` client state |
+| **Deployment** | Vercel Serverless Ready (`api/[...path].js`) or Node.js standalone daemon |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+* **Node.js**: `v20.0.0` or higher
+* **PostgreSQL**: `v14` or higher *(Optional: The built-in resilient fallback store enables immediate offline development without requiring a live database).*
+
+### 1. Clone & Install
 ```bash
+git clone https://github.com/nipun-1234/SmartCart.git
+cd SmartCart
 npm install
 ```
 
 ### 2. Configure Environment
-Copy `.env.example` to `.env` (pre-configured for local dev):
+Create your `.env` configuration file:
 ```bash
 cp .env.example .env
 ```
+*(The pre-configured default values work out of the box for local development).*
 
-### 3. (Optional) Run Database Migrations
-If your local PostgreSQL server is active:
+### 3. (Optional) Database Setup
+If running against a local or remote PostgreSQL instance:
 ```bash
 npm run db:migrate
 npm run db:seed
 ```
 
-### 4. Start the Application
+### 4. Run the Server
 ```bash
+# Start production server
 npm start
-# or for auto-reloading dev mode:
-npm run dev
-```
 
-The application will be live at: **`http://localhost:3000`**
+# Or start in watch mode
+npm run server:dev
+```
+Open **`http://localhost:3000`** in your browser:
+* **Landing Page**: `http://localhost:3000/index.html`
+* **Catalog & Storefront**: `http://localhost:3000/products.html`
+* **Admin Dashboard**: `http://localhost:3000/admin.html`
+* **Login / Register**: `http://localhost:3000/login.html` & `http://localhost:3000/signup.html`
 
 ---
 
-## 🔑 Default Demo Accounts
+## 🔑 Demo Credentials
 
-| Account Role | Email | Password | Access Level |
+| Role | Email | Password | Access Rights |
 | :--- | :--- | :--- | :--- |
 | **Administrator** | `admin@smartcart.lk` | `admin123` | Full Admin Dashboard (`/admin.html`), Products, Orders, Users |
 | **Customer** | `demo@smartcart.lk` | `demo123` | Storefront (`/products.html`), Cart, Orders, Checkout |
 
 ---
 
-## 🧪 Testing
+## 🧪 Automated Testing
 
-Run the full end-to-end integration and smoke test suite:
+SmartCart includes an end-to-end integration and smoke test suite:
 ```bash
 npm test
 ```
 
-All 11 unit and integration tests verify:
-- Health check endpoints (`/healthz` and `/api/healthz`).
-- Storefront HTML serving.
-- Authentication validation, login credential verification, and user registration.
-- REST product catalog filtering and pagination.
-- Coupon code engine calculations.
-- Cart workflow, guest cart management, and Cash on Delivery order creation.
-- Protected admin routes with Bearer token authentication.
+### Test Coverage (14 / 14 Suites Passing):
+1. **Health Check Endpoint**: `/healthz` status 200 OK.
+2. **Vercel Serverless Route**: `/api/healthz` handler verification.
+3. **Storefront Serving**: Homepage root availability.
+4. **Auth Failure**: Rejects invalid or malformed credentials with 401.
+5. **Auth Success**: Issues valid signed JWT and user payload.
+6. **Registration Workflow**: Validates new user creation and email verification token.
+7. **Catalog API**: Parameterized filtering, pagination, and multi-word searches.
+8. **Coupons Engine**: Minimum spend validation and discount mathematics.
+9. **Cart & Checkout**: Item addition, server synchronization, and Cash on Delivery order creation.
+10. **Admin Protection**: Enforces Bearer token and admin role permissions on `/api/admin/stats`.
+11. **404 Route Handling**: Graceful fallback on undefined API routes.
+12. **Dynamic Categories**: Category list with real-time product counts.
+13. **Multi-Category Filtering**: Correct items returned across grocery, tech, fashion, and beauty.
+14. **Safe Querying**: Gracefully handles non-existent or newly initialized categories without errors.
 
 ---
 
-## 📁 Project Architecture
+## 📁 Repository Structure
 
 ```text
 SmartCart/
-├── api/                       # Vercel serverless functions
+├── api/                       # Vercel serverless function entrypoints
 │   ├── [...path].js
 │   └── index.js
-├── migrations/                # Versioned SQL migrations
-│   ├── 001_initial_schema.sql # Core commerce database schema
-│   └── 002_add_coupons_and_stripe.sql # Coupons, Stripe, and auth reset fields
-├── public/                    # Static storefront & admin pages
+├── migrations/                # Versioned SQL migrations for PostgreSQL
+│   ├── 001_initial_schema.sql
+│   └── 002_add_coupons_and_stripe.sql
+├── public/                    # Static web assets & storefront templates
 │   ├── css/
-│   │   └── main.css           # Core design system & shared master stylesheet
+│   │   ├── main.css           # Core styling tokens & variables
+│   │   └── smartcart-sections.css
 │   ├── js/
-│   │   └── shared.js          # Unified auth state, persistent cart, toasts & navigation
-│   ├── admin.html             # Admin Dashboard (Analytics, Products, Orders, Users)
-│   ├── index.html             # High-converting landing page with featured products
-│   ├── login.html             # Customer & admin login with password reset
-│   ├── products.html          # Interactive catalog, cart view, and checkout modal
+│   │   └── shared.js          # Unified auth state, persistent cart & toast notifications
+│   ├── admin.html             # Admin dashboard with Chart.js analytics
+│   ├── index.html             # Storefront landing page
+│   ├── login.html             # Authentication & password reset
+│   ├── products.html          # Redesigned catalog, cart view, and AI Chatbot
 │   └── signup.html            # Customer registration
 ├── scripts/
-│   ├── migrate.js             # PostgreSQL transaction migration runner
-│   └── seed.js                # Database seeder with accounts and catalog
+│   ├── migrate.js             # Migration runner script
+│   └── seed.js                # Database seeder
 ├── src/
-│   ├── config/
-│   │   └── database.js        # PostgreSQL pool configuration
+│   ├── config/                # Database pool connection
 │   ├── db/
-│   │   └── store.js           # Authoritative database repository store
+│   │   └── store.js           # Central data store with resilient fallback
 │   ├── middleware/
-│   │   └── auth.js            # JWT verification, requireAuth, requireAdmin
+│   │   └── auth.js            # Authentication & authorization guards
 │   ├── routes/
 │   │   ├── adminRoutes.js     # Admin operations & analytics
-│   │   ├── authRoutes.js      # Auth, register, login, profile, password reset
-│   │   ├── cartRoutes.js      # Cart management & guest cart merging
-│   │   ├── couponRoutes.js    # Coupon validation & promotion listing
-│   │   ├── orderRoutes.js     # Checkout, order tracking, order cancellation
-│   │   └── productRoutes.js   # Products listing, filters, search, and details
+│   │   ├── authRoutes.js      # Auth, profile, and password reset endpoints
+│   │   ├── cartRoutes.js      # Shopping cart persistence
+│   │   ├── chatRoutes.js      # SmartCart AI Live Chatbot engine
+│   │   ├── couponRoutes.js    # Coupon validation
+│   │   ├── orderRoutes.js     # Order placement & tracking
+│   │   └── productRoutes.js   # Product catalog endpoints
 │   ├── services/
-│   │   ├── emailService.js    # Order confirmation & verification templates
-│   │   └── paymentService.js  # Stripe sandbox & Cash on Delivery handler
-│   └── app.js                 # Shared Express app factory & security headers
+│   │   ├── emailService.js    # HTML receipt and notification dispatcher
+│   │   └── paymentService.js  # Stripe sandbox & Cash on Delivery
+│   └── app.js                 # Express application factory & security middleware
 ├── test/
-│   └── app.test.js            # End-to-end API test suite
-├── .env                       # Local environment variables
-└── server.js                  # Server entry point with graceful shutdown
+│   └── app.test.js            # Automated integration test suite
+├── package.json               # Dependencies & scripts
+└── server.js                  # Application entry point
 ```
+
+---
+
+## 📄 License
+
+This project is licensed under the **ISC License**. Developed with ❤️ for next-generation digital retail in South Asia.
