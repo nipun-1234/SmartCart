@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./assets/banner.svg" alt="SmartCart - Next-Gen E-Commerce Platform" width="100%" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=260&section=header&text=SmartCart&fontSize=84&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Next-Gen%20E-Commerce%20Platform%20%E2%80%A2%20by%20Nipun%20Sudusinghe&descAlignY=60&descSize=20" alt="SmartCart - Next-Gen E-Commerce Platform" width="100%" />
 
 <br/>
 
@@ -23,7 +23,7 @@
 
 </div>
 
-<img src="./assets/divider.svg" width="100%" />
+<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=4&section=header" width="100%" />
 
 ## 📖 Overview
 
@@ -31,7 +31,7 @@
 
 > 💡 **Zero-setup development.** No database? No problem. A resilient in-memory fallback store lets you run the entire app locally in under a minute.
 
-<img src="./assets/divider.svg" width="100%" />
+<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=4&section=header" width="100%" />
 
 ## ✨ Features
 
@@ -112,7 +112,7 @@
 | 🚚 **Order management** | Filter orders and update fulfillment status |
 | 👥 **User management** | Accounts, verification flags and roles |
 
-<img src="./assets/divider.svg" width="100%" />
+<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=4&section=header" width="100%" />
 
 ## 🛠️ Tech Stack
 
@@ -131,7 +131,7 @@
 | **Payments & Email** | Stripe sandbox, Cash on Delivery, HTML receipts |
 | **Deployment** | Vercel serverless (`api/[...path].js`) or standalone Node.js |
 
-<img src="./assets/divider.svg" width="100%" />
+<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=4&section=header" width="100%" />
 
 ## 🚀 Quick Start
 
@@ -165,7 +165,7 @@ Then open **http://localhost:3000**
 | 🔐 Login | `http://localhost:3000/login.html` |
 | 📝 Register | `http://localhost:3000/signup.html` |
 
-<img src="./assets/divider.svg" width="100%" />
+<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=4&section=header" width="100%" />
 
 ## 🔑 Demo Credentials
 
@@ -176,7 +176,7 @@ Then open **http://localhost:3000**
 
 > ⚠️ **Local demo only.** Change or remove these accounts before any public deployment.
 
-<img src="./assets/divider.svg" width="100%" />
+<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=4&section=header" width="100%" />
 
 ## 🧪 Automated Testing
 
@@ -218,7 +218,7 @@ npm test
 | **Access control** | Role-based guards on all admin endpoints |
 | **Price integrity** | Server-side price, tax and coupon calculation |
 
-<img src="./assets/divider.svg" width="100%" />
+<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=4&section=header" width="100%" />
 
 ## 📁 Project Structure
 
@@ -295,7 +295,7 @@ Contributions, issues and feature requests are welcome.
 4. Push: `git push origin feature/amazing-feature`
 5. Open a Pull Request (make sure `npm test` passes)
 
-<img src="./assets/divider.svg" width="100%" />
+<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=4&section=header" width="100%" />
 
 ## 👨‍💻 Author
 
