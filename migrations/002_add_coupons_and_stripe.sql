@@ -1,10 +1,3 @@
--- Add coupons, Stripe provider support, and auth reset tokens
-
-ALTER TABLE users 
-  ADD COLUMN IF NOT EXISTS phone TEXT,
-  ADD COLUMN IF NOT EXISTS verification_token TEXT,
-  ADD COLUMN IF NOT EXISTS reset_token TEXT,
-  ADD COLUMN IF NOT EXISTS reset_token_expires_at TIMESTAMPTZ;
 
 -- Allow stripe provider in payments
 ALTER TABLE payments DROP CONSTRAINT IF EXISTS payments_provider_check;
