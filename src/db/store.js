@@ -276,7 +276,11 @@ const store = {
 
     if (search && search.trim()) {
       const q = search.toLowerCase().trim();
-      list = list.filter((p) => p.name.toLowerCase().includes(q) || p.description.toLowerCase().includes(q) || (p.brand && p.brand.toLowerCase().includes(q)));
+      const tokens = q.split(/\s+/).filter(Boolean);
+      list = list.filter((p) => {
+        const full = `${p.name} ${p.description || ''} ${p.brand || ''} ${p.category || ''}`.toLowerCase();
+        return full.includes(q) || tokens.every((t) => full.includes(t)) || (tokens.length > 1 && tokens.some((t) => t.length > 2 && full.includes(t)));
+      });
     }
 
     if (minPrice !== undefined && minPrice !== '') {
