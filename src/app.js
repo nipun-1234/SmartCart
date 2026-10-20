@@ -10,6 +10,7 @@ const cartRoutes = require('./routes/cartRoutes');
 const couponRoutes = require('./routes/couponRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const chatRoutes = require('./routes/chatRoutes');
 const { store } = require('./db/store');
 
 function createApp({ serveStatic = false } = {}) {
@@ -63,6 +64,7 @@ function createApp({ serveStatic = false } = {}) {
   app.use('/api/coupons', couponRoutes);
   app.use('/api/orders', orderRoutes);
   app.use('/api/admin', adminRoutes);
+  app.use('/api/chat', chatRoutes);
 
   // Direct root compatibility aliases for forms pointing to /login and /register
   app.post('/login', authLimiter, (req, res, next) => {
