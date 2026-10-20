@@ -2836,7 +2836,7 @@
                     <i class="far fa-heart"></i>
                 </a>
 
-                <a href="#cart" class="dark-header-icon-btn" onclick="switchView('cart');" title="Cart">
+                <a href="/products.html#cart" target="_blank" rel="noopener noreferrer" class="dark-header-icon-btn" title="View Cart (Opens in new tab)">
                     <i class="fas fa-shopping-cart"></i>
                     <span class="dark-cart-red-badge" id="cartCount">3</span>
                 </a>
@@ -3809,6 +3809,12 @@
 
             if (window.location.hash === '#cart') switchView('cart');
             if (window.location.hash === '#orders') switchView('orders');
+        });
+
+        window.addEventListener('hashchange', () => {
+            if (window.location.hash === '#cart') switchView('cart');
+            if (window.location.hash === '#orders') switchView('orders');
+            if (window.location.hash === '#products' || !window.location.hash) switchView('products');
         });
 
         function switchView(view) {
