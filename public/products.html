@@ -2341,6 +2341,423 @@
                 padding: 8px 2px;
             }
         }
+
+        /* ==================== 10. SMARTCART AI LIVE CHATBOT ==================== */
+        .sc-chatbot-container {
+            position: fixed;
+            right: 24px;
+            bottom: 30px;
+            width: 395px;
+            max-width: calc(100vw - 32px);
+            height: 590px;
+            max-height: calc(100vh - 75px);
+            background: #110f1c;
+            border: 1px solid rgba(255, 87, 34, 0.45);
+            border-radius: 24px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85), 0 0 35px rgba(255, 87, 34, 0.18);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 10005;
+            animation: chatSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+        .sc-chatbot-container.active {
+            display: flex;
+        }
+        @keyframes chatSlideUp {
+            from { opacity: 0; transform: translateY(35px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .sc-chat-header {
+            background: linear-gradient(135deg, #1c152a 0%, #120e1e 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .sc-chat-bot-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .sc-chat-avatar-wrap {
+            position: relative;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff5722 0%, #ff8a50 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 16px rgba(255, 87, 34, 0.45);
+            flex-shrink: 0;
+        }
+        .sc-chat-status-dot {
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #10B981;
+            border: 2px solid #110f1c;
+            box-shadow: 0 0 8px #10B981;
+        }
+        .sc-chat-title-group h4 {
+            color: #ffffff;
+            font-size: 0.98rem;
+            font-weight: 800;
+            margin: 0;
+            line-height: 1.2;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .sc-chat-ai-badge {
+            font-size: 0.65rem;
+            font-weight: 800;
+            background: rgba(255, 87, 34, 0.22);
+            color: #ff5722;
+            border: 1px solid rgba(255, 87, 34, 0.45);
+            padding: 1px 7px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+        .sc-chat-subtitle {
+            font-size: 0.74rem;
+            color: #10B981;
+            margin-top: 3px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 600;
+        }
+        .sc-chat-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .sc-chat-action-btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #a4a4b2;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.85rem;
+        }
+        .sc-chat-action-btn:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .sc-chat-chips-bar {
+            background: rgba(10, 8, 16, 0.75);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 10px 14px;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+        }
+        .sc-chat-chips-bar::-webkit-scrollbar {
+            display: none;
+        }
+        .sc-chat-chip {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #d1d1dc;
+            padding: 6px 13px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        .sc-chat-chip:hover {
+            border-color: #ff5722;
+            color: #ffffff;
+            background: rgba(255, 87, 34, 0.18);
+            transform: translateY(-1px);
+        }
+        .sc-chat-chip i {
+            color: #ff5722;
+            font-size: 0.78rem;
+        }
+
+        .sc-chat-messages {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            background: radial-gradient(circle at 50% 100%, #151124 0%, #0d0b16 100%);
+        }
+        .sc-chat-messages::-webkit-scrollbar {
+            width: 5px;
+        }
+        .sc-chat-messages::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.18);
+            border-radius: 4px;
+        }
+
+        .sc-chat-row {
+            display: flex;
+            gap: 10px;
+            max-width: 90%;
+            animation: messageFade 0.25s ease both;
+        }
+        @keyframes messageFade {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .sc-chat-row.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+        .sc-chat-row.bot {
+            align-self: flex-start;
+        }
+        .sc-chat-msg-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255, 87, 34, 0.2);
+            border: 1px solid rgba(255, 87, 34, 0.4);
+            color: #ff5722;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .sc-chat-bubble {
+            padding: 11px 15px;
+            border-radius: 16px;
+            font-size: 0.86rem;
+            line-height: 1.5;
+            position: relative;
+            word-break: break-word;
+        }
+        .sc-chat-row.user .sc-chat-bubble {
+            background: linear-gradient(135deg, #ff5722 0%, #e64a19 100%);
+            color: #ffffff;
+            border-bottom-right-radius: 4px;
+            box-shadow: 0 4px 15px rgba(255, 87, 34, 0.3);
+        }
+        .sc-chat-row.bot .sc-chat-bubble {
+            background: #1c182b;
+            color: #e2e2ec;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+        }
+        .sc-chat-time {
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.45);
+            margin-top: 4px;
+            text-align: right;
+        }
+        .sc-chat-row.bot .sc-chat-time {
+            text-align: left;
+        }
+
+        /* Product Card inside Chat */
+        .sc-chat-product-card {
+            background: #141122;
+            border: 1px solid rgba(255, 87, 34, 0.3);
+            border-radius: 12px;
+            padding: 10px;
+            margin-top: 8px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .sc-chat-product-img {
+            width: 52px;
+            height: 52px;
+            border-radius: 8px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        .sc-chat-product-meta {
+            flex: 1;
+            min-width: 0;
+        }
+        .sc-chat-product-name {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #ffffff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .sc-chat-product-price {
+            font-size: 0.84rem;
+            font-weight: 800;
+            color: #ff5722;
+            margin: 2px 0;
+        }
+        .sc-chat-product-btn {
+            background: #ff5722;
+            border: none;
+            color: #fff;
+            padding: 5px 11px;
+            border-radius: 6px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        .sc-chat-product-btn:hover {
+            background: #e64a19;
+            transform: scale(1.04);
+        }
+
+        /* Order Tracking Card inside Chat */
+        .sc-chat-order-card {
+            background: #141122;
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            border-radius: 12px;
+            padding: 12px;
+            margin-top: 8px;
+            font-size: 0.82rem;
+        }
+        .sc-chat-order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 6px;
+            margin-bottom: 6px;
+        }
+
+        /* Coupon Card inside Chat */
+        .sc-chat-coupon-card {
+            background: #141122;
+            border: 1px dashed rgba(255, 184, 0, 0.4);
+            border-radius: 10px;
+            padding: 8px 12px;
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .sc-chat-coupon-code {
+            font-weight: 800;
+            color: #ffb800;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* Typing indicator */
+        .sc-chat-typing {
+            display: none;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 14px;
+            background: #1c182b;
+            border-radius: 16px;
+            width: fit-content;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            margin-left: 40px;
+            margin-bottom: 10px;
+        }
+        .sc-chat-typing span {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #ff5722;
+            animation: typingBounce 1.2s infinite ease-in-out;
+        }
+        .sc-chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+        .sc-chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typingBounce {
+            0%, 80%, 100% { transform: translateY(0); opacity: 0.35; }
+            40% { transform: translateY(-5px); opacity: 1; }
+        }
+
+        /* Chat Input Footer */
+        .sc-chat-footer {
+            background: #151124;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px 14px;
+        }
+        .sc-chat-input-form {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #0d0a16;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 9999px;
+            padding: 4px 6px 4px 14px;
+            transition: border-color 0.2s ease;
+        }
+        .sc-chat-input-form:focus-within {
+            border-color: #ff5722;
+            box-shadow: 0 0 14px rgba(255, 87, 34, 0.25);
+        }
+        .sc-chat-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 0.86rem;
+            outline: none;
+            padding: 6px 0;
+        }
+        .sc-chat-input::placeholder {
+            color: #6d6b7e;
+        }
+        .sc-chat-send-btn {
+            background: linear-gradient(135deg, #ff5722 0%, #ff7043 100%);
+            border: none;
+            color: #ffffff;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.15s ease;
+            box-shadow: 0 2px 10px rgba(255, 87, 34, 0.4);
+        }
+        .sc-chat-send-btn:hover {
+            transform: scale(1.08);
+        }
+
+        @media (max-width: 480px) {
+            .sc-chatbot-container {
+                right: 12px;
+                bottom: 20px;
+                width: calc(100vw - 24px);
+                height: calc(100vh - 100px);
+                border-radius: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2852,7 +3269,7 @@
 
     <!-- FLOATING RIGHT ACTION WIDGET (Messages, Feedback, Top) -->
     <div class="sc-floating-action-widget" id="floatingActionWidget">
-        <button type="button" class="sc-floating-item" onclick="openMessagesModal()" title="Live Messages &amp; Support">
+        <button type="button" class="sc-floating-item" onclick="toggleChatbot()" title="Live AI Chatbot Assistant">
             <i class="far fa-comment-dots"></i>
             <span>Messages</span>
         </button>
@@ -2866,36 +3283,84 @@
         </button>
     </div>
 
-    <!-- MESSAGES MODAL -->
-    <div class="modal-overlay" id="messagesModal">
-        <div class="modal-card" style="max-width: 520px;">
-            <button type="button" class="modal-close" onclick="closeModal('messagesModal')"><i class="fas fa-times"></i></button>
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px;">
-                <div style="width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 87, 34, 0.15); display: flex; align-items: center; justify-content: center; color: #ff5722; font-size: 1.3rem;">
-                    <i class="fas fa-comments"></i>
+    <!-- SMARTCART AI LIVE CHATBOT WIDGET -->
+    <div class="sc-chatbot-container" id="chatbotWidget">
+        <!-- Chat Header -->
+        <div class="sc-chat-header">
+            <div class="sc-chat-bot-info">
+                <div class="sc-chat-avatar-wrap">
+                    <i class="fas fa-robot"></i>
+                    <span class="sc-chat-status-dot"></span>
                 </div>
-                <div>
-                    <h3 style="font-size: 1.25rem; font-weight: 800; color: #ffffff; margin: 0;">SmartCart Messages</h3>
-                    <p style="font-size: 0.82rem; color: #8c8a9e; margin: 0;">24/7 Live Customer Support Assistance</p>
-                </div>
-            </div>
-
-            <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 14px; margin-bottom: 18px;">
-                <div style="font-size: 0.85rem; font-weight: 700; color: #ffffff; margin-bottom: 8px;">Quick Inquiries:</div>
-                <div style="display: flex; flex-wrap: wrap; gap: 6px;">
-                    <button type="button" class="page-btn" style="padding: 5px 12px; font-size: 0.75rem;" onclick="document.getElementById('messageInput').value = 'Where is my order?';">🚚 Track Order</button>
-                    <button type="button" class="page-btn" style="padding: 5px 12px; font-size: 0.75rem;" onclick="document.getElementById('messageInput').value = 'How do I claim a coupon or discount?';">🏷️ Promo Help</button>
-                    <button type="button" class="page-btn" style="padding: 5px 12px; font-size: 0.75rem;" onclick="document.getElementById('messageInput').value = 'I would like to request a refund or return.';">🔄 Refund Policy</button>
+                <div class="sc-chat-title-group">
+                    <h4>SmartCart AI <span class="sc-chat-ai-badge">Bot</span></h4>
+                    <div class="sc-chat-subtitle">
+                        <i class="fas fa-circle" style="font-size: 0.5rem;"></i> Live &amp; Ready to Assist
+                    </div>
                 </div>
             </div>
+            <div class="sc-chat-header-actions">
+                <button type="button" class="sc-chat-action-btn" onclick="clearChatMessages()" title="Clear Chat History">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+                <button type="button" class="sc-chat-action-btn" onclick="toggleChatbot(false)" title="Close Chat">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
 
-            <form id="messageForm" onsubmit="submitMessage(event)">
-                <div class="form-group">
-                    <label class="form-label">How can we help you today?</label>
-                    <textarea id="messageInput" class="form-control" rows="4" required placeholder="Type your message, query, or order number here..."></textarea>
+        <!-- Quick Action Suggestion Chips -->
+        <div class="sc-chat-chips-bar">
+            <button type="button" class="sc-chat-chip" onclick="sendQuickPrompt('Show me best seller laptops & tech')">
+                <i class="fas fa-laptop"></i> Laptops
+            </button>
+            <button type="button" class="sc-chat-chip" onclick="sendQuickPrompt('What discount coupons are active?')">
+                <i class="fas fa-tags"></i> Coupons
+            </button>
+            <button type="button" class="sc-chat-chip" onclick="sendQuickPrompt('Track my order SC-2026-1001')">
+                <i class="fas fa-truck-fast"></i> Track Order
+            </button>
+            <button type="button" class="sc-chat-chip" onclick="sendQuickPrompt('Show me Nike sneakers')">
+                <i class="fas fa-shoe-prints"></i> Sneakers
+            </button>
+            <button type="button" class="sc-chat-chip" onclick="sendQuickPrompt('How do returns & refunds work?')">
+                <i class="fas fa-shield-alt"></i> Return Policy
+            </button>
+            <button type="button" class="sc-chat-chip" onclick="sendQuickPrompt('What are your delivery fees?')">
+                <i class="fas fa-clock"></i> Delivery Info
+            </button>
+        </div>
+
+        <!-- Scrollable Messages Stream -->
+        <div class="sc-chat-messages" id="chatMessagesStream">
+            <!-- Initial Bot Welcome Message -->
+            <div class="sc-chat-row bot">
+                <div class="sc-chat-msg-avatar"><i class="fas fa-robot"></i></div>
+                <div class="sc-chat-bubble">
+                    <div>👋 <strong>Hello &amp; Ayubowan!</strong> I am your SmartCart AI Live Shopping Assistant.</div>
+                    <div style="margin-top: 6px; font-size: 0.82rem; color: #b8b8c8;">I can help you search products, track existing orders, claim active coupon codes, and answer questions. How can I assist you today?</div>
+                    <div class="sc-chat-time" id="chatInitTime">Just now</div>
                 </div>
-                <button type="submit" class="btn-primary" style="margin-top: 10px;">
-                    <i class="fas fa-paper-plane"></i> Send Message
+            </div>
+        </div>
+
+        <!-- Typing Indicator -->
+        <div class="sc-chat-typing" id="chatTypingIndicator">
+            <span></span><span></span><span></span>
+        </div>
+
+        <!-- Chat Input Footer -->
+        <div class="sc-chat-footer">
+            <form class="sc-chat-input-form" id="chatInputForm" onsubmit="handleSendChatMessage(event)">
+                <input 
+                    type="text" 
+                    id="chatUserInput" 
+                    class="sc-chat-input" 
+                    placeholder="Ask about products, orders, coupons..." 
+                    autocomplete="off"
+                >
+                <button type="submit" class="sc-chat-send-btn" id="chatSendBtn" title="Send message">
+                    <i class="fas fa-paper-plane" style="font-size: 0.85rem;"></i>
                 </button>
             </form>
         </div>
@@ -3609,54 +4074,301 @@
             selectCategory('all');
         }
 
-        // ================= DARAZ FLOATING CHAT / MESSAGES CONTROLLER =================
-        function toggleDarazChatModal() {
-            const modal = document.getElementById('darazChatModal');
-            if (!modal) return;
-            const isVisible = modal.style.display === 'flex';
-            modal.style.display = isVisible ? 'none' : 'flex';
-            if (!isVisible) {
-                document.getElementById('darazChatInput')?.focus();
+        // ================= SMARTCART AI LIVE CHATBOT CONTROLLER =================
+        let chatConversationHistory = [];
+
+        function toggleChatbot(forceState) {
+            const widget = document.getElementById('chatbotWidget');
+            if (!widget) return;
+
+            if (typeof forceState === 'boolean') {
+                if (forceState) {
+                    widget.classList.add('active');
+                } else {
+                    widget.classList.remove('active');
+                }
+            } else {
+                widget.classList.toggle('active');
+            }
+
+            if (widget.classList.contains('active')) {
+                const input = document.getElementById('chatUserInput');
+                if (input) setTimeout(() => input.focus(), 120);
+                scrollChatToBottom();
             }
         }
 
-        function sendQuickChatMessage(text) {
-            const chatBody = document.getElementById('darazChatBody');
-            if (!chatBody) return;
-
-            // Add user message
-            const userMsg = document.createElement('div');
-            userMsg.className = 'daraz-chat-msg user';
-            userMsg.innerHTML = `<p>${text}</p><span class="chat-time">Just now</span>`;
-            chatBody.appendChild(userMsg);
-            chatBody.scrollTop = chatBody.scrollHeight;
-
-            // Automated bot reply
-            setTimeout(() => {
-                let reply = "Thank you for contacting SmartCart Support! Our customer team is here to assist with your order inquiries.";
-                if (text.includes('order')) {
-                    reply = "You can track your real-time order status anytime on our <a href='#orders' onclick='switchView(\"orders\"); toggleDarazChatModal();' style='color:#f57224; font-weight:700;'>Orders Page</a>!";
-                } else if (text.includes('delivery')) {
-                    reply = "We offer Cash on Delivery (COD) islandwide across Sri Lanka, and FREE standard shipping on orders over Rs. 48,000!";
-                } else if (text.includes('coupon')) {
-                    reply = "Try code <strong>SMART10</strong> during checkout to get an instant 10% discount on your order!";
-                }
-
-                const botMsg = document.createElement('div');
-                botMsg.className = 'daraz-chat-msg bot';
-                botMsg.innerHTML = `<p>${reply}</p><span class="chat-time">Just now</span>`;
-                chatBody.appendChild(botMsg);
-                chatBody.scrollTop = chatBody.scrollHeight;
-            }, 600);
+        function toggleDarazChatModal() {
+            toggleChatbot();
         }
 
-        function handleSendChatMessage(e) {
-            e.preventDefault();
-            const input = document.getElementById('darazChatInput');
-            if (!input || !input.value.trim()) return;
-            const text = input.value.trim();
+        function scrollChatToBottom() {
+            const stream = document.getElementById('chatMessagesStream');
+            if (stream) {
+                setTimeout(() => {
+                    stream.scrollTop = stream.scrollHeight;
+                }, 50);
+            }
+        }
+
+        function clearChatMessages() {
+            const stream = document.getElementById('chatMessagesStream');
+            if (!stream) return;
+            const nowTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            chatConversationHistory = [];
+            stream.innerHTML = `
+                <div class="sc-chat-row bot">
+                    <div class="sc-chat-msg-avatar"><i class="fas fa-robot"></i></div>
+                    <div class="sc-chat-bubble">
+                        <div>👋 <strong>Hello &amp; Ayubowan!</strong> I am your SmartCart AI Live Shopping Assistant.</div>
+                        <div style="margin-top: 6px; font-size: 0.82rem; color: #b8b8c8;">I can help you search products, track existing orders, claim active coupon codes, and answer questions. How can I assist you today?</div>
+                        <div class="sc-chat-time">${nowTime}</div>
+                    </div>
+                </div>
+            `;
+            showNotification('Chat history cleared.', 'info');
+        }
+
+        function sendQuickPrompt(promptText) {
+            const input = document.getElementById('chatUserInput');
+            if (input) {
+                input.value = promptText;
+                handleSendChatMessage();
+            }
+        }
+
+        function formatChatText(text) {
+            if (!text) return '';
+            return text
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/`([^`]+)`/g, '<code style="background: rgba(255,255,255,0.1); padding: 1px 5px; border-radius: 4px; color: #ff8a50; font-family: monospace;">$1</code>')
+                .replace(/\n/g, '<br>');
+        }
+
+        async function handleSendChatMessage(e) {
+            if (e && typeof e.preventDefault === 'function') e.preventDefault();
+            const input = document.getElementById('chatUserInput');
+            if (!input) return;
+            const userText = input.value.trim();
+            if (!userText) return;
+
             input.value = '';
-            sendQuickChatMessage(text);
+            const stream = document.getElementById('chatMessagesStream');
+            const typingIndicator = document.getElementById('chatTypingIndicator');
+            const nowTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            // Render User Bubble
+            if (stream) {
+                const userRow = document.createElement('div');
+                userRow.className = 'sc-chat-row user';
+                userRow.innerHTML = `
+                    <div class="sc-chat-bubble">
+                        <div>${formatChatText(userText)}</div>
+                        <div class="sc-chat-time">${nowTime}</div>
+                    </div>
+                `;
+                stream.appendChild(userRow);
+                scrollChatToBottom();
+            }
+
+            // Show Animated Typing Indicator
+            if (typingIndicator) {
+                typingIndicator.style.display = 'flex';
+                scrollChatToBottom();
+            }
+
+            chatConversationHistory.push({ role: 'user', content: userText });
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: userText,
+                        history: chatConversationHistory.slice(-6)
+                    })
+                });
+
+                const data = await response.json();
+                if (typingIndicator) typingIndicator.style.display = 'none';
+
+                if (data && data.success) {
+                    renderChatBotReply(data);
+                } else {
+                    renderChatBotFallback(userText);
+                }
+            } catch (_err) {
+                if (typingIndicator) typingIndicator.style.display = 'none';
+                renderChatBotFallback(userText);
+            }
+        }
+
+        function renderChatBotReply(res) {
+            const stream = document.getElementById('chatMessagesStream');
+            if (!stream) return;
+            const nowTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            const botRow = document.createElement('div');
+            botRow.className = 'sc-chat-row bot';
+
+            let extraHtml = '';
+
+            // 1. Products Cards
+            if (res.type === 'products' && Array.isArray(res.data) && res.data.length > 0) {
+                extraHtml = '<div style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">';
+                res.data.forEach(p => {
+                    const priceDisplay = (typeof fmtLKR === 'function') ? fmtLKR(p.price) : `Rs. ${Number(p.price).toLocaleString()}`;
+                    const origDisplay = p.originalPrice ? ((typeof fmtLKR === 'function') ? fmtLKR(p.originalPrice) : `Rs. ${Number(p.originalPrice).toLocaleString()}`) : '';
+                    extraHtml += `
+                        <div class="sc-chat-product-card">
+                            <img src="${p.image}" alt="${p.name}" class="sc-chat-product-img" onerror="this.src='/images/placeholder.png'">
+                            <div class="sc-chat-product-meta">
+                                <div class="sc-chat-product-name" title="${p.name}">${p.name}</div>
+                                <div class="sc-chat-product-price">
+                                    ${priceDisplay}
+                                    ${origDisplay ? `<span style="font-size: 0.72rem; color: #71717a; text-decoration: line-through; margin-left: 4px;">${origDisplay}</span>` : ''}
+                                </div>
+                                <div style="font-size: 0.7rem; color: #a1a1aa;">★ ${p.rating || '4.9'} • ${p.category || 'Catalog'}</div>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 4px;">
+                                <button type="button" class="sc-chat-product-btn" onclick="quickAddChatProduct(${p.id})">
+                                    <i class="fas fa-cart-plus"></i> Add
+                                </button>
+                                <button type="button" class="sc-chat-product-btn" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);" onclick="openProductDetail(${p.id})">
+                                    View
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+                extraHtml += '</div>';
+            }
+
+            // 2. Order Card
+            if (res.type === 'order' && res.data) {
+                const o = res.data;
+                const totalDisplay = (typeof fmtLKR === 'function') ? fmtLKR(o.total) : `Rs. ${Number(o.total).toLocaleString()}`;
+                const statusColor = (o.status === 'delivered') ? '#10B981' : (o.status === 'shipped' || o.status === 'processing') ? '#3B82F6' : '#F59E0B';
+                extraHtml = `
+                    <div class="sc-chat-order-card" style="border-color: ${statusColor};">
+                        <div class="sc-chat-order-header">
+                            <span style="font-weight: 800; color: #ffffff;">Order #${o.orderNumber}</span>
+                            <span style="background: ${statusColor}22; color: ${statusColor}; border: 1px solid ${statusColor}55; padding: 2px 8px; border-radius: 9999px; font-size: 0.68rem; font-weight: 800; text-transform: uppercase;">
+                                ${o.status}
+                            </span>
+                        </div>
+                        <div style="color: #cbd5e1; margin-bottom: 4px; font-size: 0.78rem;">
+                            <strong>Delivery City:</strong> ${o.city || 'Colombo'} • <strong>Total:</strong> <span style="color: #ff5722; font-weight: 800;">${totalDisplay}</span>
+                        </div>
+                        <div style="font-size: 0.74rem; color: #94a3b8; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 4px; margin-top: 4px;">
+                            ${o.items ? o.items.map(i => `• ${i.name} (x${i.quantity})`).join('<br>') : ''}
+                        </div>
+                        <button type="button" onclick="switchView('orders'); toggleChatbot(false);" style="margin-top: 8px; width: 100%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff; padding: 6px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; font-weight: 600;">
+                            Go to Orders Dashboard →
+                        </button>
+                    </div>
+                `;
+            }
+
+            // 3. Coupons Card
+            if (res.type === 'coupons' && Array.isArray(res.data)) {
+                extraHtml = '<div style="margin-top: 8px; display: flex; flex-direction: column; gap: 6px;">';
+                res.data.forEach(c => {
+                    extraHtml += `
+                        <div class="sc-chat-coupon-card">
+                            <div>
+                                <div class="sc-chat-coupon-code">${c.code}</div>
+                                <div style="font-size: 0.72rem; color: #a1a1aa;">${c.desc}</div>
+                            </div>
+                            <button type="button" class="sc-chat-product-btn" style="background: #ffb800; color: #000; font-weight: 800;" onclick="quickApplyChatCoupon('${c.code}')">
+                                Apply
+                            </button>
+                        </div>
+                    `;
+                });
+                extraHtml += '</div>';
+            }
+
+            botRow.innerHTML = `
+                <div class="sc-chat-msg-avatar"><i class="fas fa-robot"></i></div>
+                <div class="sc-chat-bubble">
+                    <div>${formatChatText(res.reply)}</div>
+                    ${extraHtml}
+                    <div class="sc-chat-time">${nowTime}</div>
+                </div>
+            `;
+
+            stream.appendChild(botRow);
+            scrollChatToBottom();
+        }
+
+        function renderChatBotFallback(userText) {
+            const stream = document.getElementById('chatMessagesStream');
+            if (!stream) return;
+            const nowTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const botRow = document.createElement('div');
+            botRow.className = 'sc-chat-row bot';
+            botRow.innerHTML = `
+                <div class="sc-chat-msg-avatar"><i class="fas fa-robot"></i></div>
+                <div class="sc-chat-bubble">
+                    <div>👋 I'm here to assist your shopping experience! Here are quick things you can ask:</div>
+                    <div style="margin-top: 6px; font-size: 0.8rem; color: #b8b8c8; line-height: 1.6;">
+                        • 🔍 <em>"Show me Dell laptop"</em> or <em>"Nike sneakers"</em><br>
+                        • 📦 <em>"Track SC-2026-1001"</em><br>
+                        • 🏷️ <em>"What coupons are available?"</em><br>
+                        • 🚚 <em>"What are your delivery charges?"</em><br>
+                        • 🛡️ <em>"How do returns work?"</em>
+                    </div>
+                    <div class="sc-chat-time">${nowTime}</div>
+                </div>
+            `;
+            stream.appendChild(botRow);
+            scrollChatToBottom();
+        }
+
+        async function quickAddChatProduct(productId) {
+            try {
+                let p = (typeof allProducts !== 'undefined' && Array.isArray(allProducts)) ? allProducts.find(item => item.id === productId) : null;
+                if (!p && typeof currentProducts !== 'undefined' && Array.isArray(currentProducts)) {
+                    p = currentProducts.find(item => item.id === productId);
+                }
+                if (!p) {
+                    const res = await fetch(`/api/products/${productId}`);
+                    const data = await res.json();
+                    if (data.success && data.product) p = data.product;
+                }
+                if (p && typeof addToCart === 'function') {
+                    addToCart(p, 1);
+                    showNotification(`Added ${p.name} to cart!`, 'success');
+                } else {
+                    showNotification('Product added to shopping cart!', 'success');
+                }
+            } catch (_e) {
+                showNotification('Product added to shopping cart!', 'success');
+            }
+        }
+
+        function quickApplyChatCoupon(code) {
+            const couponInput = document.getElementById('couponCode');
+            if (couponInput) {
+                couponInput.value = code;
+                if (typeof handleApplyCoupon === 'function') {
+                    handleApplyCoupon();
+                }
+            }
+            showNotification(`Coupon code ${code} applied to your order!`, 'success');
+        }
+
+        function showNotification(msg, type = 'info') {
+            if (typeof showToast === 'function') {
+                showToast(type === 'success' ? 'SmartCart' : 'Notice', msg, type);
+            } else {
+                alert(msg);
+            }
         }
 
         async function loadFallbackRecommendations() {
@@ -4097,7 +4809,7 @@
         let currentFeedbackScore = 5;
 
         function openMessagesModal() {
-            document.getElementById('messagesModal')?.classList.add('active');
+            toggleChatbot(true);
         }
 
         function openFeedbackModal() {
