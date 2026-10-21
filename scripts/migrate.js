@@ -1,3 +1,7 @@
+require('dotenv').config();
+const fs = require('fs');
+const path = require('path');
+const { pool } = require('../src/config/database');
 
 async function migrate() {
   if (!process.env.DATABASE_URL) {
