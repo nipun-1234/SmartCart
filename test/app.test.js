@@ -1,7 +1,3 @@
-const test = require('node:test');
-const assert = require('node:assert/strict');
-const request = require('supertest');
-const { createApp } = require('../src/app');
 
 const app = createApp();
 
