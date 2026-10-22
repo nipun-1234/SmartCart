@@ -1,0 +1,622 @@
+/**
+ * SmartCart - Premium Cinematic Website Intro Stylesheet
+ * High-performance, GPU-accelerated luxury brand entrance overlay.
+ * Palette: Cosmic Navy/Black (#06050a), Flame Orange (#ff5722), Neon Amber (#ff8a50), Cyber Gold (#ffb800)
+ */
+
+/* ==================== 1. INTRO OVERLAY CONTAINER ==================== */
+.sc-intro-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999999;
+  background: #06050a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  contain: strict;
+  transform: translate3d(0, 0, 0);
+  will-change: opacity, transform, filter;
+  opacity: 1;
+  transition: opacity 0.75s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.75s cubic-bezier(0.4, 0, 0.2, 1),
+              filter 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hidden state once completed */
+.sc-intro-overlay.sc-intro-hidden {
+  display: none !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+/* Outro Dissolve / Scale transition */
+.sc-intro-overlay.sc-intro-dissolving {
+  opacity: 0;
+  transform: scale(1.05) translate3d(0, 0, 0);
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+/* Lock page scroll while intro is playing */
+body.sc-intro-active {
+  overflow: hidden !important;
+  height: 100vh !important;
+}
+
+/* Gentle entrance lift for the real homepage content */
+.sc-homepage-content-root {
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.85s ease;
+  will-change: transform, opacity;
+}
+
+body.sc-intro-active .sc-homepage-content-root {
+  transform: translateY(14px) scale(0.99);
+  opacity: 0.9;
+}
+
+body.sc-intro-revealed .sc-homepage-content-root {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* ==================== 2. AMBIENT BACKDROP & LIGHTING ==================== */
+.sc-intro-backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Deep Cosmic Gradient */
+.sc-intro-backdrop::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 90% 70% at 50% 50%, #0d0a17 0%, #06050a 100%);
+  opacity: 0.95;
+}
+
+/* Center Radiant Amber/Orange Core */
+.sc-intro-ambient-radial {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(720px, 95vw);
+  height: min(720px, 95vw);
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, 
+    rgba(255, 87, 34, 0.35) 0%, 
+    rgba(232, 112, 42, 0.18) 32%, 
+    rgba(255, 184, 0, 0.08) 55%, 
+    rgba(6, 5, 10, 0) 72%
+  );
+  filter: blur(60px);
+  border-radius: 50%;
+  animation: introAuraPulse 3.5s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+@keyframes introAuraPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.85);
+    opacity: 0.65;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.18);
+    opacity: 0.95;
+  }
+}
+
+/* Horizontal Anamorphic Lens Streak */
+.sc-intro-beam-horizontal {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 87, 34, 0) 15%, 
+    rgba(255, 138, 80, 0.45) 35%, 
+    rgba(255, 235, 204, 0.85) 50%, 
+    rgba(255, 138, 80, 0.45) 65%, 
+    rgba(255, 87, 34, 0) 85%, 
+    transparent 100%
+  );
+  filter: blur(1.5px);
+  opacity: 0;
+  animation: introBeamFlash 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+  pointer-events: none;
+}
+
+@keyframes introBeamFlash {
+  0% {
+    opacity: 0;
+    transform: translateY(-50%) scaleX(0.1);
+  }
+  45% {
+    opacity: 0.85;
+    transform: translateY(-50%) scaleX(1);
+  }
+  100% {
+    opacity: 0.35;
+    transform: translateY(-50%) scaleX(0.9);
+  }
+}
+
+/* Particle Canvas */
+.sc-intro-particle-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+/* Subtle Vignette */
+.sc-intro-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(4, 3, 7, 0.8) 100%);
+  pointer-events: none;
+}
+
+/* ==================== 3. CENTER STAGE STACK ==================== */
+.sc-intro-stage {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-width: 640px;
+  padding: 0 24px;
+}
+
+/* ==================== 4. LOGO EMBLEM (SCENE 2) ==================== */
+.sc-intro-emblem-wrap {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: introEmblemArrive 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+  will-change: transform, opacity;
+}
+
+@keyframes introEmblemArrive {
+  0% {
+    opacity: 0;
+    transform: scale(0.55) rotate(-10deg);
+    filter: blur(12px);
+  }
+  65% {
+    transform: scale(1.06) rotate(1deg);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    filter: blur(0);
+  }
+}
+
+/* Outer Pulsing Halo */
+.sc-intro-emblem-ring-outer {
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 87, 34, 0.25) 0%, rgba(255, 87, 34, 0) 70%);
+  border: 1px solid rgba(255, 87, 34, 0.3);
+  animation: introRingPulse 2.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes introRingPulse {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.85;
+    border-color: rgba(255, 184, 0, 0.55);
+  }
+  100% {
+    transform: scale(0.92);
+    opacity: 0.4;
+  }
+}
+
+/* Inner Glass Orb */
+.sc-intro-cart-icon-box {
+  position: relative;
+  width: 86px;
+  height: 86px;
+  border-radius: 26px;
+  background: linear-gradient(145deg, rgba(32, 24, 46, 0.85) 0%, rgba(16, 12, 24, 0.95) 100%);
+  border: 1.5px solid rgba(255, 112, 67, 0.5);
+  box-shadow: 
+    0 12px 35px rgba(0, 0, 0, 0.75),
+    0 0 28px rgba(255, 87, 34, 0.45),
+    inset 0 1px 1px rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  overflow: hidden;
+}
+
+/* Rotating Corner Neon Edge Highlight */
+.sc-intro-cart-icon-box::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background: conic-gradient(from 0deg, transparent 0%, rgba(255, 184, 0, 0.5) 25%, transparent 50%, rgba(255, 87, 34, 0.6) 75%, transparent 100%);
+  animation: introEdgeSpin 4s linear infinite;
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.sc-intro-cart-icon-box::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 24px;
+  background: #110d1c;
+}
+
+@keyframes introEdgeSpin {
+  100% { transform: rotate(360deg); }
+}
+
+/* Shopping Cart Emblem Icon */
+.sc-intro-cart-glyph {
+  position: relative;
+  z-index: 2;
+  font-size: 2.3rem;
+  background: linear-gradient(135deg, #ffffff 0%, #ff8a50 45%, #ff5722 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 12px rgba(255, 87, 34, 0.6));
+  animation: introCartShimmer 2.2s ease-in-out infinite alternate;
+}
+
+@keyframes introCartShimmer {
+  0% { filter: drop-shadow(0 0 8px rgba(255, 87, 34, 0.4)); }
+  100% { filter: drop-shadow(0 0 18px rgba(255, 184, 0, 0.8)); }
+}
+
+/* Top-right subtle glowing sparkle badge */
+.sc-intro-sparkle-dot {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffb800;
+  box-shadow: 0 0 10px #ffb800, 0 0 18px #ff5722;
+  z-index: 3;
+  animation: introDotBlink 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes introDotBlink {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  100% { transform: scale(1.3); opacity: 1; }
+}
+
+/* ==================== 5. WORDMARK (SCENE 3) ==================== */
+.sc-intro-wordmark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 8px;
+  letter-spacing: 0.22em;
+  font-family: 'Outfit', 'Inter', -apple-system, sans-serif;
+  font-size: clamp(2rem, 5.5vw, 3.4rem);
+  font-weight: 900;
+  line-height: 1.1;
+  text-transform: uppercase;
+  perspective: 600px;
+}
+
+/* Letter spans */
+.sc-intro-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(18px) rotateX(25deg);
+  filter: blur(8px);
+  animation: introCharReveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(0.35s + var(--char-idx, 0) * 0.045s);
+  color: #ffffff;
+  text-shadow: 0 2px 20px rgba(255, 255, 255, 0.25);
+  will-change: transform, opacity, filter;
+}
+
+/* Accent for 'CART' portion */
+.sc-intro-char.sc-char-accent {
+  background: linear-gradient(135deg, #ff8a50 0%, #ff5722 60%, #ff3b30 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 2px 14px rgba(255, 87, 34, 0.55));
+}
+
+@keyframes introCharReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) rotateX(25deg);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg);
+    filter: blur(0);
+  }
+}
+
+/* Radiant Sheen sweep across whole wordmark */
+.sc-intro-wordmark-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.sc-intro-wordmark-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.55) 50%, 
+    transparent 100%
+  );
+  transform: skewX(-25deg);
+  pointer-events: none;
+  animation: introShinePass 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards;
+  opacity: 0;
+}
+
+@keyframes introShinePass {
+  0% { left: -60%; opacity: 0; }
+  25% { opacity: 0.7; }
+  100% { left: 160%; opacity: 0; }
+}
+
+/* ==================== 6. TAGLINE (SCENE 5) ==================== */
+.sc-intro-tagline {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(0.92rem, 2.2vw, 1.15rem);
+  color: rgba(255, 255, 255, 0.72);
+  letter-spacing: 0.22em;
+  margin: 6px 0 28px;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: introTaglineFade 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.95s forwards;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes introTaglineFade {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+    letter-spacing: 0.12em;
+  }
+  100% {
+    opacity: 0.82;
+    transform: translateY(0);
+    letter-spacing: 0.22em;
+  }
+}
+
+/* ==================== 7. PROGRESS BAR & STATUS (SCENE 4) ==================== */
+.sc-intro-progress-wrap {
+  width: min(270px, 85vw);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: introProgressFade 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.75s forwards;
+}
+
+@keyframes introProgressFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Thin Glowing Neon Track */
+.sc-intro-progress-track {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  position: relative;
+  overflow: visible;
+}
+
+.sc-intro-progress-fill {
+  position: relative;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #ff5722 0%, #ff8a50 50%, #ffb800 100%);
+  border-radius: 9999px;
+  box-shadow: 
+    0 0 10px rgba(255, 87, 34, 0.8),
+    0 0 20px rgba(255, 184, 0, 0.4);
+  transition: width 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: width;
+}
+
+/* Pip at head of progress line */
+.sc-intro-progress-pip {
+  position: absolute;
+  right: -3px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 8px #ffffff, 0 0 14px #ff5722;
+}
+
+.sc-intro-progress-meta {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Inter', monospace, sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.sc-intro-progress-status {
+  color: #ff8a50;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.sc-intro-progress-status::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ff5722;
+  box-shadow: 0 0 6px #ff5722;
+  animation: introStatusBlink 1s infinite alternate;
+}
+
+@keyframes introStatusBlink {
+  0% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+.sc-intro-progress-percent {
+  color: rgba(255, 255, 255, 0.7);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+/* ==================== 8. USER CONTROLS (SKIP / DEV REPLAY) ==================== */
+.sc-intro-skip-btn {
+  position: absolute;
+  top: 28px;
+  right: 28px;
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.6);
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.2s ease;
+  opacity: 0;
+  animation: introSkipFade 0.5s ease 0.6s forwards;
+}
+
+.sc-intro-skip-btn:hover {
+  background: rgba(255, 87, 34, 0.18);
+  border-color: rgba(255, 87, 34, 0.5);
+  color: #ffffff;
+  transform: scale(1.04);
+}
+
+@keyframes introSkipFade {
+  to { opacity: 0.75; }
+}
+
+/* ==================== 9. ACCESSIBILITY & RESPONSIVE ==================== */
+@media (max-width: 640px) {
+  .sc-intro-emblem-wrap {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 18px;
+  }
+  .sc-intro-cart-icon-box {
+    width: 72px;
+    height: 72px;
+    border-radius: 20px;
+  }
+  .sc-intro-cart-glyph {
+    font-size: 1.9rem;
+  }
+  .sc-intro-wordmark {
+    letter-spacing: 0.18em;
+  }
+  .sc-intro-tagline {
+    margin-bottom: 22px;
+  }
+  .sc-intro-progress-wrap {
+    width: min(230px, 80vw);
+  }
+  .sc-intro-skip-btn {
+    top: 18px;
+    right: 18px;
+    padding: 5px 11px;
+    font-size: 0.7rem;
+  }
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .sc-intro-overlay {
+    transition: opacity 0.2s ease !important;
+  }
+  .sc-intro-overlay.sc-intro-dissolving {
+    opacity: 0 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .sc-intro-emblem-wrap,
+  .sc-intro-char,
+  .sc-intro-tagline,
+  .sc-intro-progress-wrap,
+  .sc-intro-ambient-radial,
+  .sc-intro-beam-horizontal,
+  .sc-intro-cart-icon-box::before,
+  .sc-intro-emblem-ring-outer {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+  .sc-intro-particle-canvas {
+    display: none !important;
+  }
+}

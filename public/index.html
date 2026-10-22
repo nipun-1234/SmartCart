@@ -17,6 +17,7 @@
     <!-- Core & Custom Stylesheets -->
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/smartcart-sections.css">
+    <link rel="stylesheet" href="/css/cinematic-intro.css">
 
     <style>
         html, body {
@@ -508,6 +509,70 @@
 </head>
 
 <body>
+
+    <!-- ==================== CINEMATIC BRAND INTRO OVERLAY ==================== -->
+    <aside id="smartcartCinematicIntro" class="sc-intro-overlay" aria-label="SmartCart Welcome Experience" role="dialog" aria-modal="true">
+        <!-- Ambient Backdrop & Luxury Lighting -->
+        <div class="sc-intro-backdrop">
+            <div class="sc-intro-ambient-radial"></div>
+            <div class="sc-intro-beam-horizontal"></div>
+            <canvas id="scIntroParticleCanvas" class="sc-intro-particle-canvas"></canvas>
+            <div class="sc-intro-vignette"></div>
+        </div>
+
+        <!-- Center Stage Stack -->
+        <div class="sc-intro-stage">
+            <!-- Scene 2: Shopping Cart Emblem with Rotating Neon Halo -->
+            <div class="sc-intro-emblem-wrap">
+                <div class="sc-intro-emblem-ring-outer"></div>
+                <div class="sc-intro-cart-icon-box">
+                    <span class="sc-intro-sparkle-dot"></span>
+                    <i class="fas fa-shopping-cart sc-intro-cart-glyph"></i>
+                </div>
+            </div>
+
+            <!-- Scene 3: SMARTCART Wordmark & Diagonal Sheen -->
+            <div class="sc-intro-wordmark-wrap">
+                <div class="sc-intro-wordmark" id="scIntroWordmark" aria-label="SMARTCART">
+                    <!-- Letter-by-letter stagger rendered dynamically -->
+                    <span class="sc-intro-char" style="--char-idx: 0;">S</span>
+                    <span class="sc-intro-char" style="--char-idx: 1;">M</span>
+                    <span class="sc-intro-char" style="--char-idx: 2;">A</span>
+                    <span class="sc-intro-char" style="--char-idx: 3;">R</span>
+                    <span class="sc-intro-char" style="--char-idx: 4;">T</span>
+                    <span class="sc-intro-char sc-char-accent" style="--char-idx: 5;">C</span>
+                    <span class="sc-intro-char sc-char-accent" style="--char-idx: 6;">A</span>
+                    <span class="sc-intro-char sc-char-accent" style="--char-idx: 7;">R</span>
+                    <span class="sc-intro-char sc-char-accent" style="--char-idx: 8;">T</span>
+                </div>
+                <div class="sc-intro-wordmark-shine"></div>
+            </div>
+
+            <!-- Scene 5: Tagline -->
+            <p class="sc-intro-tagline">Your World. One Cart.</p>
+
+            <!-- Scene 4: Glowing Progress Line + Real-Time Status -->
+            <div class="sc-intro-progress-wrap">
+                <div class="sc-intro-progress-track">
+                    <div class="sc-intro-progress-fill" id="scIntroProgressBar">
+                        <span class="sc-intro-progress-pip"></span>
+                    </div>
+                </div>
+                <div class="sc-intro-progress-meta">
+                    <span class="sc-intro-progress-status" id="scIntroStatus">INITIALIZING SYSTEM</span>
+                    <span class="sc-intro-progress-percent" id="scIntroPercent">0%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Skip Button -->
+        <button type="button" class="sc-intro-skip-btn" id="scIntroSkipBtn" aria-label="Skip Intro Animation">
+            <span>Skip</span> <i class="fas fa-forward"></i>
+        </button>
+    </aside>
+
+    <!-- Homepage Content Root (receives gentle entrance lift) -->
+    <div class="sc-homepage-content-root" id="scHomepageContentRoot">
 
     <!-- ==================== 1. NAVBAR (FIXED) ==================== -->
     <header class="sc-fixed-navbar" id="scMainNavbar">
@@ -1514,6 +1579,7 @@
         </div>
         <button class="sp-close" onclick="dismissSocialProof()"><i class="fas fa-times"></i></button>
     </div>
+    </div> <!-- /#scHomepageContentRoot -->
 
     <!-- Core Scripts -->
     <script src="/js/shared.js"></script>
@@ -1932,5 +1998,8 @@
             if (typeof updateWishlistBadge === 'function') updateWishlistBadge();
         });
     </script>
+
+    <!-- SmartCart Cinematic Intro Controller -->
+    <script src="/js/cinematic-intro.js"></script>
 </body>
 </html>
