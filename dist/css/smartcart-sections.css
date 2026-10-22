@@ -1765,3 +1765,336 @@
   color: #fff;
 }
 
+/* ==================== 12. PREMIUM INTERACTIVE MOTION & LIGHTING ENGINE ==================== */
+
+/* 12.1 MAGNETIC GLOW BUTTONS */
+.btn-primary,
+.sc-btn-primary,
+.deal-buy-btn,
+.btn-add-cart,
+.dark-add-cart-btn,
+.sc-hero-shop-btn,
+.sc-btn-auth,
+.btn-magnetic,
+.sc-btn-magnetic,
+.dark-hero-cta,
+.sc-chat-send-btn {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transform: translate3d(var(--mag-x, 0px), var(--mag-y, 0px), 0);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s ease,
+              border-color 0.25s ease,
+              filter 0.2s ease;
+  will-change: transform;
+}
+
+/* Cursor-Tracking Glowing Radial Sheen */
+.btn-primary::before,
+.sc-btn-primary::before,
+.deal-buy-btn::before,
+.btn-add-cart::before,
+.dark-add-cart-btn::before,
+.sc-hero-shop-btn::before,
+.sc-btn-auth::before,
+.btn-magnetic::before,
+.sc-btn-magnetic::before,
+.dark-hero-cta::before,
+.sc-chat-send-btn::before {
+  content: '';
+  position: absolute;
+  top: var(--my, -300px);
+  left: var(--mx, -300px);
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.38) 0%, rgba(255, 184, 0, 0.28) 40%, transparent 72%);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+  z-index: 1;
+}
+
+.btn-primary:hover::before,
+.sc-btn-primary:hover::before,
+.deal-buy-btn:hover::before,
+.btn-add-cart:hover::before,
+.dark-add-cart-btn:hover::before,
+.sc-hero-shop-btn:hover::before,
+.sc-btn-auth:hover::before,
+.btn-magnetic:hover::before,
+.sc-btn-magnetic:hover::before,
+.dark-hero-cta:hover::before,
+.sc-chat-send-btn:hover::before {
+  opacity: 1;
+}
+
+/* Radiant Elevated Hover State */
+.btn-primary:hover,
+.sc-btn-primary:hover,
+.deal-buy-btn:hover,
+.btn-add-cart:hover,
+.dark-add-cart-btn:hover,
+.sc-hero-shop-btn:hover,
+.sc-btn-auth:hover,
+.btn-magnetic:hover,
+.sc-btn-magnetic:hover,
+.dark-hero-cta:hover,
+.sc-chat-send-btn:hover {
+  transform: translate3d(var(--mag-x, 0px), calc(var(--mag-y, 0px) - 2px), 0);
+  box-shadow: 0 10px 28px -6px rgba(232, 112, 42, 0.55),
+              0 0 16px rgba(255, 184, 0, 0.3);
+  filter: brightness(1.05);
+}
+
+/* Subtle Click Active Compression */
+.btn-primary:active,
+.sc-btn-primary:active,
+.deal-buy-btn:active,
+.btn-add-cart:active,
+.dark-add-cart-btn:active,
+.sc-hero-shop-btn:active,
+.sc-btn-auth:active,
+.btn-magnetic:active,
+.sc-btn-magnetic:active {
+  transform: translate3d(var(--mag-x, 0px), var(--mag-y, 0px), 0) scale(0.97) !important;
+  transition: transform 0.08s ease;
+}
+
+/* 12.2 SUBTLE 3D PRODUCT-CARD HOVER ANIMATIONS */
+.sc-product-card,
+.dark-product-card,
+.product-card,
+.sc-deal-card,
+.sc-trending-card,
+.sc-bestseller-card,
+.sc-cat-card,
+.sc-bundle-card,
+.sc-smart-card,
+.sc-review-card,
+.sc-card-3d {
+  position: relative;
+  isolation: isolate;
+  transform: perspective(1000px) translateY(0) rotateX(0deg) rotateY(0deg);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.28s ease,
+              border-color 0.28s ease;
+  will-change: transform, box-shadow;
+}
+
+.sc-product-card:hover,
+.dark-product-card:hover,
+.product-card:hover,
+.sc-deal-card:hover,
+.sc-trending-card:hover,
+.sc-bestseller-card:hover,
+.sc-cat-card:hover,
+.sc-bundle-card:hover,
+.sc-smart-card:hover,
+.sc-review-card:hover,
+.sc-card-3d:hover {
+  transform: perspective(1000px) translateY(-6px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  box-shadow: 0 20px 42px -10px rgba(0, 0, 0, 0.75),
+              0 0 26px -4px rgba(232, 112, 42, 0.26);
+  border-color: rgba(232, 112, 42, 0.52) !important;
+  z-index: 6;
+}
+
+/* Dynamic Specular Sheen Overlay */
+.sc-product-card::after,
+.dark-product-card::after,
+.product-card::after,
+.sc-deal-card::after,
+.sc-trending-card::after,
+.sc-bestseller-card::after,
+.sc-cat-card::after,
+.sc-bundle-card::after,
+.sc-smart-card::after,
+.sc-review-card::after,
+.sc-card-3d::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle 260px at var(--card-cx, 50%) var(--card-cy, 50%), rgba(255, 255, 255, 0.08), transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 5;
+}
+
+.sc-product-card:hover::after,
+.dark-product-card:hover::after,
+.product-card:hover::after,
+.sc-deal-card:hover::after,
+.sc-trending-card:hover::after,
+.sc-bestseller-card:hover::after,
+.sc-cat-card:hover::after,
+.sc-bundle-card:hover::after,
+.sc-smart-card:hover::after,
+.sc-review-card:hover::after,
+.sc-card-3d:hover::after {
+  opacity: 1;
+}
+
+/* 12.3 SCROLL-TRIGGERED SECTION REVEALS */
+.sc-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.sc-reveal.sc-revealed {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Staggered Grid Reveal */
+.sc-reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--stagger-idx, 0) * 0.07s);
+  will-change: opacity, transform;
+}
+
+.sc-reveal-stagger.sc-revealed > * {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* 12.4 POLISHED ADD-TO-CART ANIMATION & CART BADGE POP */
+@keyframes scBadgePop {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.48);
+    box-shadow: 0 0 18px var(--primary-glow, #ff5722), 0 0 32px rgba(232, 112, 42, 0.75);
+    filter: brightness(1.3);
+  }
+  60% {
+    transform: scale(0.92);
+  }
+  80% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.sc-badge-pop {
+  animation: scBadgePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
+}
+
+@keyframes scBtnAddedPulse {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(0.95);
+    filter: brightness(1.25);
+  }
+  60% {
+    transform: scale(1.04);
+    box-shadow: 0 0 24px rgba(232, 112, 42, 0.85), 0 0 12px #ffb800;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.sc-btn-added-pulse {
+  animation: scBtnAddedPulse 0.52s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+/* 12.5 ENHANCED TOAST STYLING */
+.sc-toast-thumb {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  border-radius: 9px;
+  object-fit: cover;
+  border: 1px solid rgba(232, 112, 42, 0.45);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  flex-shrink: 0;
+}
+
+.sc-toast-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 5px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #ffb800;
+  text-decoration: none;
+  background: rgba(232, 112, 42, 0.14);
+  border: 1px solid rgba(232, 112, 42, 0.35);
+  padding: 3px 9px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  width: fit-content;
+}
+
+.sc-toast-action-btn:hover {
+  background: rgba(232, 112, 42, 0.3);
+  color: #ffffff;
+  border-color: rgba(255, 184, 0, 0.7);
+  transform: translateX(2px);
+}
+
+/* 12.6 ACCESSIBILITY: REDUCED MOTION OVERRIDES */
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary,
+  .sc-btn-primary,
+  .deal-buy-btn,
+  .btn-add-cart,
+  .dark-add-cart-btn,
+  .sc-hero-shop-btn,
+  .sc-btn-auth,
+  .btn-magnetic,
+  .sc-btn-magnetic,
+  .dark-hero-cta,
+  .sc-chat-send-btn,
+  .sc-product-card,
+  .dark-product-card,
+  .product-card,
+  .sc-deal-card,
+  .sc-trending-card,
+  .sc-bestseller-card,
+  .sc-cat-card,
+  .sc-bundle-card,
+  .sc-smart-card,
+  .sc-review-card,
+  .sc-card-3d {
+    transform: none !important;
+    transition: none !important;
+  }
+  .btn-primary:hover,
+  .sc-product-card:hover,
+  .dark-product-card:hover,
+  .product-card:hover {
+    transform: none !important;
+  }
+  .sc-reveal,
+  .sc-reveal.sc-revealed,
+  .sc-reveal-stagger > *,
+  .sc-reveal-stagger.sc-revealed > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .sc-badge-pop,
+  .sc-btn-added-pulse {
+    animation: none !important;
+  }
+}
+
+
