@@ -1,204 +1,322 @@
-# 🛒 SmartCart - Next-Gen E-Commerce Platform
+<div align="center">
 
-[![Node.js Version](https://img.shields.io/badge/Node.js-v20%2B-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
-[![Express.js](https://img.shields.io/badge/Express-v5.2-000000?logo=express&logoColor=white)](https://expressjs.com/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-v14%2B-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
-[![Tests](https://img.shields.io/badge/Tests-14%2F14%20Passing-brightgreen?logo=node.js&logoColor=white)](https://github.com/)
-[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=260&section=header&text=SmartCart&fontSize=84&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Next-Gen%20E-Commerce%20Platform%20%E2%80%A2%20by%20Nipun%20Sudusinghe&descAlignY=60&descSize=20" alt="SmartCart - Next-Gen E-Commerce Platform" width="100%" />
 
-A production-grade, full-stack digital commerce platform engineered with **Node.js, Express, PostgreSQL, and high-performance Vanilla Web Components**. SmartCart combines a luxury dark-mode shopping experience with an interactive **AI Shopping Assistant**, persistent cart synchronization, dynamic coupon calculation, order tracking, and an extensive admin analytics control center.
+<br/>
 
----
+<a href="https://github.com/nipun-1234/SmartCart"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&duration=3200&pause=900&color=A78BFA&center=true&vCenter=true&width=720&lines=AI+Shopping+Assistant+%E2%80%A2+English+%26+Sinhala;Smart+Cart+%2B+Coupon+Engine+%2B+Free+Shipping;Real-Time+Admin+Analytics+Dashboard;Built+with+Node.js+%C2%B7+Express+%C2%B7+PostgreSQL" alt="Typing animation" /></a>
 
-## 🌟 Key Highlights & Real-World Features
+<br/>
 
-### 🤖 1. Live AI Shopping Assistant (`POST /api/chat`)
-* **Floating 24/7 Chatbot**: Dark glassmorphic interface accessible from anywhere on the catalog via the floating action widget.
-* **Natural Language Product Discovery**: Type queries like *"show me Dell laptops"* or *"Nike sneakers"* to receive rich interactive cards with images, discounts, and direct `[ Add to Cart ]` actions.
-* **Instant Order Tracking**: Enter order IDs like `SC-2026-1001` or `101` to view live shipping status, destination, item breakdowns, and totals inside the chat.
-* **1-Click Coupon Claim**: Inquiring about offers returns active codes (`SMART10`, `WELCOME500`, `SUPER20`) with 1-click apply buttons.
-* **FAQ & Policy Guidance**: Answers queries regarding delivery times, island-wide COD, 14-day return policies, and hotline support in both **English and Sinhala**.
+<img src="https://img.shields.io/badge/Node.js-v20+-339933?style=for-the-badge&logo=node.js&logoColor=white" />
+<img src="https://img.shields.io/badge/Express-v5.2-000000?style=for-the-badge&logo=express&logoColor=white" />
+<img src="https://img.shields.io/badge/PostgreSQL-v14+-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" />
+<img src="https://img.shields.io/badge/Stripe-Sandbox-635BFF?style=for-the-badge&logo=stripe&logoColor=white" />
 
-### 🛍️ 2. Premium Storefront & Catalog Experience (`/products.html`)
-* **Luxury Dark Theme & Glassmorphism**: Tailored HSL color palette, smooth gradients, and ambient lighting with zero viewport overflow.
-* **Dynamic Header & Navigation**:
-  * Quick Category dropdown menu with live product counts.
-  * Direct search bar with multi-token keyword matching.
-  * Wishlist quick access.
-  * Dedicated Cart icon that opens in a **new tab** (`/products.html#cart`).
-  * **Dynamic Account Profile Pill**:
-    * **Logged In**: Displays `[ 👤 FirstName ▾ ]` with dropdown for *My Orders* and *Sign Out*.
-    * **Logged Out**: Displays a clean `👤` circular icon that opens a welcome card with a prominent **Sign In** button and **Register** link.
-* **Dual View Catalog**: Instant toggle between **Grid View** and **List View**.
-* **Advanced Multi-Filter Engine**: Filter simultaneously by Category, Brand, Rating, and Price Range (Min/Max LKR) with active filter chip removal.
+<img src="https://img.shields.io/badge/Tests-14%2F14%20Passing-22c55e?style=for-the-badge&logo=checkmarx&logoColor=white" />
+<img src="https://img.shields.io/badge/Deploy-Vercel%20Ready-000000?style=for-the-badge&logo=vercel&logoColor=white" />
+<img src="https://img.shields.io/badge/License-ISC-7c3aed?style=for-the-badge" />
 
-### 🛒 3. Cart, Coupons & Free Shipping
-* **Persistent Hybrid Cart**:
-  * Guest items saved to `localStorage` and automatically merged to the user's PostgreSQL account upon sign-in.
-  * Live cart counter badges in the navbar and floating buttons.
-* **Automated Calculations**: Authoritative server-side tax/VAT, subtotal, and shipping fee calculation.
-* **Free Delivery Threshold**: Free island-wide shipping on orders exceeding **Rs. 48,000** (standard delivery: Rs. 1,917).
-* **Coupon Validation Engine**:
-  * `SMART10`: 10% OFF on orders over Rs. 3,000.
-  * `WELCOME500`: Flat Rs. 500 OFF on orders over Rs. 2,500.
-  * `SUPER20`: 20% OFF on orders over Rs. 15,000.
+<br/><br/>
 
-### 💳 4. Checkout & Order Lifecycle
-* **Flexible Payment Methods**:
-  * **Cash on Delivery (COD)**: Instant order placement with payment due upon doorstep delivery.
-  * **Credit / Debit Cards**: Integrated Stripe sandbox processing.
-* **Email Notifications**: Generates itemized HTML receipts with delivery tracking numbers and shipping addresses.
-* **Customer Orders Dashboard**: View all past deliveries with live status badges (`Pending`, `Paid`, `Processing`, `Shipped`, `Delivered`, `Cancelled`).
+**[✨ Features](#-features)** &nbsp;•&nbsp; **[🚀 Quick Start](#-quick-start)** &nbsp;•&nbsp; **[🔑 Demo](#-demo-credentials)** &nbsp;•&nbsp; **[🧪 Tests](#-automated-testing)** &nbsp;•&nbsp; **[📁 Structure](#-project-structure)** &nbsp;•&nbsp; **[👨‍💻 Author](#-author)**
 
-### 📊 5. Administrative Control Center (`/admin.html`)
-* **Real-Time Analytics**: Live metrics for Total Revenue, Total Orders, Active Users, and Catalog Items.
-* **Interactive Data Visualizations**: Sales Trend 7-day line chart and Category Breakdown doughnut chart powered by Chart.js.
-* **Full CRUD Management**:
-  * Add, edit, update stock, and delete products.
-  * Filter and update order fulfillment statuses.
-  * Manage customer accounts, verification flags, and roles.
+</div>
 
----
+<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=4&section=header" width="100%" />
 
-## 🛠️ Technology Stack
+## 📖 Overview
+
+**SmartCart** is a production-grade, full-stack e-commerce platform built with **Node.js, Express, PostgreSQL and Vanilla Web Components**. It combines a luxury dark-mode, glassmorphic shopping experience with an interactive **AI Shopping Assistant**, a persistent hybrid cart, a dynamic coupon engine, order tracking, and a real-time admin analytics control center.
+
+> 💡 **Zero-setup development.** No database? No problem. A resilient in-memory fallback store lets you run the entire app locally in under a minute.
+
+<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=4&section=header" width="100%" />
+
+## ✨ Features
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### 🤖 AI Shopping Assistant
+`POST /api/chat`
+
+- Floating 24/7 glassmorphic chatbot
+- **Natural-language search**: *"show me Dell laptops"*, *"Nike sneakers"*
+- Rich product cards with **Add to Cart**
+- **Order tracking** by ID (`SC-2026-1001` or `101`)
+- **1-click coupons**: `SMART10`, `WELCOME500`, `SUPER20`
+- FAQ in **English and Sinhala**: delivery, island-wide COD, 14-day returns, hotline
+
+</td>
+<td width="50%" valign="top">
+
+### 🛍️ Premium Storefront
+`/products.html`
+
+- Luxury dark theme, HSL palette, glassmorphism
+- Category dropdown with **live product counts**
+- Multi-token keyword search and wishlist
+- **Grid / List** view toggle
+- Filters: Category, Brand, Rating, Price (LKR) with removable chips
+- Smart **account pill**: `👤 FirstName ▾` when signed in, `👤` with Sign In / Register when not
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+### 🛒 Cart, Coupons & Shipping
+
+- **Hybrid cart**: guest `localStorage` merges into PostgreSQL on sign-in
+- Live cart badges in navbar and floating buttons
+- **Server-authoritative** tax/VAT, subtotal and shipping
+- 🚚 **Free island-wide delivery** over **Rs. 48,000** (standard: Rs. 1,917)
+
+</td>
+<td width="50%" valign="top">
+
+### 💳 Checkout & Orders
+
+- **Cash on Delivery** with instant placement
+- **Credit / Debit Cards** via Stripe sandbox
+- Itemized **HTML email receipts** with tracking number
+- Customer dashboard with live status badges:
+  `Pending` · `Paid` · `Processing` · `Shipped` · `Delivered` · `Cancelled`
+
+</td>
+</tr>
+</table>
+
+<div align="center">
+
+### 🎟️ Coupon Engine
+
+| Code | Discount | Minimum Order |
+| :---: | :---: | :---: |
+| `SMART10` | **10% OFF** | Rs. 3,000 |
+| `WELCOME500` | **Rs. 500 OFF** | Rs. 2,500 |
+| `SUPER20` | **20% OFF** | Rs. 15,000 |
+
+</div>
+
+### 📊 Admin Control Center
+`/admin.html`
+
+| | |
+| :--- | :--- |
+| 📈 **Real-time analytics** | Total Revenue, Orders, Active Users, Catalog Items |
+| 📉 **Visualizations** | 7-day sales trend (line) and category breakdown (doughnut) via Chart.js |
+| 📦 **Product CRUD** | Add, edit, restock and delete products |
+| 🚚 **Order management** | Filter orders and update fulfillment status |
+| 👥 **User management** | Accounts, verification flags and roles |
+
+<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=4&section=header" width="100%" />
+
+## 🛠️ Tech Stack
+
+<div align="center">
+
+<img src="https://skillicons.dev/icons?i=nodejs,express,postgres,js,html,css,vercel,git,github&theme=dark" alt="Tech stack icons" />
+
+</div>
 
 | Layer | Technologies |
 | :--- | :--- |
 | **Backend** | Node.js (v20+), Express.js (v5.2), PostgreSQL (`pg`), RESTful APIs |
 | **Security & Auth** | JWT (`jsonwebtoken`), `bcryptjs`, `helmet`, `express-rate-limit`, `cookie-parser` |
-| **Frontend** | Semantic HTML5, Vanilla JavaScript (ES6+), Glassmorphic CSS3, Font Awesome 6 |
-| **Data & State** | PostgreSQL with resilient in-memory offline fallback store, `localStorage` client state |
-| **Deployment** | Vercel Serverless Ready (`api/[...path].js`) or Node.js standalone daemon |
+| **Frontend** | Semantic HTML5, Vanilla JavaScript (ES6+), Glassmorphic CSS3, Font Awesome 6, Chart.js |
+| **Data & State** | PostgreSQL with in-memory offline fallback, `localStorage` client state |
+| **Payments & Email** | Stripe sandbox, Cash on Delivery, HTML receipts |
+| **Deployment** | Vercel serverless (`api/[...path].js`) or standalone Node.js |
 
----
+<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=4&section=header" width="100%" />
 
-## 🚀 Getting Started
+## 🚀 Quick Start
 
-### Prerequisites
-* **Node.js**: `v20.0.0` or higher
-* **PostgreSQL**: `v14` or higher *(Optional: The built-in resilient fallback store enables immediate offline development without requiring a live database).*
+**Prerequisites:** Node.js `v20+` · PostgreSQL `v14+` *(optional)*
 
-### 1. Clone & Install
 ```bash
+# 1. Clone & install
 git clone https://github.com/nipun-1234/SmartCart.git
 cd SmartCart
 npm install
-```
 
-### 2. Configure Environment
-Create your `.env` configuration file:
-```bash
+# 2. Configure environment (defaults work out of the box)
 cp .env.example .env
-```
-*(The pre-configured default values work out of the box for local development).*
 
-### 3. (Optional) Database Setup
-If running against a local or remote PostgreSQL instance:
-```bash
+# 3. (Optional) PostgreSQL setup
 npm run db:migrate
 npm run db:seed
+
+# 4. Run
+npm start              # production
+npm run server:dev     # watch mode
 ```
 
-### 4. Run the Server
-```bash
-# Start production server
-npm start
+Then open **http://localhost:3000**
 
-# Or start in watch mode
-npm run server:dev
-```
-Open **`http://localhost:3000`** in your browser:
-* **Landing Page**: `http://localhost:3000/index.html`
-* **Catalog & Storefront**: `http://localhost:3000/products.html`
-* **Admin Dashboard**: `http://localhost:3000/admin.html`
-* **Login / Register**: `http://localhost:3000/login.html` & `http://localhost:3000/signup.html`
+| Page | URL |
+| :--- | :--- |
+| 🏠 Landing | `http://localhost:3000/index.html` |
+| 🛍️ Storefront | `http://localhost:3000/products.html` |
+| 📊 Admin | `http://localhost:3000/admin.html` |
+| 🔐 Login | `http://localhost:3000/login.html` |
+| 📝 Register | `http://localhost:3000/signup.html` |
 
----
+<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=4&section=header" width="100%" />
 
 ## 🔑 Demo Credentials
 
-| Role | Email | Password | Access Rights |
+| Role | Email | Password | Access |
 | :--- | :--- | :--- | :--- |
-| **Administrator** | `admin@smartcart.lk` | `admin123` | Full Admin Dashboard (`/admin.html`), Products, Orders, Users |
-| **Customer** | `demo@smartcart.lk` | `demo123` | Storefront (`/products.html`), Cart, Orders, Checkout |
+| 👑 **Administrator** | `admin@smartcart.lk` | `admin123` | Admin Dashboard, Products, Orders, Users |
+| 🙋 **Customer** | `demo@smartcart.lk` | `demo123` | Storefront, Cart, Orders, Checkout |
 
----
+> ⚠️ **Local demo only.** Change or remove these accounts before any public deployment.
+
+<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=4&section=header" width="100%" />
 
 ## 🧪 Automated Testing
 
-SmartCart includes an end-to-end integration and smoke test suite:
 ```bash
 npm test
 ```
 
-### Test Coverage (14 / 14 Suites Passing):
-1. **Health Check Endpoint**: `/healthz` status 200 OK.
-2. **Vercel Serverless Route**: `/api/healthz` handler verification.
-3. **Storefront Serving**: Homepage root availability.
-4. **Auth Failure**: Rejects invalid or malformed credentials with 401.
-5. **Auth Success**: Issues valid signed JWT and user payload.
-6. **Registration Workflow**: Validates new user creation and email verification token.
-7. **Catalog API**: Parameterized filtering, pagination, and multi-word searches.
-8. **Coupons Engine**: Minimum spend validation and discount mathematics.
-9. **Cart & Checkout**: Item addition, server synchronization, and Cash on Delivery order creation.
-10. **Admin Protection**: Enforces Bearer token and admin role permissions on `/api/admin/stats`.
-11. **404 Route Handling**: Graceful fallback on undefined API routes.
-12. **Dynamic Categories**: Category list with real-time product counts.
-13. **Multi-Category Filtering**: Correct items returned across grocery, tech, fashion, and beauty.
-14. **Safe Querying**: Gracefully handles non-existent or newly initialized categories without errors.
+<details>
+<summary><b>✅ 14 / 14 tests passing. Click to expand coverage</b></summary>
 
----
+<br/>
 
-## 📁 Repository Structure
+| # | Area | Verified |
+| :-: | :--- | :--- |
+| 1 | Health check | `/healthz` returns 200 OK |
+| 2 | Vercel route | `/api/healthz` handler works |
+| 3 | Storefront | Homepage served at root |
+| 4 | Auth failure | Invalid credentials rejected with 401 |
+| 5 | Auth success | Signed JWT and user payload issued |
+| 6 | Registration | User creation and email verification token |
+| 7 | Catalog API | Filtering, pagination, multi-word search |
+| 8 | Coupons | Minimum-spend rules and discount math |
+| 9 | Cart & checkout | Add items, server sync, COD order creation |
+| 10 | Admin protection | Bearer token and admin role on `/api/admin/stats` |
+| 11 | 404 handling | Graceful fallback on unknown API routes |
+| 12 | Dynamic categories | Category list with live counts |
+| 13 | Multi-category filtering | Grocery, tech, fashion and beauty |
+| 14 | Safe querying | Empty or new categories handled without errors |
+
+</details>
+
+## 🔒 Security
+
+| 🔐 | |
+| :--- | :--- |
+| **Authentication** | JWT with `bcryptjs` password hashing |
+| **HTTP hardening** | `helmet` secure headers |
+| **Abuse protection** | `express-rate-limit` |
+| **Access control** | Role-based guards on all admin endpoints |
+| **Price integrity** | Server-side price, tax and coupon calculation |
+
+<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=4&section=header" width="100%" />
+
+## 📁 Project Structure
+
+<details>
+<summary><b>📂 Click to expand repository tree</b></summary>
 
 ```text
 SmartCart/
-├── api/                       # Vercel serverless function entrypoints
+├── api/                       # Vercel serverless entrypoints
 │   ├── [...path].js
 │   └── index.js
-├── migrations/                # Versioned SQL migrations for PostgreSQL
+├── migrations/                # Versioned PostgreSQL migrations
 │   ├── 001_initial_schema.sql
 │   └── 002_add_coupons_and_stripe.sql
-├── public/                    # Static web assets & storefront templates
+├── public/                    # Static storefront assets
 │   ├── css/
-│   │   ├── main.css           # Core styling tokens & variables
+│   │   ├── main.css
 │   │   └── smartcart-sections.css
 │   ├── js/
-│   │   └── shared.js          # Unified auth state, persistent cart & toast notifications
-│   ├── admin.html             # Admin dashboard with Chart.js analytics
-│   ├── index.html             # Storefront landing page
-│   ├── login.html             # Authentication & password reset
-│   ├── products.html          # Redesigned catalog, cart view, and AI Chatbot
-│   └── signup.html            # Customer registration
+│   │   └── shared.js          # Auth state, persistent cart, toasts
+│   ├── admin.html             # Admin dashboard (Chart.js)
+│   ├── index.html             # Landing page
+│   ├── login.html             # Login & password reset
+│   ├── products.html          # Catalog, cart view & AI chatbot
+│   └── signup.html            # Registration
 ├── scripts/
-│   ├── migrate.js             # Migration runner script
-│   └── seed.js                # Database seeder
+│   ├── migrate.js
+│   └── seed.js
 ├── src/
 │   ├── config/                # Database pool connection
-│   ├── db/
-│   │   └── store.js           # Central data store with resilient fallback
-│   ├── middleware/
-│   │   └── auth.js            # Authentication & authorization guards
+│   ├── db/store.js            # Data store with resilient fallback
+│   ├── middleware/auth.js     # Auth & authorization guards
 │   ├── routes/
-│   │   ├── adminRoutes.js     # Admin operations & analytics
-│   │   ├── authRoutes.js      # Auth, profile, and password reset endpoints
-│   │   ├── cartRoutes.js      # Shopping cart persistence
-│   │   ├── chatRoutes.js      # SmartCart AI Live Chatbot engine
-│   │   ├── couponRoutes.js    # Coupon validation
-│   │   ├── orderRoutes.js     # Order placement & tracking
-│   │   └── productRoutes.js   # Product catalog endpoints
+│   │   ├── adminRoutes.js
+│   │   ├── authRoutes.js
+│   │   ├── cartRoutes.js
+│   │   ├── chatRoutes.js      # AI chatbot engine
+│   │   ├── couponRoutes.js
+│   │   ├── orderRoutes.js
+│   │   └── productRoutes.js
 │   ├── services/
-│   │   ├── emailService.js    # HTML receipt and notification dispatcher
-│   │   └── paymentService.js  # Stripe sandbox & Cash on Delivery
-│   └── app.js                 # Express application factory & security middleware
+│   │   ├── emailService.js
+│   │   └── paymentService.js
+│   └── app.js
 ├── test/
-│   └── app.test.js            # Automated integration test suite
-├── package.json               # Dependencies & scripts
-└── server.js                  # Application entry point
+│   └── app.test.js
+├── package.json
+└── server.js
 ```
 
----
+</details>
+
+## ☁️ Deployment
+
+- **Vercel (serverless):** the `api/` directory is already wired up. Import the repo, add environment variables, deploy.
+- **Standalone Node.js:** run `npm start` behind PM2 or systemd with an Nginx reverse proxy.
+- **Before going live:** set a strong JWT secret, use managed PostgreSQL, and replace the demo credentials.
+
+## 🗺️ Roadmap
+
+- [ ] Product reviews and ratings
+- [ ] Live Stripe payments (production keys)
+- [ ] Multi-currency support
+- [ ] Customer order cancellation and returns
+- [ ] Admin CSV export for orders and products
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome.
+
+1. Fork the repository
+2. Create a branch: `git checkout -b feature/amazing-feature`
+3. Commit: `git commit -m "Add amazing feature"`
+4. Push: `git push origin feature/amazing-feature`
+5. Open a Pull Request (make sure `npm test` passes)
+
+<img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=6,11,20&height=4&section=header" width="100%" />
+
+## 👨‍💻 Author
+
+<div align="center">
+
+### **Nipun Sudusinghe**
+*Full-stack developer and creator of SmartCart*
+
+<a href="https://github.com/nipun-1234"><img src="https://img.shields.io/badge/GitHub-nipun--1234-181717?style=for-the-badge&logo=github&logoColor=white" /></a>
+
+<br/>
+
+⭐ **If you like this project, give it a star!** ⭐
+
+</div>
 
 ## 📄 License
 
-This project is licensed under the **ISC License**. Developed with ❤️ for next-generation digital retail in South Asia.
+Licensed under the **ISC License**. See [`LICENSE`](./LICENSE) for details.
+
+<div align="center">
+<br/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=130&section=footer&text=Developed%20with%20%E2%9D%A4%EF%B8%8F%20by%20Nipun%20Sudusinghe&fontSize=22&fontColor=ffffff&fontAlignY=72" width="100%" />
+</div>
