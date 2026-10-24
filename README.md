@@ -1,7 +1,10 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=260&section=header&text=SmartCart&fontSize=84&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Next-Gen%20E-Commerce%20Platform%20%E2%80%A2%20by%20Nipun%20Sudusinghe&descAlignY=60&descSize=20" alt="SmartCart - Next-Gen E-Commerce Platform" width="100%" />
-
+<img
+  src="https://capsule-render.vercel.app/api?type=waving&color=0:FF6B2C,50:FF8C42,100:17101F&height=260&section=header&text=SmartCart&fontSize=84&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Next-Gen%20E-Commerce%20Platform%20%E2%80%A2%20by%20Nipun%20Sudusinghe&descAlignY=60&descSize=20"
+  alt="SmartCart - Next-Gen E-Commerce Platform"
+  width="100%"
+/>
 <br/>
 
 <a href="https://github.com/nipun-1234/SmartCart">
