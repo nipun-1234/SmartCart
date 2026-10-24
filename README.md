@@ -4,7 +4,9 @@
 
 <br/>
 
-<a href="https://github.com/nipun-1234/SmartCart"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&duration=3200&pause=900&color=A78BFA&center=true&vCenter=true&width=720&lines=AI+Shopping+Assistant+%E2%80%A2+English+%26+Sinhala;Smart+Cart+%2B+Coupon+Engine+%2B+Free+Shipping;Real-Time+Admin+Analytics+Dashboard;Built+with+Node.js+%C2%B7+Express+%C2%B7+PostgreSQL" alt="Typing animation" /></a>
+<a href="https://github.com/nipun-1234/SmartCart">
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&duration=3200&pause=900&color=FF6B2C&center=true&vCenter=true&width=720&lines=AI+Shopping+Assistant+%E2%80%A2+English+%26+Sinhala;Smart+Cart+%2B+Coupon+Engine+%2B+Free+Shipping;Real-Time+Admin+Analytics+Dashboard;Built+with+Node.js+%C2%B7+Express+%C2%B7+PostgreSQL&repeat=true" alt="SmartCart Typing Animation" />
+</a>
 
 <br/>
 
