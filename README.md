@@ -1,7 +1,7 @@
 <div align="center">
 
 <img
-  src="https://capsule-render.vercel.app/api?type=waving&color=0:FF6B2C,50:FF8C42,100:17101F&height=260&section=header&text=SmartCart&font=Montserrat&fontSize=88&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Next-Gen%20E-Commerce%20Platform%20%E2%80%A2%20by%20Nipun%20Sudusinghe&descAlignY=60&descSize=18"
+  src="https://capsule-render.vercel.app/api?type=waving&color=0:FF6B2C,50:FF8C42,100:17101F&height=260&section=header&text=SmartCart&font=Playfair%20Display&fontSize=88&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Next-Gen%20E-Commerce%20Platform%20%E2%80%A2%20by%20Nipun%20Sudusinghe&descAlignY=60&descSize=18"
   alt="SmartCart - Next-Gen E-Commerce Platform"
   width="100%"
 />
