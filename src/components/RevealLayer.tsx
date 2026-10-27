@@ -2,11 +2,6 @@ import React, { useEffect, useRef } from 'react';
 
 const SPOTLIGHT_R = 260;
 
-interface RevealLayerProps {
-  image: string;
-  cursorX: number;
-  cursorY: number;
-}
 
 export const RevealLayer: React.FC<RevealLayerProps> = ({ image, cursorX, cursorY }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
