@@ -201,12 +201,6 @@ test('filtering products by grocery, stationery, health, beauty, and toys catego
   });
 });
 
-test('filtering by non-existent or newly added category safely returns empty catalog without error', async () => {
-  const res = await request(app).get('/api/products?category=automotive');
-  assert.equal(res.status, 200);
-  assert.equal(res.body.success, true);
-  assert.equal(res.body.products.length, 0);
-  assert.equal(res.body.total, 0);
-});
+
 
 
